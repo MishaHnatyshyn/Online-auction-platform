@@ -6,7 +6,7 @@ const mongoose = require('mongoose');// library for MongoDB
 const compression = require('compression');// library for gzip static data
 const cookieParser = require('cookie-parser');// cookie-parser library
 const passport = require('./auth');// authorization library
-const router = require('./routers');// main router
+const router = require('./routers/main');// main router
 const {
   port, database, sessionSecret
 } = require('./config');
