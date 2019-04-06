@@ -61,4 +61,4 @@ typings/
 .next
 
 # config secret data
-/config
+config
