@@ -1,0 +1,47 @@
+@import "constants";
+
+.popup{
+  position: fixed;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(9, 77, 110, 0.57);
+  .popup-container{
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+    color: $second;
+    .top{
+      padding: 20px 0;
+      text-align: center;
+      font-size: 1.5em;
+      border-bottom: 2px solid rgba(9, 77, 110, 0.26);
+      user-select: none;
+    }
+    .middle{
+      display: flex;
+      flex-direction: column;
+      padding: 10px 20px;
+      border-bottom: 2px solid rgba(9, 77, 110, 0.26);
+      input, button{
+        padding: 10px;
+        border: 1px solid #dfdfdf;
+        border-radius: 8px;
+        margin: 5px 0;
+        font-size: 1em;
+        outline: none;
+      }
+    }
+    .bottom{
+      padding: 20px 0;
+      text-align: center;
+      span{
+        color: #3ec5f4;
+        cursor: pointer;
+      }
+    }
+  }
+}

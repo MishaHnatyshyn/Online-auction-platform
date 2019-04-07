@@ -1,0 +1,121 @@
+@import "constants";
+
+.lot-section{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .lot-container{
+    width: 1100px;
+    padding: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    .lot-photos{
+      width: 50%;
+      height: 700px;
+      .lot-main-photo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80%;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .lot-photo-list{
+        display: flex;
+        height: 20%;
+        img{
+          height: 100%;
+          margin: 10px;
+          cursor: pointer;
+          padding: 5px;
+          border: 3px solid transparent;
+
+          &.active{
+            border-radius: 5px;
+            border-color: $main;
+          }
+        }
+      }
+      >div{
+        width: 100%;
+      }
+    }
+
+    .lot-description{
+      padding-left: 20px;
+      width: 50%;
+      .lot-title{
+        font-weight: bold;
+        font-size: 4em;
+        color: $second;
+      }
+      p{
+        margin-top: 20px;
+        color: rgba(9, 77, 110, 0.75);
+        text-indent: 50px;
+        &.lot-date{
+          text-align: right;
+        }
+      }
+
+      .lot-comments{
+        width: 100%;
+      }
+
+    }
+
+    .lot-comments{
+      width: 100%;
+      margin-top: 30px;
+      padding: 10px 50px;
+      h2{
+        font-weight: bold;
+        font-size: 3em;
+        color: $second;
+        margin: 20px 0 20px -50px;
+      }
+      .lot-comments-input{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        textarea{
+          outline: none;
+          height: 100px;
+          padding: 10px;
+          resize: none;
+          width: 100%;
+          border-radius: 8px;
+          font-size: 1em;
+          font-family: inherit;
+          &:focus{
+            border-color: $main;
+          }
+        }
+        button{
+          padding: 8px 20px;
+        }
+      }
+      .lot-comments-list{
+        .comment-container{
+          padding: 10px;
+          margin-top: 10px;
+          &:first-child{
+            border-top: 1px solid rgba(9, 77, 110, 0.26);
+
+          }
+          border-bottom: 1px solid rgba(9, 77, 110, 0.26);
+          .comment-author{
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          .comment-text{
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}

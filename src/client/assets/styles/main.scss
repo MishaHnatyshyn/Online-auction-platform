@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+@import "constants";
+
+html, body, #root{
+  height: 100%;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+.button-common{
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-size: 1em;
+  outline: none;
+  cursor: pointer;
+  background: $main;
+  color: white;
+  font-weight: bold;
+  &:hover{
+    background: $second;
+  }
+}
+
+.main-content{
+  padding-top: 60px;
+  min-height: calc(100% - 60px);
+}
+
+.some-content{
+  height: 700px;
+  width: 100%;
+}
+
+.lots-section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .lots-list-content{
+    width: 1200px;
+    display: flex;
+    .filters{
+      width: 20%;
+    }
+    .lots{
+      width: 80%;
+      h1{
+        padding: 10px;
+        color: $second;
+        font-size: 3em;
+        font-weight: bold;
+      }
+      .lots-grid{
+        display: flex;
+        flex-wrap: wrap;
+        .lot-card{
+          width: 33%;
+          padding: 10px;
+          justify-content: center;
+          align-items: center;
+          height: 300px;
+          .lot-card-content{
+            padding: 10px;
+            -webkit-box-shadow: 0px 0px 9px 0px #a6a6a6;
+            -moz-box-shadow: 0px 0px 9px 0px #a6a6a6;
+            box-shadow: 0px 0px 9px 0px #a6a6a6;
+            border: 1px solid #dfdfdf;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            &:hover{
+              transform: scale(1.1);
+              cursor: pointer;
+            }
+            >div{
+              height: 50%;
+              width: 100%;
+            }
+            .lot-photo{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 5px;
+              img{
+                height: 100%;
+              }
+            }
+            .lot-short-data{
+              padding: 10px;
+              .lot-name{
+                color: $second;
+                font-size: 1.4em;
+                font-weight: bold;
+                margin-bottom: 10px;
+              }
+              .lot-summary{
+                color: rgba(9, 77, 110, 0.75);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

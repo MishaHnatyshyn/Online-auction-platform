@@ -1,9 +1,10 @@
 import React from 'react';
+import spinner from './spinner.png'
 
 export default function Loader() {
-  return(
+  return (
     <div className="loader">
-      Loading...
+      <img src={spinner} alt="spinner" />
     </div>
-  )
+  );
 }
