@@ -8,6 +8,8 @@ const lotSchema = mongoose.Schema({
   startPrice: { type: Number, min: 1, required: true },
   currPrice: { type: Number, min: 1, default: () => this.startPrice },
   photos: { type: Array, default: [] },
+  delivery: { type: Array, default: [] },
+  payment: { type: Array, default: [] },
   timestamp: { type: Date, default: new Date() }
 });
 
