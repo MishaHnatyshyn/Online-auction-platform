@@ -9,6 +9,7 @@ import Signup from './Popups/Signup';
 const LazyHome = lazy(() => import('./Home/Home'));
 const LazyLot = lazy(() => import('./LotPage/Lot'));
 const LazyLots = lazy(() => import('./LotList/Lots'));
+const LazyNewLot = lazy(() => import('./NewLot/NewLot'));
 
 export default class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,12 @@ export default class App extends React.Component {
           <Route exact path="/lots" render={() => (
             <Suspense fallback={<Loader/>}>
               <LazyLots />
+            </Suspense>
+          )}/>
+
+          <Route exact path="/lot/new" render={() => (
+            <Suspense fallback={<Loader/>}>
+              <LazyNewLot />
             </Suspense>
           )}/>
 

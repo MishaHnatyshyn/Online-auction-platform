@@ -76,7 +76,9 @@ export default class Lots extends React.Component {
   }
 
   changePriceRange = (e) => {
+    e.preventDefault()
     const { name, value } = e.target;
+    if (!value.match(/^[0-9]*$/) || value[0] === '0') return;
     this.setState({ [name]: value }, this.updateVisibleLots)
   }
 
@@ -110,14 +112,8 @@ export default class Lots extends React.Component {
     } = this.state;
     if (priceFrom && lot.startPrice < priceFrom) return false;
     if (priceTo && lot.startPrice > priceTo) return false;
-    if (
-      selectedPaymentMethods.length
-      && selectedPaymentMethods.filter((_) => lot.payment.includes(_)).length
-    ) return false;
-    if (
-      selectedDeliveryMethods.length
-      && selectedDeliveryMethods.filter((_) => lot.delivery.includes(_)).length
-    ) return false;
+    if (!selectedPaymentMethods.filter((_) => lot.payment.includes(_)).length) return false;
+    if (!selectedDeliveryMethods.filter((_) => lot.delivery.includes(_)).length) return false;
     return true;
   }
 
@@ -135,6 +131,7 @@ export default class Lots extends React.Component {
       visibleLots
 
     } = this.state;
+    console.log(visibleLots.filter(this.filter))
     return (
       <section className="lots-section">
         <div className="lots-list-content">

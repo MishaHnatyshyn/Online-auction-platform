@@ -15,8 +15,8 @@ export default class Header extends React.Component {
               <li><NavLink exact to="/" activeclassname="active">Home</NavLink></li>
               <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
               <li>
-                <NavLink to="/rules" activeclassname="active">
-                Rules
+                <NavLink to="/lot/new" activeclassname="active">
+                New Lot
                 </NavLink>
               </li>
               <li><NavLink to="/lots" activeclassname="active">Lots</NavLink></li>
