@@ -119,11 +119,18 @@
           flex-direction: column;
           color: $second;
           background: white;
-          li{
+          box-shadow: 0 3px 11px 0 #a0a0a0;
+        li{
             &:hover{
               background: rgba(62, 197, 244, 0.13);
             }
-            padding: 10px;
+            a{
+              font-weight: normal;
+              color: $second;
+              padding: 10px;
+              display: block;
+            }
+
           }
         }
         &.drop-down:hover{
@@ -138,7 +145,7 @@
           color: $main;
           border-color: white;
         }
-        a{
+        >a, >div{
           padding: 10px 20px;
           border-right: 2px solid;
           text-decoration: none;

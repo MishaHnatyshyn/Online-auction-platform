@@ -13,7 +13,6 @@ export default class Header extends React.Component {
             </div>
             <ul className="main-nav-list">
               <li><NavLink exact to="/" activeclassname="active">Home</NavLink></li>
-              <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
               <li>
                 <NavLink to="/lot/new" activeclassname="active">
                 New Lot
@@ -22,16 +21,15 @@ export default class Header extends React.Component {
               <li><NavLink to="/lots" activeclassname="active">Lots</NavLink></li>
               <li><NavLink to="/lot/123" activeclassname="active">Some lot</NavLink></li>
               <li className="drop-down">
-                <NavLink to="/rules" activeclassname="active">
-                  Drop Menu
+                <div>
+                  Information
                   <i className="fas fa-angle-down" />
                   <ul className="drop-down-list">
-                    <li>Sum menu 1</li>
-                    <li>Sum menu 2</li>
-                    <li>Sum menu 3</li>
-                    <li>Sum menu 4</li>
+                    <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
+                    <li><NavLink to="/terms" activeclassname="active">Terms of use</NavLink></li>
+                    <li><NavLink to="/rules" activeclassname="active">Rules</NavLink></li>
                   </ul>
-                </NavLink>
+                </div>
               </li>
             </ul>
           </div>

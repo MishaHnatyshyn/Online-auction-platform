@@ -131,7 +131,6 @@ export default class Lots extends React.Component {
       visibleLots
 
     } = this.state;
-    console.log(visibleLots.filter(this.filter))
     return (
       <section className="lots-section">
         <div className="lots-list-content">

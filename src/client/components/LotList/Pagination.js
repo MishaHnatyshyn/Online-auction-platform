@@ -23,7 +23,6 @@ export default class Pagination extends Component  {
     const { pageCount, active } = this.props;
     const displayLeftDots = this.displayLeftDots()
     const displayRightsDots = this.displayRightsDots()
-    console.log(displayLeftDots, displayRightsDots)
     if (displayLeftDots && displayRightsDots) {
       return this.generateArray(active - 2, active + 2)
     } else if (displayLeftDots) {
@@ -58,9 +57,6 @@ export default class Pagination extends Component  {
     const displayLeftDots = this.displayLeftDots();
     const displayRightsDots = this.displayRightsDots();
     const middlePagesArray = this.generatePages();
-    console.log(middlePagesArray)
-    console.log(displayLeftDots)
-    console.log(displayRightsDots)
     return (
       <div className="pagination">
 

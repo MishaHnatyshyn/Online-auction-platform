@@ -41,3 +41,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+a{
+  text-decoration: none;
+  outline: none;
+  &:active{
+    color: unset;
+  }
+  &:visited{
+    color: unset;
+  }
+}

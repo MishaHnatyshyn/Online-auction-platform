@@ -14,24 +14,28 @@ const LotData = {
   timestamp: new Date(),
   comments: [
     {
+      _id: 1,
       user: {
         username: 'User1'
       },
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
     },
     {
+      _id: 2,
       user: {
         username: 'User2'
       },
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
     },
     {
+      _id: 3,
       user: {
         username: 'User3'
       },
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
     },
     {
+      _id: 4,
       user: {
         username: 'User4'
       },
@@ -85,6 +89,7 @@ export default class Lot extends React.Component {
             <div className="lot-photo-list">
               {photos.map((photo, index) => (
                 <img
+                  key={index}
                   src={photo}
                   className={index === activePhotoIndex ? 'active' : ''}
                   onClick={this.changePhoto.bind(this, index)}
@@ -101,12 +106,12 @@ export default class Lot extends React.Component {
           <div className="lot-comments">
             <h2>Comments: </h2>
             <div className="lot-comments-input">
-              <textarea placeholder="Type text of comment ..."></textarea>
+              <textarea placeholder="Type text of comment ..." />
               <button className="button-common">Post</button>
             </div>
             <div className="lot-comments-list">
               {comments.map(comment => (
-                <div className="comment-container">
+                <div className="comment-container" key={comment._id}>
                   <div className="comment-author">{comment.user.username}</div>
                   <div className="comment-text">{comment.text}</div>
                 </div>
