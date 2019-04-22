@@ -19,12 +19,12 @@ export default class Header extends React.Component {
                 </NavLink>
               </li>
               <li><NavLink to="/lots" activeclassname="active">Lots</NavLink></li>
+              <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
               <li className="drop-down">
                 <div>
                   Information
                   <i className="fas fa-angle-down" />
                   <ul className="drop-down-list">
-                    <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
                     <li><NavLink to="/terms" activeclassname="active">Terms of use</NavLink></li>
                     <li><NavLink to="/rules" activeclassname="active">Rules</NavLink></li>
                   </ul>
