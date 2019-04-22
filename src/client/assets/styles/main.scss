@@ -34,10 +34,24 @@ body{
   //display: flex;
   padding-top: 60px;
   min-height: calc(100% - 60px);
+  >section>div{
+    width: 1200px;
+  }
 }
 
 .some-content{
   height: 700px;
   width: 100%;
+}
+
+@media all and (max-width: 1200px) {
+  .main-content{
+    //display: flex;
+    padding-top: 60px;
+    min-height: calc(100% - 60px);
+    >section>div{
+      width: 100%
+    }
+  }
 }
 

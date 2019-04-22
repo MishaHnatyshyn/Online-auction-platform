@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-helmet": "^5.2.0",
     "react-router-dom": "^5.0.0"
   },
   "devDependencies": {

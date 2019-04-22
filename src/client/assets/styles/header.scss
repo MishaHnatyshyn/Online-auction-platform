@@ -13,6 +13,84 @@
   color: white;
   background: $second;
   z-index: 5;
+  .main-header-content-mobile{
+    display: none;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+    >div{
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    &:last-child{
+
+      .burger-container{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        &:hover ul{
+          display: block;
+        }
+        i{
+          font-size: 2em;
+          margin-left: 10px;
+        }
+      }
+
+      padding-right: 20px;
+    }
+
+    .header-logo {
+      height: 100%;
+      img{
+        height: 100%;
+      }
+    }
+
+    button{
+      background: transparent;
+      padding: 8px;
+      border: 1.2px solid;
+      cursor: pointer;
+      color: white;
+      margin: 0 5px;
+      border-radius: 8px;
+      font-size: 1em;
+      outline: none;
+    }
+
+
+    .mobile-drop-down{
+      right: 0;
+      min-width: 300px;
+      top: 60px;
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      color: $second;
+      background: white;
+      box-shadow: 0 3px 11px 0 #a0a0a0;
+      &:hover{
+        display: block;
+      }
+      li{
+        &:hover{
+          background: rgba(62, 197, 244, 0.13);
+        }
+        a{
+          font-weight: normal;
+          color: $second;
+          padding: 10px;
+          display: block;
+        }
+      }
+    }
+  }
+
   .main-header-content{
     height: 100%;
     display: flex;
@@ -167,5 +245,36 @@
 @media all and (max-width: 1200px) {
   .main-header .main-header-content{
     width: 100%;
+  }
+}
+
+
+@media all and (max-width: 1000px) {
+  .main-header{
+    .main-header-content{
+      display: none;
+    }
+
+    .main-header-content-mobile{
+      display: flex;
+    }
+  }
+}
+
+
+@media all and (max-width: 640px) {
+  .main-header{
+    .main-header-content-mobile{
+      .mobile-drop-down{
+        width: 100%;
+        li{
+          a{
+            padding: 20px;
+            font-size: 1.3em;
+            border-bottom: 1px solid $main;
+          }
+        }
+      }
+    }
   }
 }

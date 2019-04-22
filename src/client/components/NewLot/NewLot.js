@@ -80,66 +80,71 @@ export default class NewLot extends React.Component{
     return(
       <section className="new-lot-section">
         <div className="new-lot-container">
-          <div className="new-lot-left">
-            <form className="new-lot-form">
-              <div className="form-input-container">
-                <label htmlFor="name">Lot name</label>
-                <input type="text" name="name" id="name" value={name} onChange={this.handleNameChange}/>
-              </div>
-
-              <div className="form-input-container">
-                <label htmlFor="description">Lot description</label>
-                <textarea name="description" id="description" value={description} onChange={this.handleDescriptionChange}/>
-              </div>
-
-              <div className="form-input-container">
-                <label htmlFor="price">Lot price</label>
-                <div className="price-wrapper">
-                  <input type="text" name="price" id="price" className="price" value={price} onChange={this.handlePriceChange}/>
+          <div className="new-lot-top">
+            <div className="new-lot-left">
+              <form className="new-lot-form">
+                <div className="form-input-container">
+                  <label htmlFor="name">Lot name</label>
+                  <input type="text" name="name" id="name" value={name} onChange={this.handleNameChange}/>
                 </div>
-              </div>
 
-              <div className="form-input-container">
-                <label htmlFor="payment">Payment methods</label>
-                {availAblePayment.map(item => (
-                  <div key={item}>
-                    <CheckBox
-                      name="payment"
-                      value={item}
-                      label={item}
-                      checked={payment.includes(item)}
-                      handler={this.handlePaymentChange}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div className="form-input-container">
-                <label htmlFor="delivery">Delivery methods</label>
-                {availAbleDelivery.map(item => (
-                  <div key={item}>
-                    <CheckBox
-                      name="delivery"
-                      value={item}
-                      label={item}
-                      checked={delivery.includes(item)}
-                      handler={this.handleDeliveryChange}
-                    />
-                  </div>
-                ))}
-              </div>
-
-            </form>
-          </div>
-          <div className="new-lot-right">
-            <div className="drag-drop-container">
-              <DragAndDrop>
-                <div className="drag-drop-text">
-                  <p>You can add up to 5 photos of your lot!</p>
-                  <p>Click here or drag&drop to upload photos</p>
+                <div className="form-input-container">
+                  <label htmlFor="description">Lot description</label>
+                  <textarea name="description" id="description" value={description} onChange={this.handleDescriptionChange}/>
                 </div>
-              </DragAndDrop>
+
+                <div className="form-input-container">
+                  <label htmlFor="price">Lot price</label>
+                  <div className="price-wrapper">
+                    <input type="text" name="price" id="price" className="price" value={price} onChange={this.handlePriceChange}/>
+                  </div>
+                </div>
+
+                <div className="form-input-container">
+                  <label htmlFor="payment">Payment methods</label>
+                  {availAblePayment.map(item => (
+                    <div key={item}>
+                      <CheckBox
+                        name="payment"
+                        value={item}
+                        label={item}
+                        checked={payment.includes(item)}
+                        handler={this.handlePaymentChange}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="form-input-container">
+                  <label htmlFor="delivery">Delivery methods</label>
+                  {availAbleDelivery.map(item => (
+                    <div key={item}>
+                      <CheckBox
+                        name="delivery"
+                        value={item}
+                        label={item}
+                        checked={delivery.includes(item)}
+                        handler={this.handleDeliveryChange}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+              </form>
             </div>
+            <div className="new-lot-right">
+              <div className="drag-drop-container">
+                <DragAndDrop>
+                  <div className="drag-drop-text">
+                    <p>You can add up to 5 photos of your lot!</p>
+                    <p>Click here or drag&drop to upload photos</p>
+                  </div>
+                </DragAndDrop>
+              </div>
+            </div>
+          </div>
+          <div className="new-lot-bottom">
+            <button className="button-common">Create</button>
           </div>
         </div>
       </section>

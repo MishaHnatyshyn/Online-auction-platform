@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function LotCard({
   name,
@@ -12,21 +13,23 @@ export default function LotCard({
   const isNew = Date.parse(new Date()) - Date.parse(timestamp) < 86400 * 3;
   return (
     <div className="lot-card">
-      <div className="lot-card-content">
-        {isNew ? <span className="new">NEW!</span> : null}
-        <div className="lot-photo">
-          <img src={photos[0]} alt={name} />
-        </div>
-        <div className="lot-short-data">
-          <div className="lot-name">{name}</div>
-          <div className="lot-summary">{displayedDescription}</div>
-          <span className="lot-price">
-            {startPrice}
-            {' '}
+      <NavLink to="/lot/123">
+        <div className="lot-card-content">
+          {isNew ? <span className="new">NEW!</span> : null}
+          <div className="lot-photo">
+            <img src={photos[0]} alt={name} />
+          </div>
+          <div className="lot-short-data">
+            <div className="lot-name">{name}</div>
+            <div className="lot-summary">{displayedDescription}</div>
+            <span className="lot-price">
+              {startPrice}
+              {' '}
             $
-          </span>
+            </span>
+          </div>
         </div>
-      </div>
+      </NavLink>
     </div>
   );
 }
