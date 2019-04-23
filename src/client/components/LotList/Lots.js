@@ -133,7 +133,7 @@ export default class Lots extends React.Component {
     } = this.state;
     return (
       <section className="lots-section">
-        <div className="lots-list-content">
+        <div className="lots-list-content lots-container">
           <section className="filters">
             <div className="filters-container">
               <h2>Filters</h2>
