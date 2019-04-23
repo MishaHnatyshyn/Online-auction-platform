@@ -1,7 +1,12 @@
 import React from 'react';
+import SectionTitle from '../SectionTitle'
 
 export default function SecondSection() {
   return(
-    <section className="content-section second">Section 2</section>
+    <section className="content-section second">
+      <div>
+        <SectionTitle className="white right" text="Second section"/>
+      </div>
+    </section>
   )
 }

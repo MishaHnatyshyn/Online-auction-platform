@@ -30,20 +30,57 @@ body{
   }
 }
 
-.section-title{
-  font-size: 3em;
-  text-align: center;
-  /* text-shadow: 0 0 black; */
+
+
+.title-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
-  text-transform: uppercase;
-  color: $main;
+  .title-line{
+    border: 2px solid;
+    width: 100%;
+    color: $main;
+  }
+
+  .section-title{
+    font-size: 3em;
+    text-align: center;
+    text-shadow: 0 0 black;
+    text-transform: uppercase;
+    color: $main;
+    white-space: nowrap;
+    padding: 0 10px;
+  }
+
+  &.left{
+    .title-line:first-child{
+      display: none;
+    }
+  }
+
+  &.right{
+    .title-line:last-child{
+      display: none;
+    }
+  }
+
+  &.white{
+    h2{
+      color: white;
+    }
+    .title-line{
+      border-color: white;
+    }
+  }
 }
 
 .main-content{
   //display: flex;
   padding-top: 60px;
   min-height: calc(100% - 60px);
-  >section>div{
+  >section>div[class$="container"]{
     width: 1200px;
   }
 }
@@ -51,6 +88,14 @@ body{
 .content-section{
   height: calc(100vh - 60px);
   width: 100%;
+  >div{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
   &.second{
     background-image: url("http://patrocinados.estadao.com.br/sodresantoro/wp-content/uploads/sites/74/2018/08/Leilao-sodre.png");
     background-repeat: no-repeat;
@@ -93,7 +138,8 @@ body{
   justify-content: center;
   position: relative;
   >div{
-    width: 1500px!important;
+    width: 100%;
+    max-width: 1500px;
   }
   .grid-main{
     width: 100%;
@@ -102,6 +148,8 @@ body{
     justify-content: space-between;
     .view-more{
       left: 0;
+      color: $second;
+      font-size: 2em;
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -222,6 +270,13 @@ body{
 }
 
 @media all and (max-width: 786px) {
+
+  .title-container{
+    padding: 10px 5px;
+    .section-title{
+      font-size: 2em;
+    }
+  }
   .last-lot-section{
     width: 100%;
     display: flex;

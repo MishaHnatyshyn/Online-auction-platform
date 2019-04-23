@@ -37,7 +37,7 @@ export default class LotsGrid extends React.Component {
           {lots.slice(columnCount * 4, columnCount * 5).map(lot => <GridItem {...lot} />)}
         </div>
         <div className="view-more">
-          <NavLink to="/lots">View more</NavLink>
+          <NavLink to="/lots">View more...</NavLink>
         </div>
       </div>
     );

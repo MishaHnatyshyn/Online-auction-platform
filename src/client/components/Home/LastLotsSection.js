@@ -1,5 +1,6 @@
 import React from 'react';
 import LotsGrid from './LotsGrid';
+import SectionTitle from './SectionTitle'
 
 export default class LastLotsSection extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class LastLotsSection extends React.Component {
     return (
       <section className="last-lot-section">
         <div>
-          <h2 className="section-title">Last lots</h2>
+          <SectionTitle text="Last lots" />
           <LotsGrid />
         </div>
       </section>
