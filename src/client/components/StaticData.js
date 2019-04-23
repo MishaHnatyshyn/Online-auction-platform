@@ -192,6 +192,7 @@ const photos = [
 ];
 
 const LotsData = photos.map((photo, index) => ({
+  _id: index,
   name: `Lot ${index}`,
   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
   startPrice: 100 * (index + 1),

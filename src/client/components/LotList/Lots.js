@@ -2,7 +2,7 @@ import React from 'react';
 
 import LotCard from './LotCard';
 import Pagination from "./Pagination";
-import LotsData from "./StaticData";
+import LotsData from "../StaticData";
 
 const CheckBox = ({id, name, checked, handler, label, value}) => (
   <label className="check-box-container">
