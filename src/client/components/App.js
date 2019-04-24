@@ -5,6 +5,9 @@ import Footer from './Layout/Footer';
 import Loader from './Loader/Loader';
 import Login from './Popups/Login';
 import Signup from './Popups/Signup';
+import ContactUs from './Popups/ContactUs';
+import BecomePartner from './Popups/BecomePartner';
+import BugReport from './Popups/BugReport';
 import { Helmet } from 'react-helmet'
 
 const LazyHome = lazy(() => import('./Home/Home'));
@@ -20,7 +23,10 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       showLoginPopup: false,
-      showSignUpPopup: false
+      showSignUpPopup: false,
+      showContactUsPopup: false,
+      showBecomePartnerPopup: false,
+      showBugReportPopup: false,
     }
   }
 
@@ -32,6 +38,22 @@ export default class App extends React.Component {
     this.setState((prevState) => ({ showSignUpPopup: !prevState.showSignUpPopup }))
   }
 
+  toggleContactUsPopup = () => {
+    this.setState((prevState) => ({ showContactUsPopup: !prevState.showContactUsPopup }))
+  }
+
+  toggleBecomePartnerPopup = () => {
+    this.setState((prevState) => ({ showBecomePartnerPopup: !prevState.showBecomePartnerPopup }))
+  }
+
+  toggleBugReportPopup = () => {
+    this.setState((prevState) => ({ showBugReportPopup: !prevState.showBugReportPopup }))
+  }
+
+  toggleSinglePopup = (popup) => {
+    this.setState((prevState) => ({ [popup]: !prevState[popup] }))
+  }
+
   togglePopups = () => {
     this.setState((prevState) => ({
       showSignUpPopup: !prevState.showSignUpPopup,
@@ -41,12 +63,15 @@ export default class App extends React.Component {
 
 
   render() {
-    const { showLoginPopup, showSignUpPopup } = this.state;
+    const { showLoginPopup, showSignUpPopup, showContactUsPopup, showBecomePartnerPopup, showBugReportPopup } = this.state;
     return (
       <React.Fragment>
         <Header openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
         {showLoginPopup ? <Login close={this.toggleLoginPopup} switchForm={this.togglePopups}/> : null}
         {showSignUpPopup ? <Signup close={this.toggleSignUpPopup} switchForm={this.togglePopups}/> : null}
+        {showContactUsPopup ? <ContactUs close={this.toggleContactUsPopup}/> : null}
+        {showBecomePartnerPopup ? <BecomePartner close={this.toggleBecomePartnerPopup}/> : null}
+        {showBugReportPopup ? <BugReport close={this.toggleBugReportPopup}/> : null}
         <main className="main-content">
         <Switch>
           <Route exact path="/" render={() => (
@@ -114,7 +139,7 @@ export default class App extends React.Component {
 
         </Switch>
         </main>
-        <Footer />
+        <Footer openBugReport={this.toggleBugReportPopup} openContactUs={this.toggleContactUsPopup} openBecomePartner={this.toggleBecomePartnerPopup}/>
       </React.Fragment>
     );
   }

@@ -29,7 +29,7 @@ export default class Contacts extends React.Component{
         <div className="contacts-container">
           <div className="contact-info">
             <div className="contacts-data-column">
-              <div className="contacts-data-column-title">Phones</div>
+              <div className="contacts-data-column-title">Departments</div>
               <div className="contacts-data-column-list">
                 <div  className="contacts-data-column-item">
                   <div className="contacts-data-column-item-name">
@@ -39,7 +39,7 @@ export default class Contacts extends React.Component{
                     +38 (066) 64 65 121
                   </div>
                   <div>
-                    75-33-21
+                    customer.service@auction.com
                   </div>
                 </div>
                 <div  className="contacts-data-column-item">
@@ -50,7 +50,7 @@ export default class Contacts extends React.Component{
                     +38 (066) 64 65 122
                   </div>
                   <div>
-                    75-33-22
+                    technical.support@auction.com
                   </div>
                 </div>
                 <div  className="contacts-data-column-item">
@@ -61,7 +61,7 @@ export default class Contacts extends React.Component{
                     +38 (066) 64 65 123
                   </div>
                   <div>
-                    75-33-23
+                    legal.department@auction.com
                   </div>
                 </div>
               </div>
