@@ -226,6 +226,48 @@ body{
   }
 }
 
+
+.why-auction{
+  height: unset;
+  min-height: calc(100vh - 60px);
+  >div{
+    position: static;
+  }
+  .cards-container{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    .card{
+      margin-bottom: 10px;
+      display: flex;
+      width: 50%;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+      flex-direction: column;
+      img{
+        width: 200px;
+      }
+      h3{
+        text-align: center;
+        color: $second;
+        text-transform: uppercase;
+        font-size: 2em;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+      p{
+        color: #094d6e;
+        padding: 5px 50px 10px 50px;
+        text-align: center;
+        font-size: 1.3em;
+      }
+    }
+  }
+}
+
+
+
 @media all and (max-width: 1200px) {
   .main-content{
     //display: flex;
@@ -275,6 +317,26 @@ body{
   .top-section .background-video video {
     margin-left: -200px;
   }
+  .why-auction .cards-container .card{
+    img{
+      width: 150px;
+    }
+    h3{
+      text-align: center;
+      color: $second;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 5px 0;
+
+    }
+    p{
+      color: #094d6e;
+      padding: 5px 20px 10px 20px;
+      text-align: center;
+      font-size: 1em;
+    }
+  }
 }
 
 @media all and (max-width: 786px) {
@@ -320,6 +382,10 @@ body{
         }
       }
     }
+  }
+
+  .why-auction .cards-container .card{
+    width: 100%;
   }
 
   .top-section .background-video video {
