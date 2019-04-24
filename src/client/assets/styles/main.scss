@@ -235,6 +235,10 @@ body{
       width: 100%
     }
   }
+
+  .top-section .background-video video {
+    margin-left: -80px;
+  }
 }
 
 @media all and (max-width: 1260px) {
@@ -267,6 +271,10 @@ body{
       }
     }
   }
+
+  .top-section .background-video video {
+    margin-left: -200px;
+  }
 }
 
 @media all and (max-width: 786px) {
@@ -277,6 +285,12 @@ body{
       font-size: 2em;
     }
   }
+
+  .top-section .background-video video {
+    margin-left: -300px;
+  }
+
+
   .last-lot-section{
     width: 100%;
     display: flex;
@@ -306,6 +320,11 @@ body{
         }
       }
     }
+  }
+
+  .top-section .background-video video {
+    //height: 100%;
+    margin-left: -400px;
   }
 }
 

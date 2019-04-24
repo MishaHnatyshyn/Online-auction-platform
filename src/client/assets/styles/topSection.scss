@@ -48,3 +48,18 @@
 
   }
 }
+
+@media all and (max-width: 1000px) {
+  .top-section{
+
+    .top-section-content{
+      h1{
+        font-size: 5em;
+      }
+      p{
+        font-size: 1.5em;
+        width: 90%;
+      }
+    }
+  }
+}

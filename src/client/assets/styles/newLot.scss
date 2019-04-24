@@ -81,51 +81,7 @@
   .new-lot-left{
     .new-lot-form{
 
-      .form-input-container{
-        display: flex;
-        flex-direction: column;
-        margin: 10px 0 ;
-        color: $second;
-        input, textarea{
-          padding: 10px;
-          border: 1px solid #dfdfdf;
-          border-radius: 8px;
-          margin: 5px 0;
-          font-size: 1em;
-          outline: none;
-        }
-        textarea{
-          resize: none;
-          height: 200px;
-        }
-        .price-wrapper{
-          input{
-            padding-right: 30px;
-            width: 200px;
-            margin: 0;
-          }
-          margin: 5px 0;
-          position: relative;
-          &::before{
-            content: '$';
-            position: absolute;
-            left: 166px;
-            top: 0;
-            height: 100%;
-            width: 30px;
-            border-left: 1px solid #dfdfdf;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-        }
-        >label{
-          margin-bottom: 5px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          font-weight: 500;
-        }
-      }
+
 
     }
   }
@@ -145,6 +101,51 @@
   }
 }
 
+.form-input-container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 ;
+  color: $second;
+  input, textarea{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+  }
+  textarea{
+    resize: none;
+    height: 200px;
+  }
+  .price-wrapper{
+    input{
+      padding-right: 30px;
+      width: 200px;
+      margin: 0;
+    }
+    margin: 5px 0;
+    position: relative;
+    &::before{
+      content: '$';
+      position: absolute;
+      left: 166px;
+      top: 0;
+      height: 100%;
+      width: 30px;
+      border-left: 1px solid #dfdfdf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  >label{
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+}
 
 @media all and (max-width: 786px){
   .new-lot-section .new-lot-container{

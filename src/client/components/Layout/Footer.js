@@ -33,9 +33,9 @@ export default class Footer extends React.Component {
           <div className="footer-data-column">
             <div className="footer-data-column-title">Feedback</div>
             <ul>
-              <li onClick={this.props.openBugReport}>Report a bug</li>
-              <li onClick={this.props.openBecomePartner}>Become a partner</li>
               <li onClick={this.props.openContactUs}>Contact us</li>
+              <li onClick={this.props.openBecomePartner}>Become a partner</li>
+              <li onClick={this.props.openBugReport}>Report a bug</li>
             </ul>
           </div>
           <div className="footer-data-column">

@@ -45,3 +45,107 @@
     }
   }
 }
+
+.popup-container-form{
+  background: white;
+  width: 90%;
+  min-height: 80%;
+  max-height: 99%;
+  max-width: 1200px;
+  border-radius: 10px;
+  color: $second;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  >div{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popup-container-form-right{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $main;
+    img{
+      width: 200px;
+    }
+    p{
+      color: black;
+      font-size: 3em;
+      text-align: center;
+      padding: 10px;
+    }
+  }
+
+  .popup-container-form-left{
+    padding: 20px;
+    width: 60%;
+    overflow-y: auto;
+
+    >div{
+      display: flex;
+      justify-content: flex-end;
+      button{
+        width: 200px;
+      }
+    }
+  }
+
+  .popup-feedback-form-title{
+    font-size: 3em;
+    text-transform: uppercase;
+    border-bottom: 2px solid $second;
+    font-weight: bold;
+  }
+
+  .popup-feedback-form{
+    //height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    label{
+      margin-bottom: 0;
+    }
+  }
+
+  .close-button{
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    i{
+      font-size: 1.5em;
+      color: black;
+      cursor: pointer;
+      &:hover{
+        color: white;
+      }
+    }
+
+  }
+}
+
+@media all and (max-width: 1000px){
+  .popup-container-form{
+    width: 95%;
+  }
+}
+
+
+@media all and (max-width: 800px){
+  .popup-container-form{
+    height: unset;
+    max-height: 99%;
+    .popup-container-form-left{
+      width: 100%;
+
+    }
+    .popup-container-form-right{
+      display: none;
+
+    }
+  }
+
+}
