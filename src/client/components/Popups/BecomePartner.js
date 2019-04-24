@@ -18,7 +18,7 @@ export default class BecomePartner extends React.Component {
       <div className="popup" ref={this.popup} onClick={this.handleClickOutside}>
         <div className="popup-container-form">
           <div className="popup-container-form-left">
-            <h2 className="popup-feedback-form-title">Bug report</h2>
+            <h2 className="popup-feedback-form-title">Become a partner</h2>
             <form className="popup-feedback-form">
               <div className="form-input-container">
                 <label htmlFor="name">First name</label>

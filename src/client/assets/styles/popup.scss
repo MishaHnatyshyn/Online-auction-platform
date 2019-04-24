@@ -134,6 +134,15 @@
 }
 
 
+@media all and (max-width: 900px){
+  .popup-container-form{
+    .popup-feedback-form-title{
+      font-size: 2em;
+    }
+  }
+}
+
+
 @media all and (max-width: 800px){
   .popup-container-form{
     height: unset;
