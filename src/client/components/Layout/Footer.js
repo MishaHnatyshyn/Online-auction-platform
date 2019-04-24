@@ -13,16 +13,19 @@ export default class Footer extends React.Component {
               Online auction platform
             </div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Accusamus aliquam aliquid at autem consequatur dignissimos,
+              dolore eveniet in inventore ipsam molestias nam non odit
+              porro quae quasi quos, repellat ullam!
             </p>
             <div className="social-container">
-              <a href="https://www.facebook.com/" target="_blank">
+              <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-facebook-square" />
               </a>
-              <a href="https://twitter.com/" target="_blank">
+              <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-twitter-square" />
               </a>
-              <a href="https://telegram.org/" target="_blank">
+              <a href="https://telegram.org/" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-telegram" />
               </a>
             </div>

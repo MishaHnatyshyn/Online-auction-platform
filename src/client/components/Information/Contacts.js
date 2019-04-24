@@ -70,19 +70,19 @@ export default class Contacts extends React.Component{
               <div className="contacts-data-column-title">Social networks</div>
               <div className="contacts-data-column-list">
                 <div  className="contacts-data-column-item social">
-                  <a href="https://www.facebook.com/" target="_blank">
+                  <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-facebook-square" />
                     Online Auction
                   </a>
                 </div>
                 <div  className="contacts-data-column-item social">
-                  <a href="https://twitter.com/" target="_blank">
+                  <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-twitter-square" />
                     @online_auction
                   </a>
                 </div>
                 <div  className="contacts-data-column-item social">
-                  <a href="https://telegram.org/" target="_blank">
+                  <a href="https://telegram.org/" target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-telegram" />
                     @online_auction
                   </a>
@@ -93,7 +93,7 @@ export default class Contacts extends React.Component{
               <div className="contacts-data-column-title">Address</div>
               <div className="contacts-data-column-list">
                 <div  className="contacts-data-column-item social">
-                  <i className="fas fa-map-marker-alt"></i>
+                  <i className="fas fa-map-marker-alt" />
                   10 Khreshchatyk Street, Kyiv, Ukraine
                 </div>
               </div>
