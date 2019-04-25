@@ -27,5 +27,11 @@ router.post('/api/lot/delete', Controllers.lot.deleteLot);
 
 router.post('/api/upload/lot/photos', uploadPhoto.array('photos'));
 
+router.post('/api/letter/bug', Controllers.feedback.bug)
+
+router.post('/api/letter/contact', Controllers.feedback.contact)
+
+router.post('/api/letter/partnership', Controllers.feedback.partnership)
+
 
 module.exports = router;
