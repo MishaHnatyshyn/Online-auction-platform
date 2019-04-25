@@ -1,4 +1,17 @@
 
+const categories = [
+  'Art',
+  'Household appliances',
+  'Clothing',
+  'Electronics',
+  'Drinks',
+  'Jewelry',
+  'Furniture',
+  'Coins',
+  'Stamps',
+  'Other',
+]
+
 const photos = [
   'https://i2.rozetka.ua/goods/1784911/apple_airpods_images_1784911319.jpg',
   'https://i1.rozetka.ua/goods/1127297/hyperx_cloud_core_images_1127297246.jpg',
@@ -201,6 +214,7 @@ const LotsData = photos.map((photo, index) => ({
   payment: ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'],
   delivery: ['Post office', 'Personal meeting', 'Courier', 'Other'],
   timestamp: new Date(Date.parse(new Date()) - 86400 * index),
+  category: categories[index % 10]
 }));
 
 export default LotsData;

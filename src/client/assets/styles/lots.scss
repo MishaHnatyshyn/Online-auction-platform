@@ -35,6 +35,21 @@
             margin-bottom: 10px;
           }
 
+          select{
+            border: 1px solid #dfdfdf;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 2px;
+            width: 100%;
+            outline: none;
+            font-size: 1em;
+            background: white;
+            color: $second;
+            &:focus{
+              border-color: $main;
+            }
+          }
+
           .price-range{
             margin-top: 10px;
             div{

@@ -34,6 +34,7 @@ export default class Lots extends React.Component {
       selectedDeliveryMethods: [],
       pagesCount: 1,
       visibleLots: [],
+      category: '',
       sortFunc: () => false
     };
     this.sortFuncs = {
@@ -103,13 +104,19 @@ export default class Lots extends React.Component {
     this.setState({ selectedDeliveryMethods: currentDeliveryMethods}, this.updateVisibleLots)
   }
 
+  handleCategoryChange = (e) => {
+    this.setState({ category: e.target.value }, this.updateVisibleLots)
+  }
+
   filter = (lot) => {
     const {
       selectedPaymentMethods,
       selectedDeliveryMethods,
       priceFrom,
-      priceTo
+      priceTo,
+      category
     } = this.state;
+    if (category && lot.category !== category) return false;
     if (priceFrom && lot.startPrice < priceFrom) return false;
     if (priceTo && lot.startPrice > priceTo) return false;
     if (!selectedPaymentMethods.filter((_) => lot.payment.includes(_)).length) return false;
@@ -128,15 +135,36 @@ export default class Lots extends React.Component {
       pagesCount,
       priceFrom,
       priceTo,
-      visibleLots
-
+      visibleLots,
+      category,
     } = this.state;
+
     return (
       <section className="lots-section">
         <div className="lots-list-content lots-container">
           <section className="filters">
             <div className="filters-container">
               <h2>Filters</h2>
+
+              <div className="filter-container">
+                <div className="filter-title">Category</div>
+                <div className="filter-list">
+                  <select name="category" id="category" value={category} onChange={this.handleCategoryChange}>
+                    <option value="">All</option>
+                    <option>Art</option>
+                    <option>Household appliances</option>
+                    <option>Clothing</option>
+                    <option>Electronics</option>
+                    <option>Drinks</option>
+                    <option>Jewelry</option>
+                    <option>Furniture</option>
+                    <option>Coins</option>
+                    <option>Stamps</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
 
               <div className="filter-container">
                 <div className="filter-title">Price</div>
@@ -221,7 +249,7 @@ export default class Lots extends React.Component {
           </section>
           <section className="lots">
             <div className="lots-grid">
-              {visibleLots.filter(this.filter).slice((activePage - 1) * 9, (activePage - 1) * 9 + 9).map(lot => <LotCard {...lot} key={lot.name} />)}
+              {visibleLots.slice((activePage - 1) * 9, (activePage - 1) * 9 + 9).map(lot => <LotCard {...lot} key={lot.name} />)}
             </div>
             <Pagination changeActivePage={this.changeActivePage} active={activePage} pageCount={pagesCount}/>
           </section>

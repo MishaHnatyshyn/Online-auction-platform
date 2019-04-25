@@ -34,7 +34,8 @@ export default class DragAndDrop extends Component {
     this.setState({drag: false})
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const filesArray = [...e.dataTransfer.files]
-      this.props.handleImagesUpload({ image: e.dataTransfer.files, imagePreview: filesArray.map(image => URL.createObjectURL(image)) })
+      if (filesArray.filter(file => file.type.indexOf('image') === -1).length > 0) return;
+      this.props.handleImagesUpload({ images: e.dataTransfer.files, imagesPreview: filesArray.map(image => URL.createObjectURL(image)) })
       e.dataTransfer.clearData()
       this.dragCounter = 0
     }
@@ -42,7 +43,7 @@ export default class DragAndDrop extends Component {
 
   onFilesGet = (e) => {
     const filesArray = [...e.target.files]
-    this.props.handleImagesUpload({ image: e.target.files, imagePreview: filesArray.map(image => URL.createObjectURL(image)) })
+    this.props.handleImagesUpload({ images: e.target.files, imagesPreview: filesArray.map(image => URL.createObjectURL(image)) })
   }
 
   componentDidMount() {

@@ -36,6 +36,36 @@
   //height: 90%;
   width: 100%;
   .new-lot-right{
+    .uploaded-photo-list{
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      max-height: 740px;
+      >div{
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        padding: 20px;
+        border: 1px solid lightgrey;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        span{
+          color: black;
+          position: absolute;
+          right: 0;
+          top: 0;
+          font-size: 2em;
+          padding: 10px;
+          background: #ffffff8a;
+          cursor: pointer;
+        }
+        >img{
+          max-width: 100%;
+        }
+      }
+
+    }
     .drag-drop-container{
       position: relative;
       border: 2px dashed $second;
@@ -78,13 +108,6 @@
     overflow: hidden;
 
   }
-  .new-lot-left{
-    .new-lot-form{
-
-
-
-    }
-  }
   >div{
     width: 50%;
     display: flex;
@@ -113,6 +136,15 @@
     margin: 5px 0;
     font-size: 1em;
     outline: none;
+  }
+  select{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+    background: white;
   }
   textarea{
     resize: none;

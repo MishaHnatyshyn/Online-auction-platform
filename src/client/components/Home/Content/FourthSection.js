@@ -5,7 +5,7 @@ export default function FourthSection() {
   return (
     <section className="content-section fourth">
       <div>
-        <SectionTitle className="white right" text="Fourth section"/>
+        <SectionTitle className="white right" text="Let's try!"/>
       </div>
     </section>
   );

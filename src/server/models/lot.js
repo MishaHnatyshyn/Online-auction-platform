@@ -10,6 +10,7 @@ const lotSchema = mongoose.Schema({
   photos: { type: Array, default: [] },
   delivery: { type: Array, default: [] },
   payment: { type: Array, default: [] },
+  category: { type: String, required: true },
   timestamp: { type: Date, default: new Date() }
 });
 
