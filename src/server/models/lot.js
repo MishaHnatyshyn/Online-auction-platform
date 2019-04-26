@@ -7,6 +7,7 @@ const lotSchema = mongoose.Schema({
   description: { type: String, required: true },
   startPrice: { type: Number, min: 1, required: true },
   currPrice: { type: Number, min: 1, default: () => this.startPrice },
+  byNowPrice: { type: Number, min: 1, default: () => null },
   photos: { type: Array, default: [] },
   delivery: { type: Array, default: [] },
   payment: { type: Array, default: [] },

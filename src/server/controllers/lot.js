@@ -1,4 +1,19 @@
 const db = require('../db')
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  async destination(req, file, cb) {
+    const pathToDir = path.join(__dirname, '../../../static', req.body.dir)
+    fs.mkdir(pathToDir, () => cb(null, pathToDir));
+  },
+  filename(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const uploadPhoto = multer({ storage });
 
 module.exports = {
   getLotData: async (req, res) => {
@@ -17,9 +32,15 @@ module.exports = {
       res.status(500).end();
     }
   },
+
+  uploadPhotos: uploadPhoto.array('photos'),
+
+  createLotPhotos: (req, res) => res.end(),
+
   createLot: async (req, res) => {
     try {
-      res.end();
+      const newLot = await db.lot.createLot(req.body);
+      res.json(newLot);
     } catch (e) {
       res.status(500).end();
     }

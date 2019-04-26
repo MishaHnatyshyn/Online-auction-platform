@@ -25,9 +25,18 @@
   justify-content: flex-end;
   padding: 0 15px;
   margin-top: 10px;
+  position: relative;
   button{
     height: 45px;
     width: 150px;
+  }
+  span{
+    display: flex;
+    //position: absolute;
+    left: 0;
+    margin-right: 10px;
+    height: 100%;
+    align-items: center;
   }
 }
 
@@ -124,6 +133,11 @@
   }
 }
 
+.form-input-container-row{
+  display: flex;
+  justify-content: space-between;
+}
+
 .form-input-container{
   display: flex;
   flex-direction: column;
@@ -181,9 +195,18 @@
   }
 }
 
+.required{
+  color: red;
+}
+
+@media all and (max-width: 1000px){
+  .form-input-container-row{
+    flex-direction: column;
+  }
+}
+
 @media all and (max-width: 786px){
   .new-lot-section .new-lot-container{
-
     margin: 0;
     border: none;
     border-radius: 0;
@@ -210,3 +233,5 @@
     padding: 0;
   }
 }
+
+

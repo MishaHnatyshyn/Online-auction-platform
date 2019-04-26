@@ -46,6 +46,48 @@
   }
 }
 
+.new-lot-alert-popup{
+  top: 0;
+  .popup-container{
+    padding: 20px;
+    position: relative;
+    .close-button{
+      right: 0;
+      top: 0;
+      padding: 10px;
+      cursor: pointer;
+      position: absolute;
+    }
+    div:first-child{
+      font-size: 2em;
+      text-align: center;
+      padding: 20px 0;
+    }
+    div:last-child{
+      display: flex;
+      justify-content: center;
+      button{
+        margin: 10px;
+        position: relative;
+        &:first-child{
+          width: 137px;
+        }
+        a{
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
 .popup-container-form{
   background: white;
   width: 90%;
