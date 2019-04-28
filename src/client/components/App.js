@@ -1,4 +1,5 @@
 import React, {lazy, Suspense} from 'react';
+import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
 import Header from './Layout/Header';
 import Footer from './Layout/Footer';
@@ -27,7 +28,18 @@ export default class App extends React.Component {
       showContactUsPopup: false,
       showBecomePartnerPopup: false,
       showBugReportPopup: false,
+      user: {}
     }
+  }
+
+  getUserData = () =>{
+    axios.post('/api/user/data').then((res) => {
+      this.setState({ user: res.data })
+    })
+  }
+
+  componentWillMount() {
+    this.getUserData();
   }
 
   toggleLoginPopup = () => {
@@ -63,10 +75,10 @@ export default class App extends React.Component {
 
 
   render() {
-    const { showLoginPopup, showSignUpPopup, showContactUsPopup, showBecomePartnerPopup, showBugReportPopup } = this.state;
+    const { showLoginPopup, showSignUpPopup, showContactUsPopup, showBecomePartnerPopup, showBugReportPopup, user } = this.state;
     return (
       <React.Fragment>
-        <Header openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
+        <Header username={user.username} openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
         {showLoginPopup ? <Login close={this.toggleLoginPopup} switchForm={this.togglePopups}/> : null}
         {showSignUpPopup ? <Signup close={this.toggleSignUpPopup} switchForm={this.togglePopups}/> : null}
         {showContactUsPopup ? <ContactUs close={this.toggleContactUsPopup}/> : null}

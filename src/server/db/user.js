@@ -8,7 +8,7 @@ module.exports = {
     });
   }),
   findByEmail: email => new Promise((resolve, reject) => {
-    User.find({ email }).exec((err, user) => {
+    User.findOne({ email }).exec((err, user) => {
       if (err) return reject(err);
       resolve(user);
     });

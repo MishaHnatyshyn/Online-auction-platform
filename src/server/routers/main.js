@@ -1,7 +1,18 @@
 const express = require('express');
 const Controllers = require('../controllers');
+const passport = require('../auth');
 
 const router = express.Router();
+
+const isLoggedIn = (req, res, next) => (!req.isAuthenticated() ? res.json({ status: -1 }) : next());
+
+router.post('/api/register', passport.authenticate('local-signup'), Controllers.main.register);
+
+router.post('/api/user/data', Controllers.main.userData)
+
+router.post('/api/login', passport.authenticate('local-login'), Controllers.main.login);
+
+router.post('/api/logout', Controllers.main.logout);
 
 router.get('/api/main/data', Controllers.main.mainPageData);
 
@@ -9,9 +20,9 @@ router.get('/api/lot/data', Controllers.lot.getLotData);
 
 router.get('/api/lots/data', Controllers.lot.getLotsPageData);
 
-router.post('/api/lot/create', Controllers.lot.createLot);
+router.post('/api/lot/create', isLoggedIn, Controllers.lot.createLot);
 
-router.post('/api/lot/create/photos', Controllers.lot.uploadPhotos, Controllers.lot.createLotPhotos);
+router.post('/api/lot/create/photos', isLoggedIn, Controllers.lot.uploadPhotos, Controllers.lot.createLotPhotos);
 
 router.post('/api/lot/delete', Controllers.lot.deleteLot);
 

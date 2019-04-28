@@ -4,6 +4,7 @@ import logo from './logo.png';
 
 export default class Header extends React.Component {
   render() {
+    const { username } = this.props;
     return (
       <header className="main-header">
         <div className="main-header-content">
@@ -37,10 +38,23 @@ export default class Header extends React.Component {
               <input type="text" placeholder="Search on site..." name="search" />
               <i className="fas fa-search" />
             </div>
-            <div className="main-menu-buttons">
-              <button type="button" onClick={this.props.openLogin}>Sign in</button>
-              <button type="button" onClick={this.props.openSignup}>Sign up</button>
-            </div>
+            {username
+              ? (
+                <div className="user-data-container drop-down">
+                  {username}
+                  <i className="fas fa-angle-down" />
+                  <ul className="drop-down-list">
+                    <li>Log out</li>
+                  </ul>
+                </div>
+              )
+              : (
+                <div className="main-menu-buttons">
+                  <button type="button" onClick={this.props.openLogin}>Sign in</button>
+                  <button type="button" onClick={this.props.openSignup}>Sign up</button>
+                </div>
+              )
+            }
           </div>
 
         </div>

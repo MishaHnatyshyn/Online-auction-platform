@@ -26,6 +26,9 @@
       flex-direction: column;
       padding: 10px 20px;
       border-bottom: 2px solid rgba(9, 77, 110, 0.26);
+      .required{
+        text-align: center;
+      }
       input, button{
         padding: 10px;
         border: 1px solid #dfdfdf;
