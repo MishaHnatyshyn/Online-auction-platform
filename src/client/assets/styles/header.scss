@@ -61,21 +61,53 @@
       border-radius: 8px;
       font-size: 1em;
       outline: none;
+      &.dark{
+        color: $second;
+        border-width: 2px;
+        font-weight: bold;
+        &:hover{
+          color: white;
+          background: $main;
+        }
+      }
     }
 
 
     .mobile-drop-down{
       right: 0;
+      height: 100vh;
+      top: 0;
+      z-index: 7;
       min-width: 300px;
-      top: 60px;
       position: absolute;
-      display: none;
+      display: flex;
       flex-direction: column;
       color: $second;
       background: white;
+      ul{
+        background: white;
+        width: 100%;
+      }
       box-shadow: 0 3px 11px 0 #a0a0a0;
-      &:hover{
-        display: block;
+      .close-container{
+        width: 100%;
+        background: white;
+        display: flex;
+        padding: 20px;
+        height: 60px;
+        justify-content: space-between;
+        span{
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+        align-items: center;
+        i{
+          font-size: 1.5em;
+          cursor: pointer;
+        }
+      }
+      .main-menu-buttons{
+        margin-top: 20px;
       }
       li{
         &:hover{
@@ -154,6 +186,9 @@
       display: flex;
       height: 100%;
       align-items: center;
+      i{
+        margin-right: 10px;
+      }
       button{
         background: transparent;
         padding: 8px;
@@ -238,6 +273,46 @@
         &:last-child{
           border-right: none;
         }
+      }
+    }
+  }
+}
+
+.user-data-container{
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 30px;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  &:hover{
+    cursor: pointer;
+    color: #3ec5f4;
+    .drop-down-list{
+      display: block;
+    }
+  }
+  >i{
+    margin-left: 5px;
+  }
+  .drop-down-list{
+    right: -20px;
+    min-width: 150px;
+    top: 60px;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    color: $second;
+    background: white;
+    box-shadow: 0 3px 11px 0 #a0a0a0;
+    li{
+      padding: 10px;
+      font-weight: normal;
+      color: $second;
+      &:hover{
+        background: rgba(62, 197, 244, 0.13);
       }
     }
   }

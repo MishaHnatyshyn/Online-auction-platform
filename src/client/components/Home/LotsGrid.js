@@ -1,7 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import GridItem from './GridItem';
-import StaticData from '../StaticData';
 
 export default class LotsGrid extends React.Component {
   constructor(props) {
@@ -11,8 +11,14 @@ export default class LotsGrid extends React.Component {
     };
   }
 
+  fetchLastLots = () => {
+    axios.post('/api/lots/last').then((res) => {
+      this.setState({ lots: res.data })
+    }).catch((err) => {})
+  }
+
   componentDidMount() {
-    this.setState({ lots: StaticData.slice(0, 22) });
+    this.fetchLastLots()
   }
 
   render() {

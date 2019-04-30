@@ -1,54 +1,13 @@
 import React from 'react';
-
-const LotData = {
-  name: 'Lot name',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
-  startPrice: 100,
-  currPrice: 200,
-  photos: [
-    'https://i2.rozetka.ua/goods/1232633/samsung_eo_eg920lregru_images_1232633870.jpg',
-    'https://i2.rozetka.ua/goods/1232634/samsung_eo_eg920lregru_images_1232634129.jpg',
-    'https://i2.rozetka.ua/goods/1232634/samsung_eo_eg920lregru_images_1232634409.jpg',
-    'https://i2.rozetka.ua/goods/1232634/samsung_eo_eg920lregru_images_1232634955.jpg',
-  ],
-  timestamp: new Date(),
-  comments: [
-    {
-      _id: 1,
-      user: {
-        username: 'User1'
-      },
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
-    },
-    {
-      _id: 2,
-      user: {
-        username: 'User2'
-      },
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
-    },
-    {
-      _id: 3,
-      user: {
-        username: 'User3'
-      },
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
-    },
-    {
-      _id: 4,
-      user: {
-        username: 'User4'
-      },
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos, dolore eveniet in inventore ipsam molestias nam non odit porro quae quasi quos, repellat ullam!',
-    },
-  ]
-};
-
+import axios from 'axios';
+import CommentBox from "./CommentBox";
+import Loader from "../Loader/Loader";
 
 export default class Lot extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      _id: '',
       name: '',
       description: '',
       startPrice: 0,
@@ -61,7 +20,16 @@ export default class Lot extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ ...LotData });
+    const { id } = this.props.match.params
+    this.fetchLotData(id);
+  }
+
+  fetchLotData = (id) => {
+    axios.post('/api/lot/data', {
+      id
+    }).then((res) => {
+      this.setState({...res.data})
+    })
   }
 
   changePhoto = (index) => {
@@ -78,9 +46,11 @@ export default class Lot extends React.Component {
       timestamp,
       comments,
       activePhotoIndex,
+      _id,
     } = this.state;
     return (
       <section className="lot-section">
+        {!name ? <Loader/> : null}
         <div className="lot-container">
           <div className="lot-photos">
             <div className="lot-main-photo">
@@ -103,21 +73,7 @@ export default class Lot extends React.Component {
             <p className="lot-description-text">{description}</p>
             <p className="lot-date">Posted: {new Date(timestamp).toDateString()}</p>
           </div>
-          <div className="lot-comments">
-            <h2>Comments: </h2>
-            <div className="lot-comments-input">
-              <textarea placeholder="Type text of comment ..." />
-              <button className="button-common">Post</button>
-            </div>
-            <div className="lot-comments-list">
-              {comments.map(comment => (
-                <div className="comment-container" key={comment._id}>
-                  <div className="comment-author">{comment.user.username}</div>
-                  <div className="comment-text">{comment.text}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {_id ? <CommentBox _id={this.state._id} user={this.props.user}/> : null}
         </div>
       </section>
     );

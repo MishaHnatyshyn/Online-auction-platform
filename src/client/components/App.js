@@ -38,6 +38,16 @@ export default class App extends React.Component {
     })
   }
 
+  handleLogout = () => {
+    axios.post('/api/logout').then((res) => {
+      this.setState({ user: {} })
+    }).catch((err) => {})
+  }
+
+  handleLogin = (user) => {
+    this.setState({ user, showLoginPopup: false })
+  }
+
   componentWillMount() {
     this.getUserData();
   }
@@ -78,8 +88,8 @@ export default class App extends React.Component {
     const { showLoginPopup, showSignUpPopup, showContactUsPopup, showBecomePartnerPopup, showBugReportPopup, user } = this.state;
     return (
       <React.Fragment>
-        <Header username={user.username} openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
-        {showLoginPopup ? <Login close={this.toggleLoginPopup} switchForm={this.togglePopups}/> : null}
+        <Header logout={this.handleLogout} username={user.username} openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
+        {showLoginPopup ? <Login login={this.handleLogin} close={this.toggleLoginPopup} switchForm={this.togglePopups}/> : null}
         {showSignUpPopup ? <Signup close={this.toggleSignUpPopup} switchForm={this.togglePopups}/> : null}
         {showContactUsPopup ? <ContactUs close={this.toggleContactUsPopup}/> : null}
         {showBecomePartnerPopup ? <BecomePartner close={this.toggleBecomePartnerPopup}/> : null}
@@ -140,12 +150,12 @@ export default class App extends React.Component {
             </Suspense>
           )}/>
 
-          <Route exact path="/lot/:id" render={() => (
+          <Route exact path="/lot/:id" render={({ match }) => (
             <Suspense fallback={<Loader/>}>
               <Helmet>
                 <title>Lot</title>
               </Helmet>
-              <LazyLot />
+              <LazyLot match={match} user={user.username}/>
             </Suspense>
           )}/>
 

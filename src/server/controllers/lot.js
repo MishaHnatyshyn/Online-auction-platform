@@ -20,6 +20,7 @@ module.exports = {
     try {
       const { id } = req.body;
       const lot = await db.lot.getSingleLot(id);
+      if (!lot) return res.status(404).end();
       res.json(lot);
     } catch (e) {
       res.status(500).end();
@@ -30,6 +31,15 @@ module.exports = {
       res.end();
     } catch (e) {
       res.status(500).end();
+    }
+  },
+
+  getLastLots: async (req, res) => {
+    try {
+      const lots = await db.lot.getLastLots()
+      res.json(lots);
+    } catch (e) {
+      res.end();
     }
   },
 

@@ -1,9 +1,12 @@
 const db = require('../db')
 
+
+
 module.exports = {
-  mainPageData: (req, res) => {
+  mainPageData: async (req, res) => {
     try {
-      res.end();
+      const lots = await db.lot.getLastLots()
+      res.json(lots);
     } catch (e) {
       res.end();
     }

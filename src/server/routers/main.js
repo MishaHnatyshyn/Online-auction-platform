@@ -14,9 +14,15 @@ router.post('/api/login', passport.authenticate('local-login'), Controllers.main
 
 router.post('/api/logout', Controllers.main.logout);
 
+router.post('/api/comment/add', Controllers.comment.add);
+
+router.post('/api/comment/fetch', Controllers.comment.fetch);
+
 router.get('/api/main/data', Controllers.main.mainPageData);
 
-router.get('/api/lot/data', Controllers.lot.getLotData);
+router.post('/api/lots/last', Controllers.lot.getLastLots);
+
+router.post('/api/lot/data', Controllers.lot.getLotData);
 
 router.get('/api/lots/data', Controllers.lot.getLotsPageData);
 

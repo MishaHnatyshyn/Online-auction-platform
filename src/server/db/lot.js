@@ -7,6 +7,12 @@ module.exports = {
       resolve(lot);
     });
   }),
+  getLastLots: () => new Promise((resolve, reject) => {
+    Lot.find().limit(22).exec((err, lots) => {
+      if (err) return reject(err);
+      resolve(lots);
+    });
+  }),
   getLotsList: ids => new Promise((resolve, reject) => {
     Lot.find({ _id: { $in: ids } }).exec((err, lots) => {
       if (err) return reject(err);
