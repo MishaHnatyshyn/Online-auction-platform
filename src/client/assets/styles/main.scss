@@ -424,7 +424,7 @@ body{
     //display: flex;
     padding-top: 60px;
     min-height: calc(100% - 60px);
-    >section>div{
+    >section>div[class$="container"]{
       width: 100%
     }
   }

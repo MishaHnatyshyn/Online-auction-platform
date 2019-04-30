@@ -33,10 +33,11 @@ export default class Lots extends React.Component {
       selectedPaymentMethods: [],
       availableDeliveryMethods: [],
       selectedDeliveryMethods: [],
-      pagesCount: 1,
+      pagesCount: 0,
       visibleLots: [],
       category: '',
-      sortBy: null
+      sortBy: null,
+      displayFilters: false
     };
     this.sortFuncs = {
       dateAZ: { timestamp: 1 },
@@ -57,9 +58,7 @@ export default class Lots extends React.Component {
         lots,
         pagesCount,
         availablePaymentMethods: payments,
-        selectedPaymentMethods: payments,
         availableDeliveryMethods: deliveries,
-        selectedDeliveryMethods: deliveries,
       })
     }).catch((err) => {})
   }
@@ -136,6 +135,10 @@ export default class Lots extends React.Component {
     this.setState({ category: e.target.value }, this.updateVisibleLots)
   }
 
+  toggleFilters = () => {
+    this.setState((prevState) => ({ displayFilters: !prevState.displayFilters }))
+  }
+
   render() {
     const {
       lots,
@@ -149,14 +152,23 @@ export default class Lots extends React.Component {
       priceTo,
       visibleLots,
       category,
+      displayFilters
     } = this.state;
 
     return (
       <section className="lots-section">
         <div className="lots-list-content lots-container">
           <section className="filters">
-            <div className="filters-container">
-              <h2>Filters</h2>
+            <div className={`filters-container ${displayFilters ? '' : 'mobile-hide'}`}>
+              <h2>
+                Filters
+                <span>
+                  {displayFilters
+                    ? <i onClick={this.toggleFilters} className="fas fa-times"/>
+                    : <i onClick={this.toggleFilters} className="fas fa-angle-down" />
+                  }
+                </span>
+              </h2>
 
               <div className="filter-container">
                 <div className="filter-title">Category</div>
@@ -257,6 +269,7 @@ export default class Lots extends React.Component {
                   ))}
                 </div>
               </div>
+
             </div>
           </section>
           <section className="lots">

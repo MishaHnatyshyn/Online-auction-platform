@@ -324,6 +324,12 @@
   }
 }
 
+@media all and (max-width: 1100px) {
+  .search input{
+    width: 155px;
+  }
+}
+
 
 @media all and (max-width: 1000px) {
   .main-header{
