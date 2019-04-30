@@ -28,19 +28,19 @@ export default class LotsGrid extends React.Component {
     return (
       <div className="grid-main">
         <div className="grid-column">
-          {lots.slice(0, columnCount).map(lot => <GridItem {...lot} />)}
+          {lots.slice(0, columnCount).map(lot => <GridItem key={lot._id} {...lot} />)}
         </div>
         <div className="grid-column">
-          {lots.slice(columnCount, columnCount * 2).map(lot => <GridItem {...lot} />)}
+          {lots.slice(columnCount, columnCount * 2).map(lot => <GridItem key={lot._id} {...lot} />)}
         </div>
         <div className="grid-column">
-          {lots.slice(columnCount * 2, columnCount * 3).map(lot => <GridItem {...lot} />)}
+          {lots.slice(columnCount * 2, columnCount * 3).map(lot => <GridItem key={lot._id} {...lot} />)}
         </div>
         <div className="grid-column">
-          {lots.slice(columnCount * 3, columnCount * 4).map(lot => <GridItem {...lot} />)}
+          {lots.slice(columnCount * 3, columnCount * 4).map(lot => <GridItem key={lot._id} {...lot} />)}
         </div>
         <div className="grid-column">
-          {lots.slice(columnCount * 4, columnCount * 5).map(lot => <GridItem {...lot} />)}
+          {lots.slice(columnCount * 4, columnCount * 5).map(lot => <GridItem key={lot._id} {...lot} />)}
         </div>
         <div className="view-more">
           <NavLink to="/lots">View more...</NavLink>

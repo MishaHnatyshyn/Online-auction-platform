@@ -8,12 +8,13 @@ export default function LotCard({
   currPrice,
   photos,
   timestamp,
+  _id
 }) {
   const displayedDescription = description.length > 100 ? `${description.slice(0, 100)}...` : description;
   const isNew = Date.parse(new Date()) - Date.parse(timestamp) < 86400 * 3;
   return (
     <div className="lot-card">
-      <NavLink to="/lot/123">
+      <NavLink to={`/lot/${_id}`}>
         <div className="lot-card-content">
           {isNew ? <span className="new">NEW!</span> : null}
           <div className="lot-photo">

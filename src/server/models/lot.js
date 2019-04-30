@@ -1,6 +1,7 @@
 // Lot Mongoose Model
 
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const lotSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -14,5 +15,8 @@ const lotSchema = mongoose.Schema({
   category: { type: String, required: true },
   timestamp: { type: Date, default: new Date() }
 });
+
+lotSchema.plugin(mongoosePaginate);
+
 
 module.exports = mongoose.model('Lot', lotSchema);

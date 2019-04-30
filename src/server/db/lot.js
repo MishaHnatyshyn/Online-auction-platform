@@ -20,10 +20,18 @@ module.exports = {
     });
   }),
   getAllLots: () => new Promise((resolve, reject) => {
-    Lot.find().exec((err, lots) => {
-      if (err) return reject(err);
-      resolve(lots);
-    });
+    Lot.paginate({}, { limit: 9, page: 1 })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch(err => reject(err));
+  }),
+  getFilteredLots: (match, options) => new Promise((resolve, reject) => {
+    Lot.paginate(match, options)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch(err => reject(err));
   }),
   createLot: data => new Promise((resolve, reject) => {
     const newLot = new Lot(data);

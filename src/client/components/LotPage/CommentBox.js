@@ -56,7 +56,7 @@ export default class CommentBox extends React.Component{
           <button className="button-common" onClick={this.postComment}>Post</button>
         </div>
         <div className="lot-comments-list">
-          {comments.map(comment => <CommentContainer {...comment}/>)}
+          {comments.map((comment, index) => <CommentContainer key={index} {...comment}/>)}
           {commentsAvailable && comments.length > 9 ? <div className="pointer" onClick={this.fetchComments}>Load more...</div> : null}
         </div>
       </div>

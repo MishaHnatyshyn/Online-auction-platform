@@ -26,6 +26,8 @@ router.post('/api/lot/data', Controllers.lot.getLotData);
 
 router.get('/api/lots/data', Controllers.lot.getLotsPageData);
 
+router.post('/api/lots/filter', Controllers.lot.getFilteredLots);
+
 router.post('/api/lot/create', isLoggedIn, Controllers.lot.createLot);
 
 router.post('/api/lot/create/photos', isLoggedIn, Controllers.lot.uploadPhotos, Controllers.lot.createLotPhotos);

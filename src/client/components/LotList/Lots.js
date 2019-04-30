@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import LotCard from './LotCard';
 import Pagination from "./Pagination";
@@ -35,45 +36,72 @@ export default class Lots extends React.Component {
       pagesCount: 1,
       visibleLots: [],
       category: '',
-      sortFunc: () => false
+      sortBy: null
     };
     this.sortFuncs = {
-      dateAZ: (a, b) => Date.parse(a.timestamp) -Date.parse(b.timestamp),
-      dateZA: (a, b) =>  Date.parse(b.timestamp) - Date.parse(a.timestamp),
-      priceAZ: (a, b) => a.startPrice - b.startPrice,
-      priceZA: (a, b) => b.startPrice - a.startPrice,
-      nameAZ: (a, b) => a.name.localeCompare(b.name),
-      nameZA: (a, b) => b.name.localeCompare(a.name),
+      dateAZ: { timestamp: 1 },
+      dateZA:  { timestamp: -1 },
+      priceAZ: { startPrice: 1 },
+      priceZA: { startPrice: -1 },
+      nameAZ: { name: 1 },
+      nameZA: { name: -1 },
     }
   }
 
+  fetchAllLots = () => {
+    axios.get('/api/lots/data').then((res) => {
+      const { lots, pagesCount } = res.data;
+      const payments = [...new Set(...lots.map(_ => _.payment))];
+      const deliveries = [...new Set(...lots.map(_ => _.delivery))];
+      this.setState({
+        lots,
+        pagesCount,
+        availablePaymentMethods: payments,
+        selectedPaymentMethods: payments,
+        availableDeliveryMethods: deliveries,
+        selectedDeliveryMethods: deliveries,
+      })
+    }).catch((err) => {})
+  }
+
   componentDidMount = () => {
-    const payments = [...new Set(...LotsData.map(_ => _.payment))];
-    const deliveries = [...new Set(...LotsData.map(_ => _.delivery))];
-    this.setState({
-      lots: LotsData,
-      visibleLots: LotsData,
-      availablePaymentMethods: payments,
-      selectedPaymentMethods: payments,
-      availableDeliveryMethods: deliveries,
-      selectedDeliveryMethods: deliveries,
-      pagesCount: Math.ceil(LotsData.length / 9),
-    });
+    this.fetchAllLots();
   }
 
   changeSortFunc = (e) => {
     const func = e.target.value;
-    this.setState({ sortFunc: this.sortFuncs[func] }, this.updateVisibleLots)
+    this.setState({ sortBy: this.sortFuncs[func] }, this.updateVisibleLots)
+  }
+
+  fetchPage = (page = 1) => {
+    const {
+      priceFrom,
+      priceTo,
+      selectedPaymentMethods,
+      selectedDeliveryMethods,
+      category,
+      sortBy
+    } = this.state;
+    axios.post('/api/lots/filter',{
+      priceFrom,
+      priceTo,
+      selectedPaymentMethods,
+      selectedDeliveryMethods,
+      category,
+      sortBy,
+      page
+    }).then((res) => {
+      const { lots, pagesCount } = res.data;
+      this.setState({
+        activePage: page,
+        lots,
+        pagesCount
+      })
+    }).catch((err) => {})
   }
 
   updateVisibleLots = () => {
-    const newLots = this.state.lots.filter(this.filter);
-    newLots.sort(this.state.sortFunc)
-    this.setState({
-      activePage: 1,
-      visibleLots: newLots,
-      pagesCount: Math.ceil(newLots.length / 9)
-    })
+    this.fetchPage()
   }
 
   changePriceRange = (e) => {
@@ -84,7 +112,7 @@ export default class Lots extends React.Component {
   }
 
   changeActivePage = (page) => {
-    this.setState({ activePage: page })
+    this.fetchPage(page)
   }
 
   handlePaymentChange = payment => event => {
@@ -106,22 +134,6 @@ export default class Lots extends React.Component {
 
   handleCategoryChange = (e) => {
     this.setState({ category: e.target.value }, this.updateVisibleLots)
-  }
-
-  filter = (lot) => {
-    const {
-      selectedPaymentMethods,
-      selectedDeliveryMethods,
-      priceFrom,
-      priceTo,
-      category
-    } = this.state;
-    if (category && lot.category !== category) return false;
-    if (priceFrom && lot.startPrice < priceFrom) return false;
-    if (priceTo && lot.startPrice > priceTo) return false;
-    if (!selectedPaymentMethods.filter((_) => lot.payment.includes(_)).length) return false;
-    if (!selectedDeliveryMethods.filter((_) => lot.delivery.includes(_)).length) return false;
-    return true;
   }
 
   render() {
@@ -249,7 +261,7 @@ export default class Lots extends React.Component {
           </section>
           <section className="lots">
             <div className="lots-grid">
-              {visibleLots.slice((activePage - 1) * 9, (activePage - 1) * 9 + 9).map(lot => <LotCard {...lot} key={lot.name} />)}
+              {lots.map(lot => <LotCard {...lot} key={lot.name} />)}
             </div>
             <Pagination changeActivePage={this.changeActivePage} active={activePage} pageCount={pagesCount}/>
           </section>
