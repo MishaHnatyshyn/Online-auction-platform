@@ -40,6 +40,8 @@ export default class NewLot extends React.Component{
       description: '',
       price: 0,
       buyNow: 0,
+      endDate: '',
+      endTime: '',
       payment: [],
       delivery: [],
       images: [],
@@ -53,7 +55,7 @@ export default class NewLot extends React.Component{
   }
 
   validate = () => {
-    const { name, description, price, payment, delivery, images, category, buyNow } = this.state;
+    const { name, description, price, payment, delivery, images, category, buyNow, endDate, endTime } = this.state;
     return (
       name
       && description
@@ -63,6 +65,8 @@ export default class NewLot extends React.Component{
       && category
       && images.length
       && price > buyNow
+      && endDate
+      && endTime
     )
   }
 
@@ -93,11 +97,21 @@ export default class NewLot extends React.Component{
       images: [],
       imagesPreview: [],
       category: '',
+      endDate: '',
+      endTime: '',
       errorAlert: false,
       successAlert: false,
       validationError: false,
       createdLotId: ''
     })
+  }
+
+  handleTimeChange = (e) => {
+    this.setState({ endTime: e.target.value })
+  }
+
+  handleDateChange = (e) => {
+    this.setState({ endDate: e.target.value })
   }
 
   handleCategoryChange = (e) => {
@@ -117,7 +131,9 @@ export default class NewLot extends React.Component{
       delivery,
       images,
       category,
-      buyNow
+      buyNow,
+      endDate,
+      endTime,
     } = this.state;
 
     if (!this.validate()) return this.setState({ validationError: true })
@@ -131,6 +147,7 @@ export default class NewLot extends React.Component{
         payment,
         delivery,
         category,
+        endDate: new Date(endDate + ' ' + endTime),
         byNowPrice: buyNow || null
       })
       .then((res) => {
@@ -210,6 +227,10 @@ export default class NewLot extends React.Component{
     }, this.hideValidationError);
   }
 
+  getMinDate = () => new Date().toISOString().split("T")[0]
+
+  getMaxDate = () => new Date(Date.now() + 1000*60*60*24*30).toISOString().split("T")[0]
+
   render(){
     const {
       name,
@@ -223,7 +244,9 @@ export default class NewLot extends React.Component{
       successAlert,
       createdLotId,
       validationError,
-      buyNow
+      buyNow,
+      endDate,
+      endTime
     } = this.state;
     return(
       <section className="new-lot-section">
@@ -276,36 +299,65 @@ export default class NewLot extends React.Component{
                   </div>
                 </div>
 
-
-                <div className="form-input-container">
-                  <label htmlFor="payment">Payment methods<span className="required">*</span></label>
-                  {availAblePayment.map(item => (
-                    <div key={item}>
-                      <CheckBox
-                        name="payment"
-                        value={item}
-                        label={item}
-                        checked={payment.includes(item)}
-                        handler={this.handlePaymentChange}
+                <div className="form-input-container-row">
+                  <div className="form-input-container">
+                    <label htmlFor="end-date">End date<span className="required">*</span></label>
+                    <div className="price-wrapper date-wrapper far fa-calendar-alt">
+                      <input
+                        type="date"
+                        min={this.getMinDate()}
+                        max={this.getMaxDate()}
+                        name="end-date"
+                        id="end-date"
+                        className="price"
+                        value={endDate}
+                        onChange={this.handleDateChange}
                       />
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="form-input-container">
+                    <label htmlFor="end-time">End time<span className="required">*</span></label>
+                    <div className="price-wrapper time-wrapper far fa-clock">
+                      <input type="time" name="end-time" value={endTime} onChange={this.handleTimeChange} id="end-time" className="buyNow"/>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="form-input-container">
-                  <label htmlFor="delivery">Delivery methods<span className="required">*</span></label>
-                  {availAbleDelivery.map(item => (
-                    <div key={item}>
-                      <CheckBox
-                        name="delivery"
-                        value={item}
-                        label={item}
-                        checked={delivery.includes(item)}
-                        handler={this.handleDeliveryChange}
-                      />
-                    </div>
-                  ))}
+                <div className="form-input-container-row">
+                  <div className="form-input-container">
+                    <label htmlFor="payment">Payment methods<span className="required">*</span></label>
+                    {availAblePayment.map(item => (
+                      <div key={item}>
+                        <CheckBox
+                          name="payment"
+                          value={item}
+                          label={item}
+                          checked={payment.includes(item)}
+                          handler={this.handlePaymentChange}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="form-input-container">
+                    <label htmlFor="delivery">Delivery methods<span className="required">*</span></label>
+                    {availAbleDelivery.map(item => (
+                      <div key={item}>
+                        <CheckBox
+                          name="delivery"
+                          value={item}
+                          label={item}
+                          checked={delivery.includes(item)}
+                          handler={this.handleDeliveryChange}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
                 </div>
+
+
 
               </form>
             </div>

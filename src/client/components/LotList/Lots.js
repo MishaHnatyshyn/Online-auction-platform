@@ -276,7 +276,12 @@ export default class Lots extends React.Component {
             <div className="lots-grid">
               {lots.map(lot => <LotCard {...lot} key={lot.name} />)}
             </div>
-            <Pagination changeActivePage={this.changeActivePage} active={activePage} pageCount={pagesCount}/>
+            {
+              !lots.length && pagesCount
+                ? <div className="no-lots">No lots found</div>
+                : <Pagination changeActivePage={this.changeActivePage} active={activePage} pageCount={pagesCount}/>
+            }
+
           </section>
         </div>
       </section>

@@ -40,7 +40,8 @@ module.exports = {
       const lots = await db.lot.getLastLots();
       res.json(lots);
     } catch (e) {
-      res.end();
+      console.log(e)
+      res.status(500).end();
     }
   },
 
@@ -57,8 +58,12 @@ module.exports = {
       } = req.body;
       const match = { };
       const options = { page, limit: 9 };
-      if (selectedPaymentMethods && selectedPaymentMethods.length > 0) match.payment = { $in: selectedPaymentMethods };
-      if (selectedDeliveryMethods && selectedDeliveryMethods.length > 0) match.delivery = { $in: selectedDeliveryMethods };
+      if (selectedPaymentMethods && selectedPaymentMethods.length > 0) {
+        match.payment = { $in: selectedPaymentMethods };
+      }
+      if (selectedDeliveryMethods && selectedDeliveryMethods.length > 0) {
+        match.delivery = { $in: selectedDeliveryMethods };
+      }
       if (category) match.category = category;
       if (priceFrom && priceTo) match.startPrice = { $gte: priceFrom, $lte: priceTo };
       else if (priceFrom) match.startPrice = { $gte: priceFrom };

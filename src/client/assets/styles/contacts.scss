@@ -17,19 +17,20 @@
     width: 100%;
     height: 49%;
   };
-  .contact-info{
-    background: #ffffffa6;
-    z-index: 1;
-    padding: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  .map{
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-  }
+}
+
+.contact-info{
+  background: #ffffffa6;
+  z-index: 1;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.map{
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
 }
 
 .contacts-data-column{
@@ -37,47 +38,45 @@
   width: 30%;
   display: flex;
   flex-direction: column;
-
   color: $second;
+}
 
-  .contacts-data-column-title{
-    font-size: 1.5em;
+.contacts-data-column-title{
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid $second;
+}
+
+.contacts-data-column-item{
+  padding: 5px 0;
+  .contacts-data-column-item-name{
     font-weight: bold;
-    text-transform: uppercase;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid $second;
+  }
+  div{
+    margin-bottom: 3px;
   }
 
-  .contacts-data-column-item{
-    padding: 5px 0;
-    .contacts-data-column-item-name{
-      font-weight: bold;
-    }
-    div{
-      margin-bottom: 3px;
-    }
-
-    i{
-      font-size: 1.8em;
-      width: 25px;
-      margin-right: 10px;
-    }
-    &.social{
+  i{
+    font-size: 1.8em;
+    width: 25px;
+    margin-right: 10px;
+  }
+  &.social{
+    display: flex;
+    align-items: center;
+    a{
       display: flex;
       align-items: center;
-      a{
-        display: flex;
-        align-items: center;
-        color: $second;
-        &:hover{
-          color: $main;
-          cursor: pointer;
-        }
+      color: $second;
+      &:hover{
+        color: $main;
+        cursor: pointer;
       }
     }
   }
-
 }
 
 

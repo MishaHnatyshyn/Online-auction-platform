@@ -30,6 +30,8 @@ router.post('/api/lots/filter', Controllers.lot.getFilteredLots);
 
 router.post('/api/lot/create', isLoggedIn, Controllers.lot.createLot);
 
+router.post('/api/bid/make', isLoggedIn, Controllers.bid.makeBid);
+
 router.post('/api/lot/create/photos', isLoggedIn, Controllers.lot.uploadPhotos, Controllers.lot.createLotPhotos);
 
 router.post('/api/lot/delete', Controllers.lot.deleteLot);

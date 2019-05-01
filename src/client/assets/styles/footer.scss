@@ -9,83 +9,84 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  .footer-data{
-    display: flex;
-    width: 100%;
-    max-width: 1500px;
-    justify-content: space-between;
-    padding: 40px 20px;
-    .footer-data-column{
+}
 
-      &:nth-child(1){
-        width: 30%;
-      }
-      &:nth-child(3){
-        min-width: 300px;
-      }
-      width: 20%;
+.footer-data{
+  display: flex;
+  width: 100%;
+  max-width: 1500px;
+  justify-content: space-between;
+  padding: 40px 20px;
+}
 
-      .logo-container{
-        display: flex;
-        align-items: center;
-        font-size: 1.3em;
-        img{
-          height: 60px;
-        }
-        margin-left: -20px;
-        margin-top: -20px;
-      }
-      p{
-        font-weight: normal;
-      }
-      .social-container{
-        padding: 20px 0 0 0;
-        font-size: 2em;
-        color: $main;
-        a:visited, a:active, a{
-          color: $main;
-        }
-        font-weight: normal;
-        i{
-          margin-right: 10px;
-          &:hover{
-            cursor: pointer;
-            color: white;
-          }
-        }
-      }
+.footer-data-column{
 
-      .footer-data-column-title{
-        text-transform: uppercase;
-        border-bottom: 2px solid white;
-        padding-bottom: 3px;
-      }
-      li{
-        font-weight: normal;
-        padding: 5px 0;
-        &:hover{
-          cursor: pointer;
-          color: $main;
-        }
-        a{
-          display: block;
-          width: 100%;
-          height: 100%;
-
-        }
-        i{
-          margin-right: 10px;
-        }
-      }
-    }
-
+  &:nth-child(1){
+    width: 30%;
   }
-  .copyrights{
+  &:nth-child(3){
+    min-width: 300px;
+  }
+  width: 20%;
+
+  .logo-container{
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-bottom: 30px;
+    font-size: 1.3em;
+    img{
+      height: 60px;
+    }
+    margin-left: -20px;
+    margin-top: -20px;
   }
+  p{
+    font-weight: normal;
+  }
+  .social-container{
+    padding: 20px 0 0 0;
+    font-size: 2em;
+    color: $main;
+    a:visited, a:active, a{
+      color: $main;
+    }
+    font-weight: normal;
+    i{
+      margin-right: 10px;
+      &:hover{
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
+
+  .footer-data-column-title{
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    padding-bottom: 3px;
+  }
+  li{
+    font-weight: normal;
+    padding: 5px 0;
+    &:hover{
+      cursor: pointer;
+      color: $main;
+    }
+    a{
+      display: block;
+      width: 100%;
+      height: 100%;
+
+    }
+    i{
+      margin-right: 10px;
+    }
+  }
+}
+.copyrights{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
 }
 
 @media all and (max-width: 1450px){

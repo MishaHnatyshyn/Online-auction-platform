@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   lots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lot', default: [] }],
+  bought_lots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lot', default: [] }],
 });
 
 // generate hash from password to store in db;

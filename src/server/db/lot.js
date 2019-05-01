@@ -7,8 +7,20 @@ module.exports = {
       resolve(lot);
     });
   }),
+  setCurrPrice: (lot, sum) => new Promise((resolve, reject) => {
+    Lot.findById(lot).exec((err, lot) => {
+      if (err) return reject(err);
+      if (lot.currPrice >= sum) return resolve({ status: 1, currPrice: lot.currPrice });
+      if (Date.now() > Date.parse(lot.endDate)) return resolve({ status: 2 });
+      lot.currPrice = sum;
+      lot.save((err) => {
+        if (err) return resolve({ status: 1, currPrice: lot.currPrice });
+        resolve({ status: 0, currPrice: sum });
+      });
+    });
+  }),
   getLastLots: () => new Promise((resolve, reject) => {
-    Lot.find().limit(22).exec((err, lots) => {
+    Lot.find({ endDate: { $gte: new Date() } }).limit(22).exec((err, lots) => {
       if (err) return reject(err);
       resolve(lots);
     });
@@ -20,14 +32,14 @@ module.exports = {
     });
   }),
   getAllLots: () => new Promise((resolve, reject) => {
-    Lot.paginate({}, { limit: 9, page: 1 })
+    Lot.paginate({ endDate: { $gte: new Date() } }, { limit: 9, page: 1 })
       .then((res) => {
         resolve(res);
       })
       .catch(err => reject(err));
   }),
   getFilteredLots: (match, options) => new Promise((resolve, reject) => {
-    Lot.paginate(match, options)
+    Lot.paginate({ ...match, endDate: { $gte: new Date() } }, options)
       .then((res) => {
         resolve(res);
       })

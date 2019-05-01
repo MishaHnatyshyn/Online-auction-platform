@@ -25,4 +25,10 @@ module.exports = {
       resolve(newUser);
     });
   }),
+  addBoughtLot: (lot, user) => new Promise((resolve, reject) => {
+    User.updateOne({ _id: user }, { $push: { bought_lots: lot } }, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  }),
 };

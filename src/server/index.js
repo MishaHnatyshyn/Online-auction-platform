@@ -32,6 +32,6 @@ app.use(passport.session());
 
 app.use(router)
 
-mongoose.connect(`mongodb://${user}:${password}@ds133256.mlab.com:33256/epam-auction-webservice`, { useNewUrlParser: true });
+mongoose.connect(`mongodb://${user}:${password}@ds149596.mlab.com:49596/auction-webservice`, { useNewUrlParser: true });
 
 app.listen(port)
