@@ -1,1 +1,1 @@
-# EPAM-individual-project
+# Online auction platform

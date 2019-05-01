@@ -1,0 +1,572 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+@import "constants";
+
+html, body, #root{
+  height: 100%;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+.button-common{
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-size: 1em;
+  outline: none;
+  cursor: pointer;
+  background: $main;
+  color: white;
+  font-weight: bold;
+  &:hover{
+    background: $second;
+  }
+}
+
+@-webkit-keyframes mover {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+@keyframes mover {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+
+.arrow-down-last-section{
+  -webkit-animation: mover 0.5s infinite  alternate;
+  animation: mover 0.5s infinite  alternate;
+}
+
+.content-section.third{
+  height: unset;
+  //min-height: calc(100vh - 66px);
+  padding-bottom: 40px;
+  >div{
+    position: static;
+  }
+  .content-container{
+    display: flex;
+    align-items: center;
+    height: 80%;
+    //flex-wrap: wrap;
+    justify-content: center;
+    .our-team-card{
+      background: white;
+      padding: 20px;
+      width: 25%;
+      margin: 20px 50px;
+      border-radius: 8px;
+      color: $second;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      &:hover{
+        transform: scale(1.1);
+        box-shadow: 0 0 11px 7px rgba(9, 77, 110, 0.5)
+      }
+      .name-container{
+        font-size: 2em;
+        font-weight: bold;
+        padding: 10px 0 5px 0;
+        text-align: center;
+      }
+      .position-container{
+        text-align: center;
+      }
+      .text-container{
+        padding: 10px;
+        text-align: center;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+.image-container{
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  img{
+    width: 100%;
+  }
+}
+
+.content-section.fourth{
+  min-height: 750px;
+}
+
+.content-section.fourth>div{
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  justify-content: center;
+  text-shadow: 1px 1px #818181;
+
+  h3{
+    font-weight: bold;
+    font-size: 4em;
+    margin: 0 10px 20px 10px;
+  }
+  p{
+    font-weight: bold;
+    font-size: 2em;
+    margin: 10px 10px;
+    text-align: center;
+  }
+  i{
+    font-size: 4em;
+    margin-top: 40px;
+  }
+  button{
+    background: rgba(62, 197, 244, 0.40);
+    font-size: 2em;
+    margin: 20px 0;
+    padding: 20px 50px;
+    border: 2px solid white;
+    &:hover{
+      background: $main;
+    }
+  }
+}
+
+.title-line{
+  border: 2px solid;
+  width: 100%;
+  color: $main;
+}
+
+.section-title{
+  font-size: 3em;
+  text-align: center;
+  text-transform: uppercase;
+  color: $main;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+
+.title-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+
+  &.left{
+    .title-line:first-child{
+      display: none;
+    }
+  }
+
+  &.right{
+    .title-line:last-child{
+      display: none;
+    }
+  }
+
+  &.white{
+    h2{
+      color: white;
+    }
+    .title-line{
+      border-color: white;
+    }
+  }
+}
+
+.main-content{
+  padding-top: 60px;
+  min-height: calc(100% - 60px);
+  >section>div[class$="container"]{
+    width: 1200px;
+  }
+}
+
+.content-section{
+  height: calc(100vh - 60px);
+  width: 100%;
+  >div{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+  &.second{
+    background-image: url("http://patrocinados.estadao.com.br/sodresantoro/wp-content/uploads/sites/74/2018/08/Leilao-sodre.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 10% 100%;
+    position: relative;
+    &:before{
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: $main;
+      opacity: 0.5;
+    }
+  }
+  &.fourth{
+    background-image: url("https://static.vinepair.com/wp-content/uploads/2016/04/wine-auction-inside.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 80% 100%;
+    position: relative;
+    &:before{
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: $main;
+      opacity: 0.5;
+    }
+  }
+}
+
+.last-lot-section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  >div{
+    width: 100%;
+    max-width: 1500px;
+  }
+}
+
+.grid-main{
+  width: 100%;
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.view-more{
+  left: 0;
+  color: $second;
+  font-size: 2em;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0.4) 3%,rgba(255,255,255,0.64) 10%,rgba(255,255,255,0.77) 25%,rgba(255,255,255,0.9) 49%,rgba(255,255,255,0.91) 50%,rgba(255,255,255,1) 62%);
+  &:hover{
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(62,197,244,0.4) 3%,rgba(62,197,244,0.64) 10%,rgba(62,197,244,0.77) 25%,rgba(62,197,244,0.9) 49%,rgba(62,197,244,0.91) 50%,rgba(62,197,244,1) 62%);
+  }
+}
+.grid-column{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.grid-item{
+  //border: 1px solid;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.12);
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 150px;
+  &:hover{
+    .grid-item-data{
+      display: flex;
+      cursor: pointer;
+    }
+    overflow: hidden;
+  }
+}
+
+.grid-item-data{
+  display: none;
+  position: absolute;
+  padding: 20px;
+  a{
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    color: $main;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    div:first-child{
+      font-weight: bold;
+      font-size: 3em;
+      padding: 20px;
+    }
+    div:nth-child(2){
+      font-size: 2em;
+      padding: 20px;
+    }
+  }
+
+  width: 100%;
+  height: 100%;
+  //background: rgba(62, 197, 244, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+
+.why-auction{
+  height: unset;
+  min-height: calc(100vh - 60px);
+  >div{
+    position: static;
+  }
+}
+
+.cards-container{
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card{
+  margin-bottom: 35px;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  flex-direction: column;
+  img{
+    width: 200px;
+  }
+  h3{
+    text-align: center;
+    color: $second;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  p{
+    color: #094d6e;
+    padding: 5px 50px 10px 50px;
+    text-align: center;
+    font-size: 1.3em;
+  }
+}
+
+@media all and (max-width: 1260px) {
+  .last-lot-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .grid-main{
+      .grid-column{
+        width: 25%;
+        &:nth-child(5){
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 1215px){
+  .image-container{
+    width: 200px;
+    height: 200px;
+  }
+
+  .content-section.third .content-container {
+    padding: 0 30px;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .main-content{
+    //display: flex;
+    padding-top: 60px;
+    min-height: calc(100% - 60px);
+    >section>div[class$="container"]{
+      width: 100%
+    }
+  }
+
+  .top-section .background-video video {
+    margin-left: -80px;
+  }
+}
+
+
+
+@media all and (max-width: 1000px) {
+  .last-lot-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .grid-main{
+      .grid-column{
+        width: 33%;
+        &:nth-child(4){
+          display: none;
+        }
+      }
+    }
+  }
+
+  .top-section .background-video video {
+    margin-left: -200px;
+  }
+  .why-auction .cards-container .card{
+    img{
+      width: 150px;
+    }
+    h3{
+      text-align: center;
+      color: $second;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 5px 0;
+
+    }
+    p{
+      color: #094d6e;
+      padding: 5px 20px 10px 20px;
+      text-align: center;
+      font-size: 1em;
+    }
+  }
+}
+
+
+@media all and (max-width: 900px){
+  .image-container{
+    width: 200px;
+    height: 200px;
+  }
+
+  .content-section.third .content-container {
+    flex-direction: column;
+    .our-team-card{
+      width: 100%;
+      &:nth-child(1){
+        order: 2;
+      }
+      &:nth-child(2){
+        order: 1;
+      }
+      &:nth-child(3){
+        order: 3;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 786px) {
+
+  .title-container{
+    padding: 10px 5px;
+    .section-title{
+      font-size: 2em;
+    }
+  }
+
+  .top-section .background-video video {
+    margin-left: -300px;
+  }
+
+
+  .last-lot-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .grid-main{
+      .grid-column{
+        width: 50%;
+        &:nth-child(3){
+          display: none;
+        }
+      }
+    }
+  }
+
+
+  .content-section.fourth>div{
+    .text-container{
+      h3{
+        font-size: 3em;
+      }
+      p{
+        font-size: 1.5em;
+      }
+      i{
+        font-size: 3em;
+      }
+      button{
+        font-size: 1.5em;
+      }
+    }
+
+  }
+
+}
+
+
+@media all and (max-width: 540px) {
+  .last-lot-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .grid-main{
+      .grid-column{
+        width: 100%;
+        &:nth-child(2){
+          display: none;
+        }
+      }
+    }
+  }
+
+  .why-auction .cards-container .card{
+    width: 100%;
+  }
+
+  .top-section .background-video video {
+    //height: 100%;
+    margin-left: -400px;
+  }
+}
+

@@ -1,0 +1,249 @@
+@import "constants";
+
+.new-lot-section{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+}
+
+.new-lot-container{
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 9px 0px #a6a6a6;
+  -moz-box-shadow: 0px 0px 9px 0px #a6a6a6;
+  box-shadow: 0px 0px 9px 0px #a6a6a6;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+}
+
+.new-lot-bottom{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 15px;
+  margin-top: 10px;
+  position: relative;
+  button{
+    height: 45px;
+    width: 150px;
+  }
+  span{
+    display: flex;
+    //position: absolute;
+    left: 0;
+    margin-right: 10px;
+    height: 100%;
+    align-items: center;
+  }
+}
+
+.new-lot-top{
+  display: flex;
+  width: 100%;
+  >div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    &:first-child{
+      border-right: 1px solid $second;
+    }
+    &:last-child{
+      border-left: 1px solid $second;
+      min-height: 500px;
+    }
+  }
+}
+
+
+.uploaded-photo-list{
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  max-height: 740px;
+  >div{
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    span{
+      color: black;
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 2em;
+      padding: 10px;
+      background: #ffffff8a;
+      cursor: pointer;
+    }
+    >img{
+      max-width: 100%;
+    }
+  }
+}
+
+.drag-drop-container{
+  position: relative;
+  border: 2px dashed $second;
+  width: 100%;
+  height: 100%;
+  &:hover{
+    cursor: pointer;
+    border-color: $main;
+  }
+}
+
+.placeholder.photos{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  input{
+    cursor: pointer;
+    position: absolute;
+    font-size: 15em;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
+
+.drag-drop-text{
+  display: flex;
+  flex-direction: column;
+  p{
+    text-align: center;
+    margin: 20px 0;
+    color: $second;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+}
+
+.new-lot-right{
+  overflow: hidden;
+}
+
+.form-input-container-row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input-container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 ;
+  color: $second;
+  input, textarea{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+  }
+  select{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+    background: white;
+  }
+  textarea{
+    resize: none;
+    height: 200px;
+    font-size: inherit;
+    font-family: inherit;
+  }
+  >label{
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+}
+
+.price-wrapper{
+  input{
+    padding-right: 30px;
+    width: 200px;
+    margin: 0;
+    font-size: 1em;
+    font-family: inherit;
+  }
+  margin: 5px 0;
+  position: relative;
+  &::before{
+    content: '$';
+    position: absolute;
+    left: 166px;
+    top: 0;
+    height: 100%;
+    width: 30px;
+    border-left: 1px solid #dfdfdf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.time-wrapper::before{
+    content: '\f017';
+  }
+  &.date-wrapper::before{
+    content: '\f073';
+  }
+}
+
+
+.required{
+  color: red;
+}
+
+@media all and (max-width: 1000px){
+  .form-input-container-row{
+    flex-direction: column;
+  }
+}
+
+@media all and (max-width: 786px){
+  .new-lot-section .new-lot-container{
+    margin: 0;
+    border: none;
+    border-radius: 0;
+  }
+  .new-lot-top{
+    flex-wrap: wrap;
+
+    >div{
+      width: 100%;
+      padding: 15px 0;
+      &:first-child{
+        padding-top: 0;
+        border-right: none;
+        border-bottom: 1px solid $second;
+      }
+      &:last-child{
+        border-left: none;
+        border-top: 1px solid $second;
+      }
+    }
+  }
+
+  .new-lot-bottom{
+    padding: 0;
+  }
+}
+
+
