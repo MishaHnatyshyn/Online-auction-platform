@@ -20,8 +20,9 @@ module.exports = {
     try {
       const { id } = req.body;
       const lot = await db.lot.getSingleLot(id);
+      const actualUserBid = await db.bid.getLastBidUser(id);
       if (!lot) return res.status(404).end();
-      res.json(lot);
+      res.json({ ...lot._doc, actualUserBid });
     } catch (e) {
       res.status(500).end();
     }
@@ -40,7 +41,7 @@ module.exports = {
       const lots = await db.lot.getLastLots();
       res.json(lots);
     } catch (e) {
-      console.log(e)
+      console.log(e);
       res.status(500).end();
     }
   },
@@ -72,7 +73,7 @@ module.exports = {
       const { docs, totalPages } = await db.lot.getFilteredLots(match, options);
       res.json({ lots: docs, pagesCount: totalPages });
     } catch (e) {
-      console.log(e)
+      console.log(e);
       res.status(500).end();
     }
   },

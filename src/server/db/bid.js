@@ -21,9 +21,9 @@ module.exports = {
     });
   }),
   getLastBidUser: lot => new Promise((resolve, reject) => {
-    Bid.findOne({ lot }).sort({ timestamp: 1 }).populate('user').exec((err, bid) => {
+    Bid.findOne({ lot }).sort({ timestamp: 1 }).exec((err, bid) => {
       if (err) return reject(err);
-      resolve(bid.user);
+      resolve(bid ? bid.user : null);
     });
   }),
 };

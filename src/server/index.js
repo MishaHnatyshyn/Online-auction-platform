@@ -7,6 +7,7 @@ const compression = require('compression');// library for gzip static data
 const cookieParser = require('cookie-parser');// cookie-parser library
 const passport = require('./auth');// authorization library
 const router = require('./routers/main');// main router
+const startSocketServer = require('./socket');// main router
 const {
   port, database, sessionSecret
 } = require('./config');
@@ -34,4 +35,8 @@ app.use(router)
 
 mongoose.connect(`mongodb://${user}:${password}@ds149596.mlab.com:49596/auction-webservice`, { useNewUrlParser: true });
 
-app.listen(port)
+const server = http.createServer(app);
+
+server.listen(port)
+
+startSocketServer(server);
