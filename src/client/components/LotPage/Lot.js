@@ -125,13 +125,12 @@ export default class Lot extends React.Component {
     const { bidInput, _id } = this.state;
     const { currUserId } = this.props;
     const sum = parseInt(bidInput)
-    console.log(sum)
-    console.log(this.socket)
     this.socket.emit('make a bid', {
       lot: _id,
       sum,
       user: currUserId
     });
+    this.setState({ bidInput: '' })
   };
 
   closeLot = () => {};

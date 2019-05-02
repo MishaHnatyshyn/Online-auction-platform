@@ -33,7 +33,10 @@ export default class CommentBox extends React.Component{
       lot: this.props._id
     }).then((res) => {
       const comments = this.state.comments;
-      this.setState({ comments: [{...res.data, user: {username: this.props.user}}].concat(comments)})
+      this.setState({
+        commentText: '',
+        comments: [{...res.data, user: {username: this.props.user}}].concat(comments)
+      })
     })
       .catch((err) => {})
   }
