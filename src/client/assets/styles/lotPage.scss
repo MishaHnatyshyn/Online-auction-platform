@@ -86,12 +86,41 @@
   }
 }
 
+.lot-result-container{
+  margin-top: 20px;
+  &.sold{
+    color: red;
+  }
+  &.sold-to-you{
+    color: #84da00;
+  }
+  &.finished{
+    color: grey;
+  }
+}
+
+.auction-result-status{
+  padding: 20px 30px;
+  display: inline-block;
+  font-size: 2em;
+  font-weight: bold;
+  border: 4px solid;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.lot-result-container-text{
+  margin-top: 15px;
+  font-size: 1.5em;
+}
+
 .lot-comments-input{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   position: relative;
   .prevent-comment{
+    text-align: center;
     position: absolute;
     display: flex;
     width: 100%;
@@ -146,10 +175,38 @@
   }
 }
 
+.quick-bid-list{
+  display: flex;
+}
+
+.quick-bid-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  background: $main;
+  border: 1px solid white;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1em;
+  &:first-child{
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+  &:last-child{
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  &:hover{
+    cursor: pointer;
+    background: $second;
+  }
+}
+
 
 .price-wrapper{
   .button-common{
-    margin: 0 10px;
+    margin: 0 0 0 10px;
   }
   input{
     padding: 10px 30px 10px 10px;
@@ -185,14 +242,30 @@
 
 .start-price, .current-price, .time-left{
   color: #094d6e;
-  font-size: 2em;
+  font-size: 1.5em;
   span{
     font-weight: bold;
   }
   margin: 15px 0;
 }
 
-@media all and (max-width: 700px){
+.your-bid-is-last{
+  padding: 10px;
+  background: greenyellow;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+
+.quick-bid-title{
+  text-transform: uppercase;
+  color: $second;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+@media all and (max-width: 750px){
   .lot-cont{
     >div{
       width: 100%;
@@ -207,10 +280,20 @@
       }
     }
   }
+  .quick-bid-box{
+    width: 20%;
+  }
+
+  .lot-description{
+    padding: 0;
+  }
   .lot-comments{
     padding: 0;
     h2{
       margin-left: 0;
     }
+  }
+  .start-price, .current-price, .time-left{
+    font-size: 1.3em;
   }
 }

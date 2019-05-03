@@ -24,7 +24,7 @@ export default function LotCard({
             <div className="lot-name">{name}</div>
             <div className="lot-summary">{displayedDescription}</div>
             <span className="lot-price">
-              {startPrice}
+              {currPrice || startPrice}
               {' '}
             $
             </span>

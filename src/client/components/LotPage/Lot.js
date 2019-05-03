@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import io from "socket.io-client";
 import CommentBox from "./CommentBox";
+import BiddingContainer from "./BiddingContainer";
+import AuctionResults from "./AuctionResults";
 import Loader from "../Loader/Loader";
 
 export default class Lot extends React.Component {
@@ -17,20 +19,11 @@ export default class Lot extends React.Component {
       photos: [],
       timestamp: '',
       activePhotoIndex: 0,
-      comments: [],
       endDate: '',
-      timeLeft: '',
+      byNowPrice: 500,
       actualUserBid: null,
-      bidInput: '',
+      quickBidsArray: []
     };
-    this.bidIntervals = {
-      10: 1,
-      100: 10,
-      1000: 100,
-      10000: 1000,
-      100000: 10000
-    }
-    this.interval = null;
     this.socket = null;
   }
 
@@ -43,13 +36,22 @@ export default class Lot extends React.Component {
 
   componentWillUnmount() {
     this.leaveLotRoom();
-    this.deleteTimer();
   }
 
-  handleBidInputChange = (e) => {
-    const { value } = e.target;
-    if (!value.match(/^[0-9]*$/) || value[0] === '0') return;
-    this.setState({ bidInput: value })
+  getQuickBidStep = () => {
+    const { currPrice } = this.state;
+    if (currPrice < 100) return 5;
+    if (currPrice < 1000) return 50;
+    if (currPrice < 5000) return 250;
+    if (currPrice < 10000) return 500
+    return 1000;
+  }
+
+  updateQuickBids = () => {
+    const { currPrice } = this.state;
+    const bidStep = this.getQuickBidStep();
+    const quickBidsArray = [...new Array(5)].map((_, i) => (bidStep * (i + 1)) + currPrice);
+    this.setState({ quickBidsArray })
   }
 
   leaveLotRoom = () => {
@@ -63,54 +65,26 @@ export default class Lot extends React.Component {
   initSocketListeners = () => {
     this.socket.on('price update', this.handlePriceUpdate);
     this.socket.on('bid failure', this.handleBidFailure);
+    this.socket.on('lot closed', this.handleLotClosing);
   }
 
   handlePriceUpdate = ({ price, user }) => {
-    this.setState({ currPrice: price, actualUserBid: user })
+    this.setState({ currPrice: price, actualUserBid: user }, this.updateQuickBids)
   };
 
   handleBidFailure = ({ price }) => {
 
   };
 
-  deleteTimer = () => {
-    clearInterval(this.interval)
-  };
-
-  timeToString = (time) => {
-    let seconds = Math.floor(time/1000);
-    const days = Math.floor(seconds / (3600*24));
-    seconds -= days*3600*24;
-    const hrs = Math.floor(seconds / 3600);
-    seconds  -= hrs*3600;
-    const mnts = Math.floor(seconds / 60);
-    seconds -= mnts*60;
-    const dDisplay = days + (days === 1 ? " day, " : " days, ");
-    const hDisplay = hrs + (hrs === 1 ? " hour, " : " hours, ");
-    const mDisplay = mnts + (mnts === 1 ? " minute, " : " minutes, ");
-    const sDisplay = seconds + (seconds === 1 ? " second" : " seconds");
-    return dDisplay + hDisplay + mDisplay + sDisplay;
-  }
-
-  calculateTimeToEnd = () => {
-    const time = Date.parse(this.state.endDate) - Date.now();
-    if (time < 0) return this.deleteTimer();
-    const timeString = this.timeToString(time)
-    this.setState({ timeLeft: timeString})
-  }
-
-  startCountTimerBack = () => {
-    if (Date.parse(this.state.endDate) - Date.now() < 0) return this.setState({ closed: true })
-    this.calculateTimeToEnd();
-    this.interval = setInterval(this.calculateTimeToEnd, 1000)
+  handleLotClosing = () => {
+    this.setState({ closed: true})
   }
 
   fetchLotData = (id) => {
     axios.post('/api/lot/data', {
       id
     }).then((res) => {
-      this.setState({...res.data, currPrice: res.data.currPrice || res.data.startPrice})
-      this.startCountTimerBack();
+      this.setState({...res.data, currPrice: res.data.currPrice || res.data.startPrice}, this.updateQuickBids)
       this.joinToLotRoom();
     })
   }
@@ -119,12 +93,11 @@ export default class Lot extends React.Component {
     this.setState({ activePhotoIndex: index })
   }
 
-  getQuickBidInterval = () => {}
-
-  makeBid = () => {
-    const { bidInput, _id } = this.state;
+  makeBid = (bid) => {
+    const { _id } = this.state;
     const { currUserId } = this.props;
-    const sum = parseInt(bidInput)
+    if (!currUserId) return this.loginError();
+    const sum = parseInt(bid)
     this.socket.emit('make a bid', {
       lot: _id,
       sum,
@@ -133,7 +106,22 @@ export default class Lot extends React.Component {
     this.setState({ bidInput: '' })
   };
 
+  loginError = () => {
+    this.props.openLoginPopup()
+  }
+
   closeLot = () => {};
+
+  buyNow = () => {
+    const { _id, byNowPrice } = this.state;
+    const { currUserId } = this.props;
+    if (!currUserId) return this.loginError();
+    this.socket.emit('make a bid', {
+      lot: _id,
+      sum: byNowPrice,
+      user: currUserId
+    });
+  };
 
   render() {
     const {
@@ -143,13 +131,13 @@ export default class Lot extends React.Component {
       currPrice,
       photos,
       timestamp,
-      comments,
       activePhotoIndex,
       _id,
       endDate,
-      timeLeft,
       actualUserBid,
-      bidInput
+      byNowPrice,
+      closed,
+      quickBidsArray
     } = this.state;
     const { currUserId } = this.props;
     return (
@@ -175,17 +163,20 @@ export default class Lot extends React.Component {
           <div className="lot-description">
             <h1 className="lot-title">{name}</h1>
             <p className="lot-description-text">{description}</p>
+            <p className="lot-date">Start price: <span>{startPrice}$</span></p>
             <p className="lot-date">Posted: {new Date(timestamp).toDateString()}</p>
-            <div className="start-price">Start price: <span>{startPrice}$</span></div>
-            <div className="current-price">Current price: <span>{currPrice}$</span>
-              {currUserId && currUserId === actualUserBid ? 'Your bid is last' : ''}</div>
-            <div className="make-bid-container">
-              <div className="price-wrapper">
-                <input type="text" name="price" autoComplete="off" id="price" className="price" value={bidInput} onChange={this.handleBidInputChange}/>
-                <button className="button-common" disabled={!currUserId} onClick={this.makeBid}>Make bid</button>
-              </div>
-            </div>
-            <div className="time-left">Time left: <br/><span>{timeLeft}</span></div>
+            <AuctionResults {...{closed, actualUserBid, currUserId, currPrice}}/>
+            {
+              !closed && _id
+              ? <BiddingContainer
+                {...{currUserId, actualUserBid, currPrice, byNowPrice, endDate, quickBidsArray}}
+                close={this.closeLot}
+                makeBid={this.makeBid}
+                buyNow={this.buyNow}
+              />
+              : null
+            }
+
           </div>
           {_id ? <CommentBox _id={this.state._id} user={this.props.user}/> : null}
         </div>

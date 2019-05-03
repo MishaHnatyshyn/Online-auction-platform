@@ -155,7 +155,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lot</title>
               </Helmet>
-              <LazyLot match={match} user={user.username} currUserId={user._id}/>
+              <LazyLot match={match} user={user.username} currUserId={user._id} openLoginPopup={this.toggleLoginPopup}/>
             </Suspense>
           )}/>
 
