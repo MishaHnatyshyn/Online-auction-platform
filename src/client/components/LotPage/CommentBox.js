@@ -23,7 +23,7 @@ export default class CommentBox extends React.Component{
       lot: this.props._id
     }).then((res) => {
       this.page++;
-      this.setState({ comments: res.data, commentsAvailable: res.data.length > 0 })
+      this.setState((prevState) => ({ comments: prevState.comments.concat(res.data), commentsAvailable: res.data.length > 0 }))
     })
   }
 
@@ -60,7 +60,7 @@ export default class CommentBox extends React.Component{
         </div>
         <div className="lot-comments-list">
           {comments.map((comment, index) => <CommentContainer key={index} {...comment}/>)}
-          {commentsAvailable && comments.length > 9 ? <div className="pointer" onClick={this.fetchComments}>Load more...</div> : null}
+          {commentsAvailable && comments.length > 9 ? <div className="load-more-comments" onClick={this.fetchComments}>Load more...</div> : null}
         </div>
       </div>
     )

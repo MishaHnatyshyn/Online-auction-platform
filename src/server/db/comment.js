@@ -9,7 +9,9 @@ module.exports = {
     });
   }),
   getTenComments: (lot, page) => new Promise((resolve, reject) => {
-    Comment.paginate({ lot }, { page, limit: 10, populate: 'user' }).then((comments) => {
+    Comment.paginate({ lot }, {
+      page, limit: 10, populate: 'user', sort: { _id: -1 }
+    }).then((comments) => {
       resolve(comments.docs);
     }).catch(err => reject(err));
   }),

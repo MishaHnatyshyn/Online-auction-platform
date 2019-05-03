@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import CommentBox from "./CommentBox";
 import BiddingContainer from "./BiddingContainer";
 import AuctionResults from "./AuctionResults";
+import PhotoContainer from "./PhotoContainer";
 import Loader from "../Loader/Loader";
 
 export default class Lot extends React.Component {
@@ -18,7 +19,6 @@ export default class Lot extends React.Component {
       currPrice: 0,
       photos: [],
       timestamp: '',
-      activePhotoIndex: 0,
       endDate: '',
       byNowPrice: 500,
       actualUserBid: null,
@@ -66,10 +66,15 @@ export default class Lot extends React.Component {
     this.socket.on('price update', this.handlePriceUpdate);
     this.socket.on('bid failure', this.handleBidFailure);
     this.socket.on('lot closed', this.handleLotClosing);
+    this.socket.on('close lot', this.handleBuyNow);
   }
 
   handlePriceUpdate = ({ price, user }) => {
     this.setState({ currPrice: price, actualUserBid: user }, this.updateQuickBids)
+  };
+
+  handleBuyNow = ({ price, user }) => {
+    this.setState({ currPrice: price, actualUserBid: user, closed: true })
   };
 
   handleBidFailure = ({ price }) => {
@@ -89,15 +94,12 @@ export default class Lot extends React.Component {
     })
   }
 
-  changePhoto = (index) => {
-    this.setState({ activePhotoIndex: index })
-  }
-
   makeBid = (bid) => {
-    const { _id } = this.state;
+    const { _id, currPrice } = this.state;
     const { currUserId } = this.props;
     if (!currUserId) return this.loginError();
     const sum = parseInt(bid)
+    if (sum <= currPrice) return;
     this.socket.emit('make a bid', {
       lot: _id,
       sum,
@@ -110,7 +112,12 @@ export default class Lot extends React.Component {
     this.props.openLoginPopup()
   }
 
-  closeLot = () => {};
+  closeLot = () => {
+    this.setState({ closed: true })
+    axios.post('/api/lot/close', {
+      lot: this.state._id
+    }).catch((err) => {})
+  };
 
   buyNow = () => {
     const { _id, byNowPrice } = this.state;
@@ -131,7 +138,6 @@ export default class Lot extends React.Component {
       currPrice,
       photos,
       timestamp,
-      activePhotoIndex,
       _id,
       endDate,
       actualUserBid,
@@ -144,22 +150,7 @@ export default class Lot extends React.Component {
       <section className="lot-section">
         {!name ? <Loader/> : null}
         <div className="lot-cont">
-          <div className="lot-photos">
-            <div className="lot-main-photo">
-              <img src={photos[activePhotoIndex]} alt="lot image"/>
-            </div>
-            <div className="lot-photo-list">
-              {photos.map((photo, index) => (
-                <img
-                  key={index}
-                  src={photo}
-                  className={index === activePhotoIndex ? 'active' : ''}
-                  onClick={this.changePhoto.bind(this, index)}
-                  alt="lot-photo-little"
-                />
-              ))}
-            </div>
-          </div>
+          <PhotoContainer photos={photos}/>
           <div className="lot-description">
             <h1 className="lot-title">{name}</h1>
             <p className="lot-description-text">{description}</p>

@@ -28,6 +28,13 @@ body{
   &:hover{
     background: $second;
   }
+  &:disabled{
+    background: grey;
+    &:hover{
+      cursor: default;
+      background: grey;
+    }
+  }
 }
 
 @-webkit-keyframes mover {

@@ -6,7 +6,8 @@ export default class BiddingContainer extends React.Component{
     super(props);
     this.state = {
       timeLeft: '',
-      bidInput: ''
+      bidInput: '',
+      makeBidDisabled: true
     }
     this.interval = null;
   }
@@ -31,10 +32,10 @@ export default class BiddingContainer extends React.Component{
     seconds  -= hrs*3600;
     const mnts = Math.floor(seconds / 60);
     seconds -= mnts*60;
-    const dDisplay = days + 'd ' //(days === 1 ? " day, " : " days, ");
-    const hDisplay = hrs + 'h ' //(hrs === 1 ? " hour, " : " hours, ");
-    const mDisplay = mnts + 'm ' //(mnts === 1 ? " minute, " : " minutes, ");
-    const sDisplay = seconds + 's ' //(seconds === 1 ? " second" : " seconds");
+    const dDisplay = days ? days + 'd ' : '';
+    const hDisplay = hrs + 'h ';
+    const mDisplay = mnts + 'm ';
+    const sDisplay = seconds + 's ';
     return dDisplay + hDisplay + mDisplay + sDisplay;
   }
 
@@ -54,19 +55,11 @@ export default class BiddingContainer extends React.Component{
     this.interval = setInterval(this.calculateTimeToEnd, 1000)
   }
 
-  getQuickBidStep = () => {
-    const { currPrice } = this.props;
-    if (currPrice < 100) return 5;
-    if (currPrice < 1000) return 50;
-    if (currPrice < 5000) return 250;
-    if (currPrice < 10000) return 500
-    return 1000;
-  }
-
   handleBidInputChange = (e) => {
     const { value } = e.target;
+    const { currPrice } = this.props;
     if (!value.match(/^[0-9]*$/) || value[0] === '0') return;
-    this.setState({ bidInput: value })
+    this.setState({ bidInput: value, makeBidDisabled: parseInt(value) <= currPrice })
   }
 
   makeBid = () => {
@@ -79,7 +72,7 @@ export default class BiddingContainer extends React.Component{
   }
 
   render() {
-    const { timeLeft, bidInput} = this.state;
+    const { timeLeft, bidInput, makeBidDisabled} = this.state;
     const { currUserId, actualUserBid, currPrice, byNowPrice, quickBidsArray } = this.props;
     const yourBidIsLast = currUserId && currUserId === actualUserBid;
     return(
@@ -92,7 +85,7 @@ export default class BiddingContainer extends React.Component{
           <div className="quick-bid-container">
             <div className="quick-bid-title">Quick bid</div>
             <div className="quick-bid-list">
-              {quickBidsArray.map(bid => <div className="quick-bid-box" onClick={this.quickBid(bid)}>{bid}</div>)}
+              {quickBidsArray.map(bid => <div key={bid} className="quick-bid-box" onClick={this.quickBid(bid)}>{bid}</div>)}
             </div>
           </div>
 
@@ -100,16 +93,16 @@ export default class BiddingContainer extends React.Component{
             <div className="quick-bid-title">Custom bid</div>
             <div className="price-wrapper">
               <input type="text" name="price" autoComplete="off" id="price" className="price" value={bidInput} onChange={this.handleBidInputChange}/>
-              <button className="button-common" onClick={this.makeBid}>Make bid</button>
+              <button className="button-common" onClick={this.makeBid} disabled={makeBidDisabled}>Make bid</button>
             </div>
           </div>
 
-          {byNowPrice || true ? (
+          {byNowPrice? (
             <div className="make-bid-container">
               <div className="quick-bid-title">Buy now</div>
               <div className="price-wrapper">
-                <input type="text" name="price" autoComplete="off" id="price" className="price" value={byNowPrice || 1000} readOnly={true}/>
-                <button className="button-common" disabled={!currUserId} onClick={this.props.buyNow}>Buy now</button>
+                <input type="text" name="price" autoComplete="off" id="price" className="price" value={byNowPrice} readOnly={true}/>
+                <button className="button-common" onClick={this.props.buyNow}>Buy now</button>
               </div>
             </div>
           ) : null}

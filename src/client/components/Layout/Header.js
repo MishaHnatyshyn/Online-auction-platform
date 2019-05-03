@@ -123,7 +123,7 @@ Log out
                     <li><NavLink to="/terms" activeclassname="active">Terms of use</NavLink></li>
                     <li><NavLink to="/rules" activeclassname="active">Rules</NavLink></li>
                   </ul>
-                  <div className="main-menu-buttons">
+                  <div className="main-menu-buttons" onClick={this.toggleMobileMenu}>
                     {username
                       ? (
                         <button type="button"  className="dark" onClick={this.props.logout}>
