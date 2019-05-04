@@ -52,6 +52,32 @@ body{
   animation: mover 0.5s infinite  alternate;
 }
 
+.text-boxes-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+  height: calc(100% - 88px);
+  color: white;
+  font-weight: bold;
+  p{
+    line-height: 27px;
+    text-indent: 40px;
+    box-shadow: 0 0 7px 0 $second;
+    padding: 10px;
+    background: $main;
+    font-size: 1.2em;
+    margin: 10px 0;
+    &.mobile-text{
+      display: none;
+    }
+    width: 80%;
+    &:nth-child(2n){
+      align-self: flex-end;
+    }
+  }
+}
+
 .content-section.third{
   height: unset;
   //min-height: calc(100vh - 66px);
@@ -224,6 +250,7 @@ body{
     background-size: cover;
     background-position: 10% 100%;
     position: relative;
+    min-height: 750px;
     &:before{
       content: '';
       width: 100%;
@@ -434,6 +461,10 @@ body{
   .top-section .background-video video {
     margin-left: -80px;
   }
+
+  .text-boxes-container p{
+    font-size: 1em;
+  }
 }
 
 
@@ -476,6 +507,10 @@ body{
       font-size: 1em;
     }
   }
+
+  .text-boxes-container p{
+    width: 90%;
+  }
 }
 
 
@@ -484,6 +519,7 @@ body{
     width: 200px;
     height: 200px;
   }
+
 
   .content-section.third .content-container {
     flex-direction: column;
@@ -500,6 +536,17 @@ body{
       }
     }
   }
+  .text-boxes-container{
+    justify-content: space-around;
+    p{
+      &.mobile-text{
+        display: flex;
+      }
+      &.desktop-text{
+        display: none;
+      }
+    }
+  }
 }
 
 @media all and (max-width: 786px) {
@@ -509,6 +556,10 @@ body{
     .section-title{
       font-size: 2em;
     }
+  }
+
+  .text-boxes-container{
+    height: calc(100% - 52px);
   }
 
   .top-section .background-video video {
@@ -549,6 +600,17 @@ body{
 
   }
 
+  .text-boxes-container p{
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 665px) {
+  .text-boxes-container p{
+    &:last-child{
+      display: none;
+    }
+  }
 }
 
 
@@ -577,3 +639,10 @@ body{
   }
 }
 
+@media all and (max-width: 500px) {
+  .text-boxes-container p{
+    &:nth-child(3){
+      display: none;
+    }
+  }
+}

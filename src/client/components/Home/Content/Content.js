@@ -4,13 +4,13 @@ import SecondSection from './SecondSection';
 import ThirdSection from './ThirdSection';
 import FourthSection from './FourthSection';
 
-export default function Content() {
+export default function Content({ history }) {
   return (
     <React.Fragment>
       <FirstSection />
       <SecondSection />
       <ThirdSection />
-      <FourthSection />
+      <FourthSection history={history}/>
     </React.Fragment>
   );
 }

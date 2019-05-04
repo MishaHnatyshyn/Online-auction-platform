@@ -96,12 +96,12 @@ export default class App extends React.Component {
         {showBugReportPopup ? <BugReport close={this.toggleBugReportPopup}/> : null}
         <main className="main-content">
         <Switch>
-          <Route exact path="/" render={() => (
+          <Route exact path="/" render={({ history }) => (
             <Suspense fallback={<Loader/>}>
               <Helmet>
                 <title>Auction</title>
               </Helmet>
-              <LazyHome />
+              <LazyHome history={history}/>
             </Suspense>
           )}/>
 
