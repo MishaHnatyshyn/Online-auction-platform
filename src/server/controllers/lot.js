@@ -55,7 +55,8 @@ module.exports = {
         selectedDeliveryMethods,
         category,
         sortBy,
-        page
+        page,
+        name
       } = req.body;
       const match = { };
       const options = { page, limit: 9 };
@@ -66,6 +67,7 @@ module.exports = {
         match.delivery = { $in: selectedDeliveryMethods };
       }
       if (category) match.category = category;
+      if (name) match.name = new RegExp(name, 'ig');
       if (priceFrom && priceTo) match.startPrice = { $gte: priceFrom, $lte: priceTo };
       else if (priceFrom) match.startPrice = { $gte: priceFrom };
       else if (priceTo) match.startPrice = { $lte: priceTo };

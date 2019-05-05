@@ -29,6 +29,7 @@ export default class Lots extends React.Component {
       priceFrom: 0,
       priceTo: 0,
       activePage: 1,
+      name: '',
       availablePaymentMethods: [],
       selectedPaymentMethods: [],
       availableDeliveryMethods: [],
@@ -47,10 +48,20 @@ export default class Lots extends React.Component {
       nameAZ: { name: 1 },
       nameZA: { name: -1 },
     }
+    this.requestTimeout = null;
+  }
+
+  delayRequest = () => {
+    this.clearPrevRequestDelay()
+    this.requestTimeout = setTimeout(this.updateVisibleLots, 400)
+  }
+
+  clearPrevRequestDelay = () => {
+    clearTimeout(this.requestTimeout)
   }
 
   fetchAllLots = () => {
-    axios.get('/api/lots/data').then((res) => {
+    return axios.get('/api/lots/data').then((res) => {
       const { lots, pagesCount } = res.data;
       const payments = [...new Set(...lots.map(_ => _.payment))];
       const deliveries = [...new Set(...lots.map(_ => _.delivery))];
@@ -64,7 +75,14 @@ export default class Lots extends React.Component {
   }
 
   componentDidMount = () => {
-    this.fetchAllLots();
+    const { category } = this.props;
+    if (category) {
+      this.setState({ category: category.replace(/-/g, ' ') }, () => {
+        this.fetchAllLots().then(() => this.fetchPage())
+      })
+
+    }
+    else this.fetchAllLots()
   }
 
   changeSortFunc = (e) => {
@@ -79,7 +97,8 @@ export default class Lots extends React.Component {
       selectedPaymentMethods,
       selectedDeliveryMethods,
       category,
-      sortBy
+      sortBy,
+      name
     } = this.state;
     axios.post('/api/lots/filter',{
       priceFrom,
@@ -88,6 +107,7 @@ export default class Lots extends React.Component {
       selectedDeliveryMethods,
       category,
       sortBy,
+      name,
       page
     }).then((res) => {
       const { lots, pagesCount } = res.data;
@@ -107,7 +127,7 @@ export default class Lots extends React.Component {
     e.preventDefault()
     const { name, value } = e.target;
     if (!value.match(/^[0-9]*$/) || value[0] === '0') return;
-    this.setState({ [name]: value }, this.updateVisibleLots)
+    this.setState({ [name]: value }, this.delayRequest)
   }
 
   changeActivePage = (page) => {
@@ -139,6 +159,10 @@ export default class Lots extends React.Component {
     this.setState((prevState) => ({ displayFilters: !prevState.displayFilters }))
   }
 
+  changeName = (e) => {
+    this.setState({ name: e.target.value }, this.delayRequest)
+  }
+
   render() {
     const {
       lots,
@@ -152,7 +176,8 @@ export default class Lots extends React.Component {
       priceTo,
       visibleLots,
       category,
-      displayFilters
+      displayFilters,
+      name
     } = this.state;
 
     return (
@@ -215,6 +240,11 @@ export default class Lots extends React.Component {
                   </div>
                   <div>
                     <RadioButton id="nameZA" value="nameZA" name="sort" label="From Z to A" handler={this.changeSortFunc}/>
+                  </div>
+                </div>
+                <div className="price-range name-contains">
+                  <div>
+                    <input type="text" placeholder="Match" id="name-contains" name="name-contains" value={name} onChange={this.changeName}/>
                   </div>
                 </div>
               </div>

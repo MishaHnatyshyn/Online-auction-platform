@@ -7,6 +7,12 @@ module.exports = {
       resolve(lot);
     });
   }),
+  findForSearch: (name, count) => new Promise((resolve, reject) => {
+    Lot.find({ name: new RegExp(name, 'ig') }).limit(count).exec((err, lots) => {
+      if (err) return reject(err);
+      resolve(lots);
+    });
+  }),
   setCurrPrice: (lot, sum) => new Promise((resolve, reject) => {
     Lot.findById(lot).exec((err, lot) => {
       if (err) return reject(err);

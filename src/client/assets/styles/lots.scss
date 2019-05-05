@@ -225,6 +225,12 @@
   }
 }
 
+.name-contains{
+  width: 100%;
+  div input{
+    width: 100%;
+  }
+}
 @media all and (max-width: 1050px){
   .lot-photo{
     height: 40%;

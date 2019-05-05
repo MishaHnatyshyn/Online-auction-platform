@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from './logo.png';
+import SiteSearch from './SiteSearch';
 
 export default class Header extends React.Component {
   constructor(props){
@@ -32,7 +33,7 @@ export default class Header extends React.Component {
                 Create Lot
                 </NavLink>
               </li>
-              <li><NavLink to="/lots" activeclassname="active">Lots</NavLink></li>
+              <li><NavLink to="/lots/Drinks" activeclassname="active">Lots</NavLink></li>
               <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
               <li className="drop-down">
                 <div>
@@ -47,10 +48,7 @@ export default class Header extends React.Component {
             </ul>
           </div>
           <div className="header-right">
-            <div className="search">
-              <input type="text" placeholder="Search on site..." name="search" />
-              <i className="fas fa-search" />
-            </div>
+            <SiteSearch/>
             {username
               ? (
                 <div className="user-data-container drop-down">

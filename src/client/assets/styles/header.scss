@@ -151,11 +151,14 @@
 
 
 .search{
+  display: flex;
+  height: 100%;
+  align-items: center;
   position: relative;
   i{
     position: absolute;
     right: 12px;
-    top: 8px;
+    top: 20px;
     color: #dfdfdf;
     font-size: 20px;
   }
@@ -186,7 +189,71 @@
       color: white;
     }
   }
+}
 
+.site-search-drop-down{
+  position: absolute;
+  background: white;
+  top: 60px;
+  width: 423px;
+  box-shadow: 0 3px 11px 0 #a0a0a0;
+}
+
+.search-item{
+  display: flex;
+  height: 60px;
+  padding: 5px 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 1px;
+  color: #094d6e;
+  &.no-items{
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    &:hover{
+      cursor: default;
+      border-color: transparent;
+    }
+  }
+  a{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: $second;
+  }
+  .search-photo{
+    height: 100%;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+      max-width: 50px;
+      max-height: 50px;
+    }
+  }
+  .search-data{
+    h3{
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    p, h3{
+      width: 300px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &:hover{
+    cursor: pointer;
+    border-color: $main;
+    background: rgba(238, 238, 238, 0.25);
+  }
 }
 
 .main-menu-buttons{

@@ -110,7 +110,16 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lots</title>
               </Helmet>
-              <LazyLots />
+              <LazyLots/>
+            </Suspense>
+          )}/>
+
+          <Route exact path="/lots/:category" render={({ match }) => (
+            <Suspense fallback={<Loader/>}>
+              <Helmet>
+                <title>Lots</title>
+              </Helmet>
+              <LazyLots category={match.params.category}/>
             </Suspense>
           )}/>
 
