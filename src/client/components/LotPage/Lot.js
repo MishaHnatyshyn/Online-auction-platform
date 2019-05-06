@@ -150,7 +150,7 @@ export default class Lot extends React.Component {
       <section className="lot-section">
         {!name ? <Loader/> : null}
         <div className="lot-cont">
-          <PhotoContainer photos={photos}/>
+          <PhotoContainer photos={photos} _id={_id}/>
           <div className="lot-description">
             <h1 className="lot-title">{name}</h1>
             <p className="lot-description-text">{description}</p>

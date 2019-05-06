@@ -38,7 +38,7 @@ module.exports = {
       const formattedLots = lots.map(lot => ({
         name: lot.name,
         description: lot.description,
-        image: lot.photos[0],
+        image: `/${lot._id}/${lot.photos[0]}`,
         link: `/lot/${lot._id}`
       }));
       res.json(result.concat(formattedLots));

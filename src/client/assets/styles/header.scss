@@ -1,4 +1,5 @@
 @import "constants";
+@import "mixins";
 
 .main-header{
   user-select: none;
@@ -192,7 +193,8 @@
 }
 
 .site-search-drop-down{
-  position: absolute;
+  position: fixed;
+  right: 0;
   background: white;
   top: 60px;
   width: 423px;
@@ -240,9 +242,7 @@
     }
     p, h3{
       width: 300px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+      @include text-overflow;
     }
     height: 100%;
     display: flex;
@@ -359,6 +359,10 @@
   margin-left: 30px;
   max-width: 150px;
   text-overflow: ellipsis;
+  span{
+    max-width: 100px;
+    @include text-overflow;
+  }
   &:hover{
     cursor: pointer;
     color: #3ec5f4;

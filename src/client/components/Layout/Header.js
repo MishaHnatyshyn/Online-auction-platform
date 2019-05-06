@@ -52,7 +52,7 @@ export default class Header extends React.Component {
             {username
               ? (
                 <div className="user-data-container drop-down">
-                  {username}
+                  <span>{username}</span>
                   <i className="fas fa-angle-down" />
                   <ul className="drop-down-list">
                     <li onClick={this.props.logout}>

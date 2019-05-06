@@ -33,7 +33,7 @@ export default class PhotoContainer extends React.Component{
   }
 
   render() {
-    const { photos } = this.props;
+    const { photos, _id } = this.props;
     const { activePhoto } = this.state;
     const displayPrev = !!photos[activePhoto - 1];
     const displayNext = !!photos[activePhoto + 1];
@@ -42,15 +42,15 @@ export default class PhotoContainer extends React.Component{
         <div className="lot-main-photo">
           {displayPrev ? <PrevArrow onClick={this.selectPrev}/> : null}
           {displayNext ? <NextArrow onClick={this.selectNext}/> : null}
-          <img src={photos[activePhoto]} alt="lot image"/>
+          <img src={`/${_id}/${photos[activePhoto]}`} alt="lot image"/>
         </div>
         <div className="lot-photo-list">
           {photos.map((photo, index) => (
             <img
               key={index}
-              src={photo}
+              src={`/${_id}/${photo}`}
               className={index === activePhoto ? 'active' : ''}
-              onClick={this.changePhotoIndex.bind(this, index)}
+              onClick={this.changePhotoIndex.bind(this,  index)}
               alt="lot-photo-little"
             />
           ))}

@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-
 import LotCard from './LotCard';
 import Pagination from "./Pagination";
-import LotsData from "../StaticData";
+
+const availablePaymentMethods = ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'];
+const availableDeliveryMethods = ['Post office', 'Personal meeting', 'Courier', 'Other'];
 
 const CheckBox = ({id, name, checked, handler, label, value}) => (
   <label className="check-box-container">
@@ -30,9 +31,7 @@ export default class Lots extends React.Component {
       priceTo: 0,
       activePage: 1,
       name: '',
-      availablePaymentMethods: [],
       selectedPaymentMethods: [],
-      availableDeliveryMethods: [],
       selectedDeliveryMethods: [],
       pagesCount: 0,
       visibleLots: [],
@@ -60,29 +59,13 @@ export default class Lots extends React.Component {
     clearTimeout(this.requestTimeout)
   }
 
-  fetchAllLots = () => {
-    return axios.get('/api/lots/data').then((res) => {
-      const { lots, pagesCount } = res.data;
-      const payments = [...new Set(...lots.map(_ => _.payment))];
-      const deliveries = [...new Set(...lots.map(_ => _.delivery))];
-      this.setState({
-        lots,
-        pagesCount,
-        availablePaymentMethods: payments,
-        availableDeliveryMethods: deliveries,
-      })
-    }).catch((err) => {})
-  }
-
   componentDidMount = () => {
     const { category } = this.props;
     if (category) {
-      this.setState({ category: category.replace(/-/g, ' ') }, () => {
-        this.fetchAllLots().then(() => this.fetchPage())
-      })
+      this.setState({ category: category.replace(/-/g, ' ') }, this.fetchPage)
 
     }
-    else this.fetchAllLots()
+    else this.fetchPage()
   }
 
   changeSortFunc = (e) => {
@@ -167,14 +150,11 @@ export default class Lots extends React.Component {
     const {
       lots,
       activePage,
-      availablePaymentMethods,
       selectedPaymentMethods,
-      availableDeliveryMethods,
       selectedDeliveryMethods,
       pagesCount,
       priceFrom,
       priceTo,
-      visibleLots,
       category,
       displayFilters,
       name

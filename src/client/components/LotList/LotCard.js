@@ -18,10 +18,10 @@ export default function LotCard({
         <div className="lot-card-content">
           {isNew ? <span className="new">NEW!</span> : null}
           <div className="lot-photo">
-            <img src={photos[0]} alt={name} />
+            <img src={`/${_id}/${photos[0]}`} alt={name} />
           </div>
           <div className="lot-short-data">
-            <div className="lot-name">{name}</div>
+            <div className="lot-name" title={name}>{name}</div>
             <div className="lot-summary">{displayedDescription}</div>
             <span className="lot-price">
               {currPrice || startPrice}

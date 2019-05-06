@@ -1,4 +1,5 @@
 @import "constants";
+@import "mixins";
 
 .lots-section{
   width: 100%;
@@ -197,6 +198,7 @@
 }
 
 .lot-name{
+  @include text-overflow;
   color: $second;
   font-size: 1.4em;
   font-weight: bold;
