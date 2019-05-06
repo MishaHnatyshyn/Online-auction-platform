@@ -33,7 +33,7 @@ export default class Header extends React.Component {
                 Create Lot
                 </NavLink>
               </li>
-              <li><NavLink to="/lots/Drinks" activeclassname="active">Lots</NavLink></li>
+              <li><NavLink to="/lots" activeclassname="active">Lots</NavLink></li>
               <li><NavLink to="/contacts" activeclassname="active">Contacts</NavLink></li>
               <li className="drop-down">
                 <div>

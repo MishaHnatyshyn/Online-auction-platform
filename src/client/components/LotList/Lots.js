@@ -37,7 +37,8 @@ export default class Lots extends React.Component {
       visibleLots: [],
       category: '',
       sortBy: null,
-      displayFilters: false
+      displayFilters: false,
+      searchAmong: 'active'
     };
     this.sortFuncs = {
       dateAZ: { timestamp: 1 },
@@ -81,7 +82,8 @@ export default class Lots extends React.Component {
       selectedDeliveryMethods,
       category,
       sortBy,
-      name
+      name,
+      searchAmong
     } = this.state;
     axios.post('/api/lots/filter',{
       priceFrom,
@@ -91,7 +93,8 @@ export default class Lots extends React.Component {
       category,
       sortBy,
       name,
-      page
+      page,
+      searchAmong
     }).then((res) => {
       const { lots, pagesCount } = res.data;
       this.setState({
@@ -146,6 +149,10 @@ export default class Lots extends React.Component {
     this.setState({ name: e.target.value }, this.delayRequest)
   }
 
+  changeSearchAmong = (e) => {
+    this.setState({ searchAmong: e.target.value }, this.updateVisibleLots)
+  }
+
   render() {
     const {
       lots,
@@ -157,8 +164,11 @@ export default class Lots extends React.Component {
       priceTo,
       category,
       displayFilters,
-      name
+      name,
+      searchAmong
     } = this.state;
+
+    const { user } = this.props;
 
     return (
       <section className="lots-section">
@@ -174,6 +184,38 @@ export default class Lots extends React.Component {
                   }
                 </span>
               </h2>
+
+              <div className="filter-container">
+                <div className="filter-title">Search among</div>
+                <div className="filter-list">
+                  <div>
+                    <RadioButton id="dateAZ" value="" checked={searchAmong === ''} name="search-among" label="All lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  <div>
+                    <RadioButton id="dateAZ" value="active" checked={searchAmong === 'active'} name="search-among" label="Active lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  <div>
+                    <RadioButton id="dateAZ" value="sold" checked={searchAmong === 'sold'} name="search-among" label="Sold lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  {
+                    user
+                      ? (<React.Fragment>
+                        <div>
+                          <RadioButton id="dateZA" value="my" checked={searchAmong === 'my'} name="search-among" label="Posted lots" handler={this.changeSearchAmong}/>
+                        </div>
+                        <div>
+                          <RadioButton id="dateZA" value="bids" checked={searchAmong === 'bids'}  name="search-among" label="Active bids" handler={this.changeSearchAmong}/>
+                        </div>
+                        <div>
+                          <RadioButton id="dateZA" value="bought" checked={searchAmong === 'bought'}  name="search-among" label="Bought lots" handler={this.changeSearchAmong}/>
+                        </div>
+                      </React.Fragment>)
+                      : null
+                  }
+                </div>
+              </div>
+
+
 
               <div className="filter-container">
                 <div className="filter-title">Category</div>

@@ -15,6 +15,15 @@ const storage = multer.diskStorage({
 
 const uploadPhoto = multer({ storage });
 
+const returnSearchAmongParams = async (param, user) => {
+  if (param === 'active') return { endDate: { $gte: new Date() }, closed: false };
+  if (param === 'sold') return { closed: true };
+  if (!user) return {};
+  if (param === 'my') return { _id: { $in: await db.user.getPostedLots(user.id) } };
+  if (param === 'bids') return { _id: { $in: await db.bid.getUserBidLots(user.id) }, closed: false, endDate: { $gte: new Date() } };
+  if (param === 'bought') return { _id: { $in: await db.user.getBoughtLots(user.id) } };
+};
+
 module.exports = {
   getLotData: async (req, res) => {
     try {
@@ -56,9 +65,10 @@ module.exports = {
         category,
         sortBy,
         page,
-        name
+        name,
+        searchAmong
       } = req.body;
-      const match = { };
+      const match = searchAmong ? await returnSearchAmongParams(searchAmong, req.user) : {}
       const options = { page, limit: 9 };
       if (selectedPaymentMethods && selectedPaymentMethods.length > 0) {
         match.payment = { $in: selectedPaymentMethods };

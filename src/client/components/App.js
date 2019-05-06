@@ -110,7 +110,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lots</title>
               </Helmet>
-              <LazyLots/>
+              <LazyLots user={user.username}/>
             </Suspense>
           )}/>
 
@@ -119,7 +119,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lots</title>
               </Helmet>
-              <LazyLots category={match.params.category}/>
+              <LazyLots  user={user.username} category={match.params.category}/>
             </Suspense>
           )}/>
 

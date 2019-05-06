@@ -26,4 +26,10 @@ module.exports = {
       resolve(bid ? bid.user : null);
     });
   }),
+  getUserBidLots: user => new Promise((resolve, reject) => {
+    Bid.distinct('lot', { user }).exec((err, lots) => {
+      if (err) return reject(err);
+      resolve(lots);
+    });
+  }),
 };

@@ -58,7 +58,7 @@ module.exports = {
       .catch(err => reject(err));
   }),
   getFilteredLots: (match, options) => new Promise((resolve, reject) => {
-    Lot.paginate({ ...match, endDate: { $gte: new Date() }, closed: false }, options)
+    Lot.paginate(match, options)
       .then((res) => {
         resolve(res);
       })
