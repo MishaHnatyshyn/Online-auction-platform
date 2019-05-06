@@ -15,13 +15,23 @@ const storage = multer.diskStorage({
 
 const uploadPhoto = multer({ storage });
 
+const returnSearchAmongParams = async (param, user) => {
+  if (param === 'active') return { endDate: { $gte: new Date() }, closed: false };
+  if (param === 'sold') return { closed: true };
+  if (!user) return {};
+  if (param === 'my') return { _id: { $in: await db.user.getPostedLots(user.id) } };
+  if (param === 'bids') return { _id: { $in: await db.bid.getUserBidLots(user.id) }, closed: false, endDate: { $gte: new Date() } };
+  if (param === 'bought') return { _id: { $in: await db.user.getBoughtLots(user.id) } };
+};
+
 module.exports = {
   getLotData: async (req, res) => {
     try {
       const { id } = req.body;
       const lot = await db.lot.getSingleLot(id);
+      const actualUserBid = await db.bid.getLastBidUser(id);
       if (!lot) return res.status(404).end();
-      res.json(lot);
+      res.json({ ...lot._doc, actualUserBid });
     } catch (e) {
       res.status(500).end();
     }
@@ -40,7 +50,7 @@ module.exports = {
       const lots = await db.lot.getLastLots();
       res.json(lots);
     } catch (e) {
-      console.log(e)
+      console.log(e);
       res.status(500).end();
     }
   },
@@ -54,9 +64,11 @@ module.exports = {
         selectedDeliveryMethods,
         category,
         sortBy,
-        page
+        page,
+        name,
+        searchAmong
       } = req.body;
-      const match = { };
+      const match = searchAmong ? await returnSearchAmongParams(searchAmong, req.user) : {}
       const options = { page, limit: 9 };
       if (selectedPaymentMethods && selectedPaymentMethods.length > 0) {
         match.payment = { $in: selectedPaymentMethods };
@@ -65,6 +77,7 @@ module.exports = {
         match.delivery = { $in: selectedDeliveryMethods };
       }
       if (category) match.category = category;
+      if (name) match.name = new RegExp(name, 'ig');
       if (priceFrom && priceTo) match.startPrice = { $gte: priceFrom, $lte: priceTo };
       else if (priceFrom) match.startPrice = { $gte: priceFrom };
       else if (priceTo) match.startPrice = { $lte: priceTo };
@@ -72,7 +85,7 @@ module.exports = {
       const { docs, totalPages } = await db.lot.getFilteredLots(match, options);
       res.json({ lots: docs, pagesCount: totalPages });
     } catch (e) {
-      console.log(e)
+      console.log(e);
       res.status(500).end();
     }
   },

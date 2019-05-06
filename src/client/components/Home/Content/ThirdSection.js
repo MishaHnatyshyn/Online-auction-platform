@@ -17,7 +17,7 @@ export default function ThirdSection() {
             <div className="position-container">
               CTO
             </div>
-            <p className="text-container">
+            <p className="text-container-team">
               "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos."
             </p>
           </div>
@@ -31,7 +31,7 @@ export default function ThirdSection() {
             <div className="position-container">
               CEO
             </div>
-            <p className="text-container">
+            <p className="text-container-team">
               "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos."
             </p>
           </div>
@@ -45,7 +45,7 @@ export default function ThirdSection() {
             <div className="position-container">
               PR
             </div>
-            <p className="text-container">
+            <p className="text-container-team">
               "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquam aliquid at autem consequatur dignissimos."
             </p>
           </div>

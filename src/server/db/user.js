@@ -25,6 +25,18 @@ module.exports = {
       resolve(newUser);
     });
   }),
+  getPostedLots: user => new Promise((resolve, reject) => {
+    User.findOne({ _id: user }).exec((err, user) => {
+      if (err) return reject(err);
+      resolve(user.lots);
+    });
+  }),
+  getBoughtLots: user => new Promise((resolve, reject) => {
+    User.findOne({ _id: user }).exec((err, user) => {
+      if (err) return reject(err);
+      resolve(user.bought_lots);
+    });
+  }),
   addBoughtLot: (lot, user) => new Promise((resolve, reject) => {
     User.updateOne({ _id: user }, { $push: { bought_lots: lot } }, (err, res) => {
       if (err) return reject(err);

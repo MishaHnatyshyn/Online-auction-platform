@@ -7,11 +7,17 @@ module.exports = {
       resolve(lot);
     });
   }),
+  findForSearch: (name, count) => new Promise((resolve, reject) => {
+    Lot.find({ name: new RegExp(name, 'ig') }).limit(count).exec((err, lots) => {
+      if (err) return reject(err);
+      resolve(lots);
+    });
+  }),
   setCurrPrice: (lot, sum) => new Promise((resolve, reject) => {
     Lot.findById(lot).exec((err, lot) => {
       if (err) return reject(err);
       if (lot.currPrice >= sum) return resolve({ status: 1, currPrice: lot.currPrice });
-      if (Date.now() > Date.parse(lot.endDate)) return resolve({ status: 2 });
+      if (Date.now() > Date.parse(lot.endDate) || lot.closed) return resolve({ status: 2 });
       lot.currPrice = sum;
       lot.save((err) => {
         if (err) return resolve({ status: 1, currPrice: lot.currPrice });
@@ -19,8 +25,21 @@ module.exports = {
       });
     });
   }),
+  buyNow: lot => new Promise((resolve, reject) => {
+    Lot.findById(lot).exec((err, lot) => {
+      if (err) return reject(err);
+      if (!lot.byNowPrice) return resolve({ status: 1 });
+      if (Date.now() > Date.parse(lot.endDate) || lot.closed) return resolve({ status: 2 });
+      lot.currPrice = lot.byNowPrice;
+      lot.closed = true;
+      lot.save((err) => {
+        if (err) return resolve({ status: 1, currPrice: lot.currPrice });
+        resolve({ status: 0, currPrice: sum });
+      });
+    });
+  }),
   getLastLots: () => new Promise((resolve, reject) => {
-    Lot.find({ endDate: { $gte: new Date() } }).limit(22).exec((err, lots) => {
+    Lot.find({ endDate: { $gte: new Date() }, closed: false }).limit(22).exec((err, lots) => {
       if (err) return reject(err);
       resolve(lots);
     });
@@ -32,14 +51,14 @@ module.exports = {
     });
   }),
   getAllLots: () => new Promise((resolve, reject) => {
-    Lot.paginate({ endDate: { $gte: new Date() } }, { limit: 9, page: 1 })
+    Lot.paginate({ endDate: { $gte: new Date() }, closed: false }, { limit: 9, page: 1 })
       .then((res) => {
         resolve(res);
       })
       .catch(err => reject(err));
   }),
   getFilteredLots: (match, options) => new Promise((resolve, reject) => {
-    Lot.paginate({ ...match, endDate: { $gte: new Date() } }, options)
+    Lot.paginate(match, options)
       .then((res) => {
         resolve(res);
       })

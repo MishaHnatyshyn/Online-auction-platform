@@ -5,6 +5,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const lotSchema = mongoose.Schema({
   name: { type: String, required: true },
+  closed: { type: Boolean, default: false },
   description: { type: String, required: true },
   startPrice: { type: Number, min: 1, required: true },
   currPrice: { type: Number, min: 1, default: () => this.startPrice },

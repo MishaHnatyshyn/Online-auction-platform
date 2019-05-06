@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-
 import LotCard from './LotCard';
 import Pagination from "./Pagination";
-import LotsData from "../StaticData";
+
+const availablePaymentMethods = ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'];
+const availableDeliveryMethods = ['Post office', 'Personal meeting', 'Courier', 'Other'];
 
 const CheckBox = ({id, name, checked, handler, label, value}) => (
   <label className="check-box-container">
@@ -29,15 +30,15 @@ export default class Lots extends React.Component {
       priceFrom: 0,
       priceTo: 0,
       activePage: 1,
-      availablePaymentMethods: [],
+      name: '',
       selectedPaymentMethods: [],
-      availableDeliveryMethods: [],
       selectedDeliveryMethods: [],
       pagesCount: 0,
       visibleLots: [],
       category: '',
       sortBy: null,
-      displayFilters: false
+      displayFilters: false,
+      searchAmong: 'active'
     };
     this.sortFuncs = {
       dateAZ: { timestamp: 1 },
@@ -47,24 +48,25 @@ export default class Lots extends React.Component {
       nameAZ: { name: 1 },
       nameZA: { name: -1 },
     }
+    this.requestTimeout = null;
   }
 
-  fetchAllLots = () => {
-    axios.get('/api/lots/data').then((res) => {
-      const { lots, pagesCount } = res.data;
-      const payments = [...new Set(...lots.map(_ => _.payment))];
-      const deliveries = [...new Set(...lots.map(_ => _.delivery))];
-      this.setState({
-        lots,
-        pagesCount,
-        availablePaymentMethods: payments,
-        availableDeliveryMethods: deliveries,
-      })
-    }).catch((err) => {})
+  delayRequest = () => {
+    this.clearPrevRequestDelay()
+    this.requestTimeout = setTimeout(this.updateVisibleLots, 400)
+  }
+
+  clearPrevRequestDelay = () => {
+    clearTimeout(this.requestTimeout)
   }
 
   componentDidMount = () => {
-    this.fetchAllLots();
+    const { category } = this.props;
+    if (category) {
+      this.setState({ category: category.replace(/-/g, ' ') }, this.fetchPage)
+
+    }
+    else this.fetchPage()
   }
 
   changeSortFunc = (e) => {
@@ -79,7 +81,9 @@ export default class Lots extends React.Component {
       selectedPaymentMethods,
       selectedDeliveryMethods,
       category,
-      sortBy
+      sortBy,
+      name,
+      searchAmong
     } = this.state;
     axios.post('/api/lots/filter',{
       priceFrom,
@@ -88,7 +92,9 @@ export default class Lots extends React.Component {
       selectedDeliveryMethods,
       category,
       sortBy,
-      page
+      name,
+      page,
+      searchAmong
     }).then((res) => {
       const { lots, pagesCount } = res.data;
       this.setState({
@@ -107,7 +113,7 @@ export default class Lots extends React.Component {
     e.preventDefault()
     const { name, value } = e.target;
     if (!value.match(/^[0-9]*$/) || value[0] === '0') return;
-    this.setState({ [name]: value }, this.updateVisibleLots)
+    this.setState({ [name]: value }, this.delayRequest)
   }
 
   changeActivePage = (page) => {
@@ -139,21 +145,30 @@ export default class Lots extends React.Component {
     this.setState((prevState) => ({ displayFilters: !prevState.displayFilters }))
   }
 
+  changeName = (e) => {
+    this.setState({ name: e.target.value }, this.delayRequest)
+  }
+
+  changeSearchAmong = (e) => {
+    this.setState({ searchAmong: e.target.value }, this.updateVisibleLots)
+  }
+
   render() {
     const {
       lots,
       activePage,
-      availablePaymentMethods,
       selectedPaymentMethods,
-      availableDeliveryMethods,
       selectedDeliveryMethods,
       pagesCount,
       priceFrom,
       priceTo,
-      visibleLots,
       category,
-      displayFilters
+      displayFilters,
+      name,
+      searchAmong
     } = this.state;
+
+    const { user } = this.props;
 
     return (
       <section className="lots-section">
@@ -169,6 +184,38 @@ export default class Lots extends React.Component {
                   }
                 </span>
               </h2>
+
+              <div className="filter-container">
+                <div className="filter-title">Search among</div>
+                <div className="filter-list">
+                  <div>
+                    <RadioButton id="dateAZ" value="" checked={searchAmong === ''} name="search-among" label="All lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  <div>
+                    <RadioButton id="dateAZ" value="active" checked={searchAmong === 'active'} name="search-among" label="Active lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  <div>
+                    <RadioButton id="dateAZ" value="sold" checked={searchAmong === 'sold'} name="search-among" label="Sold lots" handler={this.changeSearchAmong}/>
+                  </div>
+                  {
+                    user
+                      ? (<React.Fragment>
+                        <div>
+                          <RadioButton id="dateZA" value="my" checked={searchAmong === 'my'} name="search-among" label="Posted lots" handler={this.changeSearchAmong}/>
+                        </div>
+                        <div>
+                          <RadioButton id="dateZA" value="bids" checked={searchAmong === 'bids'}  name="search-among" label="Active bids" handler={this.changeSearchAmong}/>
+                        </div>
+                        <div>
+                          <RadioButton id="dateZA" value="bought" checked={searchAmong === 'bought'}  name="search-among" label="Bought lots" handler={this.changeSearchAmong}/>
+                        </div>
+                      </React.Fragment>)
+                      : null
+                  }
+                </div>
+              </div>
+
+
 
               <div className="filter-container">
                 <div className="filter-title">Category</div>
@@ -215,6 +262,11 @@ export default class Lots extends React.Component {
                   </div>
                   <div>
                     <RadioButton id="nameZA" value="nameZA" name="sort" label="From Z to A" handler={this.changeSortFunc}/>
+                  </div>
+                </div>
+                <div className="price-range name-contains">
+                  <div>
+                    <input type="text" placeholder="Match" id="name-contains" name="name-contains" value={name} onChange={this.changeName}/>
                   </div>
                 </div>
               </div>

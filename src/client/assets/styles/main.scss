@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 @import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 @import "constants";
 
@@ -28,6 +28,13 @@ body{
   &:hover{
     background: $second;
   }
+  &:disabled{
+    background: grey;
+    &:hover{
+      cursor: default;
+      background: grey;
+    }
+  }
 }
 
 @-webkit-keyframes mover {
@@ -43,6 +50,32 @@ body{
 .arrow-down-last-section{
   -webkit-animation: mover 0.5s infinite  alternate;
   animation: mover 0.5s infinite  alternate;
+}
+
+.text-boxes-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+  height: calc(100% - 88px);
+  color: white;
+  font-weight: bold;
+  p{
+    line-height: 27px;
+    text-indent: 40px;
+    box-shadow: 0 0 7px 0 $second;
+    padding: 10px;
+    background: $main;
+    font-size: 1.2em;
+    margin: 10px 0;
+    &.mobile-text{
+      display: none;
+    }
+    width: 80%;
+    &:nth-child(2n){
+      align-self: flex-end;
+    }
+  }
 }
 
 .content-section.third{
@@ -82,7 +115,7 @@ body{
       .position-container{
         text-align: center;
       }
-      .text-container{
+      .text-container-team{
         padding: 10px;
         text-align: center;
         font-style: italic;
@@ -212,20 +245,14 @@ body{
     z-index: 1;
   }
   &.second{
-    background-image: url("http://patrocinados.estadao.com.br/sodresantoro/wp-content/uploads/sites/74/2018/08/Leilao-sodre.png");
-    background-repeat: no-repeat;
+    height: unset;
+    background:  linear-gradient(to bottom, rgba(62, 199, 244, 0.5) 0%, rgba(62, 199, 244, 0.5) 100%), url("http://patrocinados.estadao.com.br/sodresantoro/wp-content/uploads/sites/74/2018/08/Leilao-sodre.png") no-repeat 10% 100%;
     background-size: cover;
-    background-position: 10% 100%;
     position: relative;
-    &:before{
-      content: '';
-      width: 100%;
+    min-height: calc(100vh - 60px);
+    >div{
+      position: static;
       height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      background: $main;
-      opacity: 0.5;
     }
   }
   &.fourth{
@@ -427,6 +454,10 @@ body{
   .top-section .background-video video {
     margin-left: -80px;
   }
+
+  .text-boxes-container p{
+    font-size: 1em;
+  }
 }
 
 
@@ -469,6 +500,10 @@ body{
       font-size: 1em;
     }
   }
+
+  .text-boxes-container p{
+    width: 90%;
+  }
 }
 
 
@@ -477,6 +512,7 @@ body{
     width: 200px;
     height: 200px;
   }
+
 
   .content-section.third .content-container {
     flex-direction: column;
@@ -493,6 +529,17 @@ body{
       }
     }
   }
+  .text-boxes-container{
+    justify-content: space-around;
+    p{
+      &.mobile-text{
+        display: flex;
+      }
+      &.desktop-text{
+        display: none;
+      }
+    }
+  }
 }
 
 @media all and (max-width: 786px) {
@@ -502,6 +549,10 @@ body{
     .section-title{
       font-size: 2em;
     }
+  }
+
+  .text-boxes-container{
+    height: calc(100% - 52px);
   }
 
   .top-section .background-video video {
@@ -542,6 +593,17 @@ body{
 
   }
 
+  .text-boxes-container p{
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 665px) {
+  .text-boxes-container p{
+    &:last-child{
+      display: none;
+    }
+  }
 }
 
 
@@ -570,3 +632,10 @@ body{
   }
 }
 
+@media all and (max-width: 500px) {
+  .text-boxes-container p{
+    &:nth-child(3){
+      display: none;
+    }
+  }
+}

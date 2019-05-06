@@ -28,6 +28,8 @@ router.get('/api/lots/data', Controllers.lot.getLotsPageData);
 
 router.post('/api/lots/filter', Controllers.lot.getFilteredLots);
 
+router.post('/api/site/search', Controllers.main.search);
+
 router.post('/api/lot/create', isLoggedIn, Controllers.lot.createLot);
 
 router.post('/api/bid/make', isLoggedIn, Controllers.bid.makeBid);

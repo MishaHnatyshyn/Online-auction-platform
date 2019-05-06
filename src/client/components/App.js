@@ -96,12 +96,12 @@ export default class App extends React.Component {
         {showBugReportPopup ? <BugReport close={this.toggleBugReportPopup}/> : null}
         <main className="main-content">
         <Switch>
-          <Route exact path="/" render={() => (
+          <Route exact path="/" render={({ history }) => (
             <Suspense fallback={<Loader/>}>
               <Helmet>
                 <title>Auction</title>
               </Helmet>
-              <LazyHome />
+              <LazyHome history={history}/>
             </Suspense>
           )}/>
 
@@ -110,7 +110,16 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lots</title>
               </Helmet>
-              <LazyLots />
+              <LazyLots user={user.username}/>
+            </Suspense>
+          )}/>
+
+          <Route exact path="/lots/:category" render={({ match }) => (
+            <Suspense fallback={<Loader/>}>
+              <Helmet>
+                <title>Lots</title>
+              </Helmet>
+              <LazyLots  user={user.username} category={match.params.category}/>
             </Suspense>
           )}/>
 
@@ -155,7 +164,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>Lot</title>
               </Helmet>
-              <LazyLot match={match} user={user.username}/>
+              <LazyLot match={match} user={user.username} currUserId={user._id} openLoginPopup={this.toggleLoginPopup}/>
             </Suspense>
           )}/>
 

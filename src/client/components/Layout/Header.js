@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from './logo.png';
+import SiteSearch from './SiteSearch';
 
 export default class Header extends React.Component {
   constructor(props){
@@ -47,14 +48,11 @@ export default class Header extends React.Component {
             </ul>
           </div>
           <div className="header-right">
-            <div className="search">
-              <input type="text" placeholder="Search on site..." name="search" />
-              <i className="fas fa-search" />
-            </div>
+            <SiteSearch/>
             {username
               ? (
                 <div className="user-data-container drop-down">
-                  {username}
+                  <span>{username}</span>
                   <i className="fas fa-angle-down" />
                   <ul className="drop-down-list">
                     <li onClick={this.props.logout}>
@@ -123,7 +121,7 @@ Log out
                     <li><NavLink to="/terms" activeclassname="active">Terms of use</NavLink></li>
                     <li><NavLink to="/rules" activeclassname="active">Rules</NavLink></li>
                   </ul>
-                  <div className="main-menu-buttons">
+                  <div className="main-menu-buttons" onClick={this.toggleMobileMenu}>
                     {username
                       ? (
                         <button type="button"  className="dark" onClick={this.props.logout}>

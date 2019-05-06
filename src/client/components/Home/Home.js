@@ -3,11 +3,11 @@ import TopSection from './TopSection';
 import LastLotsSection from './LastLotsSection';
 import Content from './Content/Content';
 
-export default function Home() {
+export default function Home({ history }) {
   return (
     <React.Fragment>
       <TopSection />
-      <Content/>
+      <Content history={history}/>
       <LastLotsSection />
     </React.Fragment>
   );
