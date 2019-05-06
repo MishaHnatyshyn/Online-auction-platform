@@ -63,6 +63,11 @@
     text-transform: uppercase;
     border-bottom: 2px solid white;
     padding-bottom: 3px;
+    li {
+      a {
+        color: white;
+      }
+    }
   }
   li{
     font-weight: normal;

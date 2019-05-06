@@ -1,4 +1,4 @@
-@import "constants";
+@import "../constants";
 
 .top-section{
   min-height: 400px;
@@ -52,6 +52,12 @@
 
 }
 
+@media all and (max-width: 1200px) {
+  .background-video video {
+    margin-left: -80px;
+  }
+}
+
 @media all and (max-width: 1000px) {
   .top-section-content{
     h1{
@@ -61,5 +67,21 @@
       font-size: 1.5em;
       width: 90%;
     }
+  }
+  .background-video video {
+    margin-left: -200px;
+  }
+}
+
+@media all and (max-width: 786px) {
+  .background-video video {
+    margin-left: -300px;
+  }
+}
+
+
+@media all and (max-width: 540px) {
+  .top-section .background-video video {
+    margin-left: -400px;
   }
 }
