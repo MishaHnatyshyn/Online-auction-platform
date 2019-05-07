@@ -52,7 +52,9 @@ export default class BugReport extends React.Component {
     if (!this.validate()) return;
     axios
       .post('/api/letter/bug', this.state)
-      .then((res) => {})
+      .then((res) => {
+        this.props.close()
+      })
       .catch((err) => {})
   };
 

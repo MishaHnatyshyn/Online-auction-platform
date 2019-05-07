@@ -1,4 +1,5 @@
 import React from 'react';
+import './contacts.scss'
 
 export default class Contacts extends React.Component{
   constructor(props) {

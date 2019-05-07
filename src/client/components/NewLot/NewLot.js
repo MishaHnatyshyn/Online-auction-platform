@@ -2,26 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import DragAndDrop from './DragAndDrop';
 import SuccessAlert from './SuccessAlert';
+import CheckBox from '../Inputs/CheckBox';
 import ErrorAlert from './ErrorAlert';
+import spinner from '../Loader/spinner.png';
+import './newLot.scss'
 
 const availAblePayment = ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'];
 const availAbleDelivery = ['Post office', 'Personal meeting', 'Courier', 'Other'];
-
-const CheckBox = ({id, name, checked, handler, label, value}) => (
-  <label className="check-box-container">
-    {label}
-    <input type="checkbox"  name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark" />
-  </label>
-)
-
-const RadioButton = ({id, name, checked, handler, label, value}) => (
-  <label className="radio-button-container">
-    {label}
-    <input type="radio" name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark"/>
-  </label>
-)
 
 const ImageContainer = ({index, img, close }) => (
   <div>
@@ -50,7 +37,10 @@ export default class NewLot extends React.Component{
       errorAlert: false,
       successAlert: false,
       createdLotId: '',
-      validationError: false
+      validationError: false,
+      imagesCountError: false,
+      timeError: false,
+      creating: false,
     }
   }
 
@@ -64,7 +54,7 @@ export default class NewLot extends React.Component{
       && delivery.length
       && category
       && images.length
-      && price > buyNow
+      && price < buyNow
       && endDate
       && endTime
     )
@@ -102,7 +92,10 @@ export default class NewLot extends React.Component{
       errorAlert: false,
       successAlert: false,
       validationError: false,
-      createdLotId: ''
+      imagesCountError: false,
+      timeError: false,
+      createdLotId: '',
+      creating: false
     })
   }
 
@@ -119,7 +112,20 @@ export default class NewLot extends React.Component{
   }
 
   hideValidationError = () => {
-    this.setState({ validationError: false })
+    this.setState({ validationError: false, imagesCountError: false, timeError: false })
+  }
+
+  timeError = () => {
+    const {
+      endDate,
+      endTime,
+    } = this.state;
+    console.log(new Date(endDate).toDateString(), new Date().toDateString(), new Date(endDate).toDateString() === new Date().toDateString())
+    if (new Date(endDate).toDateString() !== new Date().toDateString()) return false;
+    const date = Date.parse(endDate + ' ' + endTime)
+    const currDate = Date.now();
+    console.log(date, currDate, date - currDate < 1000 * 60 * 30)
+    return date - currDate < 1000 * 60 * 30;
   }
 
   createLot = () => {
@@ -137,12 +143,17 @@ export default class NewLot extends React.Component{
     } = this.state;
 
     if (!this.validate()) return this.setState({ validationError: true })
+    if (this.timeError()) return this.setState({ timeError: true })
+    if (!this.props.user) return this.props.openLoginPopup();
     const imagesArray = [...images]
+    if (imagesArray.length > 5) return this.setState({ imagesCountError: true })
+    this.setState({ creating: true })
     axios
       .post('/api/lot/create',{
         name,
         description,
         startPrice: price,
+        currPrice: price,
         photos: imagesArray.map(_ => _.name),
         payment,
         delivery,
@@ -151,6 +162,7 @@ export default class NewLot extends React.Component{
         byNowPrice: buyNow || null
       })
       .then((res) => {
+        this.clearData();
         const { _id } = res.data;
         const formData = new FormData();
         formData.append('dir', _id)
@@ -246,7 +258,10 @@ export default class NewLot extends React.Component{
       validationError,
       buyNow,
       endDate,
-      endTime
+      endTime,
+      imagesCountError,
+      timeError,
+      creating
     } = this.state;
     return(
       <section className="new-lot-section">
@@ -384,7 +399,13 @@ export default class NewLot extends React.Component{
           </div>
           <div className="new-lot-bottom">
             {validationError ? <span className="required">Please fill all the fields with "*"</span> : null}
-            <button className="button-common" onClick={this.createLot}>Create</button>
+            {imagesCountError ? <span className="required">You can`t upload more than 5 images</span> : null}
+            {timeError ? <span className="required">The auction should finish later than in 30 min</span> : null}
+            {creating
+              ? <img src={spinner} alt="spinner" className="spinner"/>
+              : <button className="button-common" onClick={this.createLot}>Create</button>
+            }
+
           </div>
         </div>
       </section>

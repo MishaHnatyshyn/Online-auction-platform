@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const db = require('../db');
 
 const categories = [
@@ -80,4 +82,13 @@ module.exports = {
       res.end();
     }
   },
+
+  returnMainPage: async (req, res) => {
+    try {
+      const pathToIndex = path.join(__dirname, '/../../../dist/index.html')
+      res.sendFile(pathToIndex);
+    } catch (e) {
+      res.end();
+    }
+  }
 };

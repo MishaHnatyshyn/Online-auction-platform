@@ -1,16 +1,16 @@
 import React from 'react';
-import FirstSection from './FirstSection';
-import SecondSection from './SecondSection';
-import ThirdSection from './ThirdSection';
-import FourthSection from './FourthSection';
+import WhyAuction from './WhyAuction/WhyAuction';
+import AboutUs from './AboutUs/AboutUs';
+import OurTeam from './OurTeam/OurTeam';
+import GotInterested from './GotInterested/GotInterested';
 
 export default function Content({ history }) {
   return (
     <React.Fragment>
-      <FirstSection />
-      <SecondSection />
-      <ThirdSection />
-      <FourthSection history={history}/>
+      <WhyAuction />
+      <AboutUs />
+      <OurTeam />
+      <GotInterested history={history}/>
     </React.Fragment>
   );
 }

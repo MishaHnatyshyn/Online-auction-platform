@@ -78,9 +78,9 @@ module.exports = {
       }
       if (category) match.category = category;
       if (name) match.name = new RegExp(name, 'ig');
-      if (priceFrom && priceTo) match.startPrice = { $gte: priceFrom, $lte: priceTo };
-      else if (priceFrom) match.startPrice = { $gte: priceFrom };
-      else if (priceTo) match.startPrice = { $lte: priceTo };
+      if (priceFrom && priceTo) match.currPrice = { $gte: priceFrom, $lte: priceTo };
+      else if (priceFrom) match.currPrice = { $gte: priceFrom };
+      else if (priceTo) match.currPrice = { $lte: priceTo };
       if (sortBy) options.sort = sortBy;
       const { docs, totalPages } = await db.lot.getFilteredLots(match, options);
       res.json({ lots: docs, pagesCount: totalPages });
@@ -97,6 +97,7 @@ module.exports = {
   createLot: async (req, res) => {
     try {
       const newLot = await db.lot.createLot(req.body);
+      await db.user.addPostedLot(newLot.id, req.user.id)
       res.json(newLot);
     } catch (e) {
       res.status(500).end();

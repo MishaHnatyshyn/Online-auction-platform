@@ -1,6 +1,7 @@
 import React from 'react';
-import videoMP4 from '../../assets/video/top-section-video.mp4';
-import videWEBM from '../../assets/video/top-section-video.webm';
+import videoMP4 from '../../../assets/video/top-section-video.mp4';
+import videWEBM from '../../../assets/video/top-section-video.webm';
+import './topSection.scss'
 
 export default function TopSection() {
   return (

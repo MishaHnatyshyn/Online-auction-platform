@@ -1,8 +1,8 @@
 import React, {lazy, Suspense} from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
-import Header from './Layout/Header';
-import Footer from './Layout/Footer';
+import Header from './Layout/Header/Header';
+import Footer from './Layout/Footer/Footer';
 import Loader from './Loader/Loader';
 import Login from './Popups/Login';
 import Signup from './Popups/Signup';
@@ -15,7 +15,7 @@ const LazyHome = lazy(() => import('./Home/Home'));
 const LazyLot = lazy(() => import('./LotPage/Lot'));
 const LazyLots = lazy(() => import('./LotList/Lots'));
 const LazyNewLot = lazy(() => import('./NewLot/NewLot'));
-const LazyContacts = lazy(() => import('./Information/Contacts'));
+const LazyContacts = lazy(() => import('./Contacts/Contacts'));
 const LazyTerms = lazy(() => import('./Information/TermsOfServices'));
 const LazyRules = lazy(() => import('./Information/Rules'));
 
@@ -46,6 +46,10 @@ export default class App extends React.Component {
 
   handleLogin = (user) => {
     this.setState({ user, showLoginPopup: false })
+  }
+
+  handleRegister = (user) => {
+    this.setState({ user, showSignUpPopup: false })
   }
 
   componentWillMount() {
@@ -90,7 +94,7 @@ export default class App extends React.Component {
       <React.Fragment>
         <Header logout={this.handleLogout} username={user.username} openLogin={this.toggleLoginPopup} openSignup={this.toggleSignUpPopup} />
         {showLoginPopup ? <Login login={this.handleLogin} close={this.toggleLoginPopup} switchForm={this.togglePopups}/> : null}
-        {showSignUpPopup ? <Signup close={this.toggleSignUpPopup} switchForm={this.togglePopups}/> : null}
+        {showSignUpPopup ? <Signup close={this.toggleSignUpPopup} switchForm={this.togglePopups} register={this.handleRegister}/> : null}
         {showContactUsPopup ? <ContactUs close={this.toggleContactUsPopup}/> : null}
         {showBecomePartnerPopup ? <BecomePartner close={this.toggleBecomePartnerPopup}/> : null}
         {showBugReportPopup ? <BugReport close={this.toggleBugReportPopup}/> : null}
@@ -155,7 +159,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>New lot</title>
               </Helmet>
-              <LazyNewLot />
+              <LazyNewLot openLoginPopup={this.toggleLoginPopup} user={user.username}/>
             </Suspense>
           )}/>
 

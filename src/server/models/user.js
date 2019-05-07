@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt-nodejs');// hash generating module
 
 const userSchema = mongoose.Schema({
   email: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
+  username: { type: String, required: true },
   password: { type: String, required: true },
   lots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lot', default: [] }],
   bought_lots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lot', default: [] }],

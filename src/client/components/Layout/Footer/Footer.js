@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from './logo.png';
+import logo from '../Header/logo.png';
+import './footer.scss'
 
 export default class Footer extends React.Component {
   render() {

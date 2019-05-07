@@ -44,5 +44,6 @@ router.post('/api/letter/contact', Controllers.feedback.contact)
 
 router.post('/api/letter/partnership', Controllers.feedback.partnership)
 
+router.get('*', Controllers.main.returnMainPage)
 
 module.exports = router;

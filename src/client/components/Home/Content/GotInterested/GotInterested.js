@@ -1,7 +1,8 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle';
+import './gotInterested.scss'
 
-export default function FourthSection({ history }) {
+export default function GotInterested({ history }) {
   const openPlaceALot = () => {
     history.push('/lot/new');
   };

@@ -1,0 +1,95 @@
+@import "../../../../assets/styles/constants";
+
+.content-section.third{
+  height: unset;
+  //min-height: calc(100vh - 66px);
+  padding-bottom: 40px;
+  >div{
+    position: static;
+  }
+  .content-container{
+    display: flex;
+    align-items: center;
+    height: 80%;
+    justify-content: center;
+  }
+}
+
+.our-team-card{
+  background: white;
+  padding: 20px;
+  width: 25%;
+  margin: 20px 50px;
+  border-radius: 8px;
+  color: $second;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:hover{
+    transform: scale(1.1);
+    box-shadow: 0 0 11px 7px rgba(9, 77, 110, 0.5)
+  }
+  .name-container{
+    font-size: 2em;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+    text-align: center;
+  }
+  .position-container{
+    text-align: center;
+  }
+  .text-container-team{
+    padding: 10px;
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+
+.image-container{
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  img{
+    width: 100%;
+  }
+}
+
+
+@media all and (max-width: 1215px){
+  .image-container{
+    width: 200px;
+    height: 200px;
+  }
+
+  .content-section.third .content-container {
+    padding: 0 30px;
+  }
+}
+
+
+
+@media all and (max-width: 900px) {
+  .image-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .content-section.third .content-container {
+    flex-direction: column;
+    .our-team-card{
+      width: 100%;
+      &:nth-child(1){
+        order: 2;
+      }
+      &:nth-child(2){
+        order: 1;
+      }
+      &:nth-child(3){
+        order: 3;
+      }
+    }
+  }
+}

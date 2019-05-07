@@ -55,6 +55,7 @@ export default class Signup extends React.Component {
         this.props.register(res.data)
       })
       .catch((err) => {
+        console.log(err)
         this.showError('This email is already taken')
       })
   }

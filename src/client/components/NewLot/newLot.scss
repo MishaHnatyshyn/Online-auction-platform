@@ -1,4 +1,4 @@
-@import "constants";
+@import "../../assets/styles/constants";
 
 .new-lot-section{
   width: 100%;
@@ -138,42 +138,6 @@
 .form-input-container-row{
   display: flex;
   justify-content: space-between;
-}
-
-.form-input-container{
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0 ;
-  color: $second;
-  input, textarea{
-    padding: 10px;
-    border: 1px solid #dfdfdf;
-    border-radius: 8px;
-    margin: 5px 0;
-    font-size: 1em;
-    outline: none;
-  }
-  select{
-    padding: 10px;
-    border: 1px solid #dfdfdf;
-    border-radius: 8px;
-    margin: 5px 0;
-    font-size: 1em;
-    outline: none;
-    background: white;
-  }
-  textarea{
-    resize: none;
-    height: 200px;
-    font-size: inherit;
-    font-family: inherit;
-  }
-  >label{
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 500;
-  }
 }
 
 .price-wrapper{

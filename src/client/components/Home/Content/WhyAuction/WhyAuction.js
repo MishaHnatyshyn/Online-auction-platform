@@ -1,7 +1,8 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle'
+import './whyAuction.scss'
 
-export default function FirstSection() {
+export default function WhyAuction() {
   return(
     <section className="content-section why-auction">
       <div>

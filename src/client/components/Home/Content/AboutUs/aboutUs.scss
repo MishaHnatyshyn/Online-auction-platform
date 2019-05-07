@@ -1,0 +1,75 @@
+@import "../../../../assets/styles/constants";
+
+.content-section.second>div{
+  justify-content: center;
+  align-items: center;
+}
+
+.text-boxes-container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+  height: calc(100% - 88px);
+  max-width: 1200px;
+  color: white;
+  font-weight: bold;
+  p{
+    line-height: 27px;
+    text-indent: 40px;
+    box-shadow: 0 0 7px 0 $second;
+    padding: 10px;
+    background: $main;
+    font-size: 1.2em;
+    margin: 25px 0;
+    width: 80%;
+    &:nth-child(2n){
+      align-self: flex-end;
+    }
+  }
+}
+
+
+@media all and (max-width: 1200px) {
+  .text-boxes-container p{
+    font-size: 1em;
+  }
+}
+
+@media all and (max-width: 1000px) {
+  .text-boxes-container p{
+    width: 90%;
+  }
+}
+
+
+@media all and (max-width: 900px){
+  .text-boxes-container{
+    justify-content: space-around;
+  }
+}
+
+@media all and (max-width: 786px) {
+  .text-boxes-container{
+    height: calc(100% - 52px);
+    p{
+      width: 100%;
+    }
+  }
+}
+
+@media all and (max-width: 665px) {
+  .text-boxes-container p{
+    &:last-child{
+      display: none;
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .text-boxes-container p{
+    &:nth-child(3){
+      display: none;
+    }
+  }
+}

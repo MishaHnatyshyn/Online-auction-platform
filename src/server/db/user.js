@@ -43,4 +43,10 @@ module.exports = {
       resolve(res);
     });
   }),
+  addPostedLot: (lot, user) => new Promise((resolve, reject) => {
+    User.updateOne({ _id: user }, { $push: { lots: lot } }, (err, res) => {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  }),
 };

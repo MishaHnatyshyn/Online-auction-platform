@@ -9,10 +9,9 @@ const passport = require('./auth');// authorization library
 const router = require('./routers/main');// main router
 const startSocketServer = require('./socket');// main router
 const {
-  port, database, sessionSecret
+  port, database: { user, password }, sessionSecret
 } = require('./config');
 // server configuration data
-const { user, password } = database;
 
 const app = express();
 

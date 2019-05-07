@@ -90,3 +90,77 @@
     }
   }
 }
+
+
+.button-common{
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-size: 1em;
+  outline: none;
+  cursor: pointer;
+  background: $main;
+  color: white;
+  font-weight: bold;
+  &:hover{
+    background: $second;
+  }
+  &:disabled{
+    background: grey;
+    &:hover{
+      cursor: default;
+      background: grey;
+    }
+  }
+}
+
+
+@-webkit-keyframes rotating {
+  from{
+    -webkit-transform: rotate(0deg);
+  }
+  to{
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.spinner{
+  -webkit-animation: rotating 1s linear infinite;
+}
+
+.form-input-container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 ;
+  color: $second;
+  input, textarea{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+  }
+  select{
+    padding: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-size: 1em;
+    outline: none;
+    background: white;
+  }
+  textarea{
+    resize: none;
+    height: 200px;
+    font-size: inherit;
+    font-family: inherit;
+  }
+  >label{
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+}
