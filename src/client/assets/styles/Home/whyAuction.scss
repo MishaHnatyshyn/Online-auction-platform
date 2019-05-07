@@ -67,10 +67,18 @@
       font-size: 1em;
     }
   }
+
+  .cards-container{
+    margin-top: 90px;
+  }
 }
 
 @media all and (max-width: 540px) {
   .card{
     width: 100%;
+  }
+
+  .cards-container{
+    margin-top: 0;
   }
 }

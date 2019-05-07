@@ -155,7 +155,7 @@ export default class App extends React.Component {
               <Helmet>
                 <title>New lot</title>
               </Helmet>
-              <LazyNewLot />
+              <LazyNewLot openLoginPopup={this.toggleLoginPopup} user={user.username}/>
             </Suspense>
           )}/>
 

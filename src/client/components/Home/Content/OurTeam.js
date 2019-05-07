@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionTitle from '../SectionTitle';
 
-export default function ThirdSection() {
+export default function OurTeam() {
   return (
     <section className="content-section third">
       <div>

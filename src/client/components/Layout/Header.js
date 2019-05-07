@@ -23,9 +23,9 @@ export default class Header extends React.Component {
       <header className="main-header">
         <div className="main-header-content">
           <div className="header-left">
-            <div className="header-logo">
+            <NavLink to="/" className="header-logo">
               <img src={logo} alt="logo" />
-            </div>
+            </NavLink>
             <ul className="main-nav-list">
               <li><NavLink exact to="/" activeclassname="active">Home</NavLink></li>
               <li>
@@ -108,6 +108,9 @@ Log out
                   <div className="close-container">
                     <span>{username || ''}</span>
                     <i onClick={this.toggleMobileMenu} className="fas fa-times"/>
+                  </div>
+                  <div className="mobile-search-container">
+                    <SiteSearch toggleMobileMenu={this.toggleMobileMenu}/>
                   </div>
                   <ul onClick={this.toggleMobileMenu}>
                     <li ><NavLink exact to="/" activeclassname="active">Home</NavLink></li>

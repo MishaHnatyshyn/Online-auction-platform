@@ -50,7 +50,8 @@ export default class NewLot extends React.Component{
       errorAlert: false,
       successAlert: false,
       createdLotId: '',
-      validationError: false
+      validationError: false,
+      imagesCountError: false,
     }
   }
 
@@ -119,7 +120,7 @@ export default class NewLot extends React.Component{
   }
 
   hideValidationError = () => {
-    this.setState({ validationError: false })
+    this.setState({ validationError: false, imagesCountError: true  })
   }
 
   createLot = () => {
@@ -137,7 +138,9 @@ export default class NewLot extends React.Component{
     } = this.state;
 
     if (!this.validate()) return this.setState({ validationError: true })
+    if (!this.props.user) return this.props.openLoginPopup();
     const imagesArray = [...images]
+    if (imagesArray.length > 5) return this.setState({ imagesCountError: true })
     axios
       .post('/api/lot/create',{
         name,
@@ -246,7 +249,8 @@ export default class NewLot extends React.Component{
       validationError,
       buyNow,
       endDate,
-      endTime
+      endTime,
+      imagesCountError
     } = this.state;
     return(
       <section className="new-lot-section">
@@ -384,6 +388,7 @@ export default class NewLot extends React.Component{
           </div>
           <div className="new-lot-bottom">
             {validationError ? <span className="required">Please fill all the fields with "*"</span> : null}
+            {imagesCountError ? <span className="required">You can`t upload more than 5 images</span> : null}
             <button className="button-common" onClick={this.createLot}>Create</button>
           </div>
         </div>

@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {NavLink} from "react-router-dom";
 
-const SearchItem = ({ link, image, name, description }) => (
-  <li className="search-item">
+const SearchItem = ({ link, image, name, description, onClick }) => (
+  <li className="search-item" onClick={onClick}>
     <NavLink to={link}>
       <div className="search-photo">
         <img src={image} alt={name}/>
@@ -60,11 +60,11 @@ export default class SiteSearch extends React.Component{
     return(
       <div className="search">
         <input type="text" autoComplete="off" placeholder="Search on site..." name="search" value={text} onChange={this.handleTextChange}/>
-        <i className="fas fa-search" />
+        {text ? <i onClick={this.clear} className="fas fa-times"/> : <i className="fas fa-search" />}
         { text
           ? (<ul className="site-search-drop-down" onClick={this.clear}>
               {items.length
-                ? items.map(item => <SearchItem {...item}/>)
+                ? items.map(item => <SearchItem {...item} onClick={this.props.toggleMobileMenu}/>)
                 : <NoItemsFound/>
               }
             </ul>)

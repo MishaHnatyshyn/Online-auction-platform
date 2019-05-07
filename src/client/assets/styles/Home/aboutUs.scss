@@ -1,11 +1,17 @@
 @import "../constants";
 
+.content-section.second>div{
+  justify-content: center;
+  align-items: center;
+}
+
 .text-boxes-container{
   display: flex;
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
   height: calc(100% - 88px);
+  max-width: 1200px;
   color: white;
   font-weight: bold;
   p{
@@ -15,10 +21,7 @@
     padding: 10px;
     background: $main;
     font-size: 1.2em;
-    margin: 10px 0;
-    &.mobile-text{
-      display: none;
-    }
+    margin: 25px 0;
     width: 80%;
     &:nth-child(2n){
       align-self: flex-end;
@@ -43,14 +46,6 @@
 @media all and (max-width: 900px){
   .text-boxes-container{
     justify-content: space-around;
-    p{
-      &.mobile-text{
-        display: flex;
-      }
-      &.desktop-text{
-        display: none;
-      }
-    }
   }
 }
 
