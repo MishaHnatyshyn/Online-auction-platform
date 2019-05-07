@@ -53,7 +53,9 @@ export default class BecomePartner extends React.Component {
     if (!this.validate()) return;
     axios
       .post('/api/letter/partnership', this.state)
-      .then((res) => {})
+      .then((res) => {
+        this.props.close()
+      })
       .catch((err) => {})
   };
 

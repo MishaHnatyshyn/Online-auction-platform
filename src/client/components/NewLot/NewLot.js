@@ -2,26 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import DragAndDrop from './DragAndDrop';
 import SuccessAlert from './SuccessAlert';
+import CheckBox from '../Inputs/CheckBox';
 import ErrorAlert from './ErrorAlert';
 
 const availAblePayment = ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'];
 const availAbleDelivery = ['Post office', 'Personal meeting', 'Courier', 'Other'];
 
-const CheckBox = ({id, name, checked, handler, label, value}) => (
-  <label className="check-box-container">
-    {label}
-    <input type="checkbox"  name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark" />
-  </label>
-)
-
-const RadioButton = ({id, name, checked, handler, label, value}) => (
-  <label className="radio-button-container">
-    {label}
-    <input type="radio" name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark"/>
-  </label>
-)
 
 const ImageContainer = ({index, img, close }) => (
   <div>
@@ -57,6 +43,42 @@ export default class NewLot extends React.Component{
 
   validate = () => {
     const { name, description, price, payment, delivery, images, category, buyNow, endDate, endTime } = this.state;
+    console.log(
+      name
+      && description
+      && price
+      && payment.length
+      && delivery.length
+      && category
+      && images.length
+      && price > buyNow
+      && endDate
+      && endTime
+    )
+    console.log(
+      name,
+      description,
+      price,
+      payment.length,
+      delivery.length,
+      category,
+      images.length,
+      price > buyNow,
+      endDate,
+      endTime,
+    )
+    console.log(
+      !!name,
+      !!description,
+      !!price,
+      !!payment.length,
+      !!delivery.length,
+      !!category,
+      !!images.length,
+      price > buyNow,
+      !!endDate,
+      !!endTime,
+    )
     return (
       name
       && description
@@ -103,6 +125,7 @@ export default class NewLot extends React.Component{
       errorAlert: false,
       successAlert: false,
       validationError: false,
+      imagesCountError: false,
       createdLotId: ''
     })
   }
@@ -120,7 +143,7 @@ export default class NewLot extends React.Component{
   }
 
   hideValidationError = () => {
-    this.setState({ validationError: false, imagesCountError: true  })
+    this.setState({ validationError: false, imagesCountError: false })
   }
 
   createLot = () => {
@@ -146,6 +169,7 @@ export default class NewLot extends React.Component{
         name,
         description,
         startPrice: price,
+        currPrice: price,
         photos: imagesArray.map(_ => _.name),
         payment,
         delivery,

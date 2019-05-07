@@ -39,7 +39,7 @@ module.exports = {
     });
   }),
   getLastLots: () => new Promise((resolve, reject) => {
-    Lot.find({ endDate: { $gte: new Date() }, closed: false }).limit(22).exec((err, lots) => {
+    Lot.find({ endDate: { $gte: new Date() }, closed: false }).sort({ timestamp: -1 }).limit(22).exec((err, lots) => {
       if (err) return reject(err);
       resolve(lots);
     });
@@ -75,6 +75,17 @@ module.exports = {
     Lot.deleteOne({ _id: id }, (err) => {
       if (err) return reject(err);
       resolve();
+    });
+  }),
+  closeLot: lot => new Promise((resolve, reject) => {
+    Lot.findOne({ _id: lot }).exec((err, res) => {
+      if (err) return reject(err);
+      if (res.closed) return resolve();
+      res.closed = true;
+      res.save((err) => {
+        if (err) return reject(err);
+        resolve();
+      });
     });
   }),
 };

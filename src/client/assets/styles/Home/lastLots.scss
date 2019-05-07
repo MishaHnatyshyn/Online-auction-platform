@@ -62,6 +62,9 @@
   justify-content: center;
   position: relative;
   min-height: 150px;
+  img{
+    max-width: 100%;
+  }
   &:hover{
     .grid-item-data{
       display: flex;

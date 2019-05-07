@@ -90,3 +90,27 @@
     }
   }
 }
+
+
+.button-common{
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-size: 1em;
+  outline: none;
+  cursor: pointer;
+  background: $main;
+  color: white;
+  font-weight: bold;
+  &:hover{
+    background: $second;
+  }
+  &:disabled{
+    background: grey;
+    &:hover{
+      cursor: default;
+      background: grey;
+    }
+  }
+}

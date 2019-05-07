@@ -113,17 +113,16 @@ export default class Lot extends React.Component {
   }
 
   closeLot = () => {
+    if (this.state.closed) return;
     this.setState({ closed: true })
-    axios.post('/api/lot/close', {
-      lot: this.state._id
-    }).catch((err) => {})
+    this.socket.emit('close lot', { lot: this.state._id})
   };
 
   buyNow = () => {
     const { _id, byNowPrice } = this.state;
     const { currUserId } = this.props;
     if (!currUserId) return this.loginError();
-    this.socket.emit('make a bid', {
+    this.socket.emit('buy now', {
       lot: _id,
       sum: byNowPrice,
       user: currUserId

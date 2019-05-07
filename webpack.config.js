@@ -21,16 +21,11 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader' // compiles Sass to CSS, using Node Sass by default
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
         ]
-      },
-      {
-        test: /\.json$/,
-        use: {
-          loader: 'json-loader'
-        }
       },
       {
         test: /\.js$/,
@@ -40,16 +35,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
         test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif|mp4|webm)$/,
         loader: 'url-loader?limit=100000'
-      },
-      {
-        test: /\.(html)$/,
-        loader: 'html-loader',
       }
     ]
   },

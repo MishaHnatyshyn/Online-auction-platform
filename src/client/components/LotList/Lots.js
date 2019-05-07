@@ -36,15 +36,15 @@ export default class Lots extends React.Component {
       pagesCount: 0,
       visibleLots: [],
       category: '',
-      sortBy: null,
+      sortBy: { timestamp: -1 },
       displayFilters: false,
       searchAmong: 'active'
     };
     this.sortFuncs = {
       dateAZ: { timestamp: 1 },
       dateZA:  { timestamp: -1 },
-      priceAZ: { startPrice: 1 },
-      priceZA: { startPrice: -1 },
+      priceAZ: { currPrice: 1 },
+      priceZA: { currPrice: -1 },
       nameAZ: { name: 1 },
       nameZA: { name: -1 },
     }

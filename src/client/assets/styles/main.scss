@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 @import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
-@import "constants";
 
 html, body, #root{
   height: 100%;
@@ -18,26 +17,4 @@ input, textarea{
   background: white;
 }
 
-.button-common{
-  padding: 10px;
-  border: 1px solid #dfdfdf;
-  border-radius: 8px;
-  margin: 5px 0;
-  font-size: 1em;
-  outline: none;
-  cursor: pointer;
-  background: $main;
-  color: white;
-  font-weight: bold;
-  &:hover{
-    background: $second;
-  }
-  &:disabled{
-    background: grey;
-    &:hover{
-      cursor: default;
-      background: grey;
-    }
-  }
-}
 

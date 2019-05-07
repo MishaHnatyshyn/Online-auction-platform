@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 export default function LotCard({
   name,
   description,
-  startPrice,
   currPrice,
   photos,
   timestamp,
@@ -24,7 +23,7 @@ export default function LotCard({
             <div className="lot-name" title={name}>{name}</div>
             <div className="lot-summary">{displayedDescription}</div>
             <span className="lot-price">
-              {currPrice || startPrice}
+              {currPrice}
               {' '}
             $
             </span>
