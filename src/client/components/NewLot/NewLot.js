@@ -38,6 +38,7 @@ export default class NewLot extends React.Component{
       createdLotId: '',
       validationError: false,
       imagesCountError: false,
+      timeError: false,
     }
   }
 
@@ -126,6 +127,7 @@ export default class NewLot extends React.Component{
       successAlert: false,
       validationError: false,
       imagesCountError: false,
+      timeError: false,
       createdLotId: ''
     })
   }
@@ -143,7 +145,20 @@ export default class NewLot extends React.Component{
   }
 
   hideValidationError = () => {
-    this.setState({ validationError: false, imagesCountError: false })
+    this.setState({ validationError: false, imagesCountError: false, timeError: false })
+  }
+
+  timeError = () => {
+    const {
+      endDate,
+      endTime,
+    } = this.state;
+    console.log(new Date(endDate).toDateString(), new Date().toDateString(), new Date(endDate).toDateString() === new Date().toDateString())
+    if (new Date(endDate).toDateString() !== new Date().toDateString()) return false;
+    const date = Date.parse(endDate + ' ' + endTime)
+    const currDate = Date.now();
+    console.log(date, currDate, date - currDate < 1000 * 60 * 30)
+    return date - currDate < 1000 * 60 * 30;
   }
 
   createLot = () => {
@@ -161,6 +176,7 @@ export default class NewLot extends React.Component{
     } = this.state;
 
     if (!this.validate()) return this.setState({ validationError: true })
+    if (this.timeError()) return this.setState({ timeError: true })
     if (!this.props.user) return this.props.openLoginPopup();
     const imagesArray = [...images]
     if (imagesArray.length > 5) return this.setState({ imagesCountError: true })
@@ -274,7 +290,8 @@ export default class NewLot extends React.Component{
       buyNow,
       endDate,
       endTime,
-      imagesCountError
+      imagesCountError,
+      timeError
     } = this.state;
     return(
       <section className="new-lot-section">
@@ -413,6 +430,7 @@ export default class NewLot extends React.Component{
           <div className="new-lot-bottom">
             {validationError ? <span className="required">Please fill all the fields with "*"</span> : null}
             {imagesCountError ? <span className="required">You can`t upload more than 5 images</span> : null}
+            {timeError ? <span className="required">The auction should finish later than in 30 min</span> : null}
             <button className="button-common" onClick={this.createLot}>Create</button>
           </div>
         </div>
