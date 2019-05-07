@@ -1,26 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import LotCard from './LotCard';
+import CheckBox from "../Inputs/CheckBox";
+import RadioButton from "../Inputs/RadioButton";
 import Pagination from "./Pagination";
+import './lots.scss'
 
 const availablePaymentMethods = ['Cash', 'Visa', 'Mastercard', 'PayPal', 'Other'];
 const availableDeliveryMethods = ['Post office', 'Personal meeting', 'Courier', 'Other'];
-
-const CheckBox = ({id, name, checked, handler, label, value}) => (
-  <label className="check-box-container">
-    {label}
-    <input type="checkbox"  name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark" />
-  </label>
-)
-
-const RadioButton = ({id, name, checked, handler, label, value}) => (
-  <label className="radio-button-container">
-    {label}
-    <input type="radio" name={name} id={id} value={value} checked={checked} onChange={handler} />
-    <span className="checkmark"/>
-  </label>
-)
 
 export default class Lots extends React.Component {
   constructor(props) {
@@ -189,25 +176,25 @@ export default class Lots extends React.Component {
                 <div className="filter-title">Search among</div>
                 <div className="filter-list">
                   <div>
-                    <RadioButton id="dateAZ" value="" checked={searchAmong === ''} name="search-among" label="All lots" handler={this.changeSearchAmong}/>
+                    <RadioButton value="" checked={searchAmong === ''} name="search-among" label="All lots" handler={this.changeSearchAmong}/>
                   </div>
                   <div>
-                    <RadioButton id="dateAZ" value="active" checked={searchAmong === 'active'} name="search-among" label="Active lots" handler={this.changeSearchAmong}/>
+                    <RadioButton value="active" checked={searchAmong === 'active'} name="search-among" label="Active lots" handler={this.changeSearchAmong}/>
                   </div>
                   <div>
-                    <RadioButton id="dateAZ" value="sold" checked={searchAmong === 'sold'} name="search-among" label="Sold lots" handler={this.changeSearchAmong}/>
+                    <RadioButton value="sold" checked={searchAmong === 'sold'} name="search-among" label="Sold lots" handler={this.changeSearchAmong}/>
                   </div>
                   {
                     user
                       ? (<React.Fragment>
                         <div>
-                          <RadioButton id="dateZA" value="my" checked={searchAmong === 'my'} name="search-among" label="Posted lots" handler={this.changeSearchAmong}/>
+                          <RadioButton value="my" checked={searchAmong === 'my'} name="search-among" label="Posted lots" handler={this.changeSearchAmong}/>
                         </div>
                         <div>
-                          <RadioButton id="dateZA" value="bids" checked={searchAmong === 'bids'}  name="search-among" label="Active bids" handler={this.changeSearchAmong}/>
+                          <RadioButton value="bids" checked={searchAmong === 'bids'}  name="search-among" label="Active bids" handler={this.changeSearchAmong}/>
                         </div>
                         <div>
-                          <RadioButton id="dateZA" value="bought" checked={searchAmong === 'bought'}  name="search-among" label="Bought lots" handler={this.changeSearchAmong}/>
+                          <RadioButton value="bought" checked={searchAmong === 'bought'}  name="search-among" label="Bought lots" handler={this.changeSearchAmong}/>
                         </div>
                       </React.Fragment>)
                       : null
@@ -275,10 +262,10 @@ export default class Lots extends React.Component {
                 <div className="filter-title">Date</div>
                 <div className="filter-list">
                   <div>
-                    <RadioButton id="dateAZ" value="dateAZ" name="sort" label="From A to Z" handler={this.changeSortFunc}/>
+                    <RadioButton id="dateAZ" value="dateAZ" name="sort" label="From Oldest to Newest" handler={this.changeSortFunc}/>
                   </div>
                   <div>
-                    <RadioButton id="dateZA" value="dateZA" name="sort" label="From Z to A" handler={this.changeSortFunc}/>
+                    <RadioButton id="dateZA" value="dateZA" name="sort" label="From Newest to Oldest" handler={this.changeSortFunc}/>
                   </div>
                 </div>
               </div>

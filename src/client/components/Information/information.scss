@@ -1,0 +1,38 @@
+@import "../../assets/styles/constants";
+
+.info-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 60px);
+}
+
+.info-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: $second;
+
+  h1{
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #094d6e;
+  }
+
+  p{
+    margin: 5px 0;
+    padding-left: 10px;
+    b{
+      font-weight: bold;
+    }
+  }
+
+  h3{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+}

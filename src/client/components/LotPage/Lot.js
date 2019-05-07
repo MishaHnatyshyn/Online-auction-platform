@@ -6,6 +6,7 @@ import BiddingContainer from "./BiddingContainer";
 import AuctionResults from "./AuctionResults";
 import PhotoContainer from "./PhotoContainer";
 import Loader from "../Loader/Loader";
+import './lotPage.scss'
 
 export default class Lot extends React.Component {
   constructor(props) {

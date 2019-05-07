@@ -1,4 +1,5 @@
 import React from 'react';
+import './information.scss'
 
 export default function Rules() {
   return (
