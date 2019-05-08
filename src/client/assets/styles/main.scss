@@ -17,4 +17,23 @@ input, textarea{
   background: white;
 }
 
+.main-content{
+  padding-top: 60px;
+  min-height: calc(100% - 60px);
+  >section>div[class$="container"]{
+    width: 1200px;
+  }
+}
+
+
+@media all and (max-width: 1200px) {
+  .main-content{
+    padding-top: 60px;
+    min-height: calc(100% - 60px);
+    >section>div[class$="container"]{
+      width: 100%
+    }
+  }
+}
+
 
