@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import DragAndDrop from './DragAndDrop';
+import DragAndDrop from './DragAndDrop/DragAndDrop';
 import SuccessAlert from './SuccessAlert';
 import CheckBox from '../Inputs/CheckBox';
 import ErrorAlert from './ErrorAlert';
@@ -12,7 +12,7 @@ const availAbleDelivery = ['Post office', 'Personal meeting', 'Courier', 'Other'
 
 const ImageContainer = ({index, img, close }) => (
   <div>
-    <span className="close-button" onClick={close}>
+    <span className="close-button close-button-photo" onClick={close}>
       <i className="far fa-times-circle"/>
     </span>
     <img src={img} alt={index}/>

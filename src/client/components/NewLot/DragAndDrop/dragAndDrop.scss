@@ -1,0 +1,20 @@
+.main-drag-and-drop-wrapper{
+  border: dashed grey 4px;
+  background-color: rgba(255,255,255,.8);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.drag-and-drop-center-content{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  text-align: center;
+  color: grey;
+  font-size: 36px;
+}

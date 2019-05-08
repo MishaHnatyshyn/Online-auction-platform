@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class DragAndDrop extends Component {
   state = {
     drag: false
@@ -64,34 +65,11 @@ export default class DragAndDrop extends Component {
     return (
       <div
         className="placeholder photos"
-        // style={{display: 'inline-block', position: 'relative'}}
       >
         <input type="file" onChange={this.onFilesGet} accept="image/*" multiple ref={this.dropRef}/>
         {this.state.dragging &&
-        <div
-          style={{
-            border: 'dashed grey 4px',
-            backgroundColor: 'rgba(255,255,255,.8)',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 9999
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: 0,
-              left: 0,
-              textAlign: 'center',
-              color: 'grey',
-              fontSize: 36
-            }}
-          >
-            {/*<div>drop here :)</div>*/}
+        <div className="main-drag-and-drop-wrapper">
+          <div className="drag-and-drop-center-content">
           </div>
         </div>
         }

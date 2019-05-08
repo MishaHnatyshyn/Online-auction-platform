@@ -140,6 +140,10 @@
   justify-content: space-between;
 }
 
+.close-button-photo i:hover{
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .price-wrapper{
   input{
     padding-right: 30px;
