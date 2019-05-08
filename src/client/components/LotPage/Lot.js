@@ -116,7 +116,6 @@ export default class Lot extends React.Component {
   closeLot = () => {
     if (this.state.closed) return;
     this.setState({ closed: true })
-    this.socket.emit('close lot', { lot: this.state._id})
   };
 
   buyNow = () => {

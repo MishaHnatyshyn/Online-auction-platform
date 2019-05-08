@@ -15,13 +15,30 @@ const storage = multer.diskStorage({
 
 const uploadPhoto = multer({ storage });
 
+const getBoughtLots = async (user) => {
+  const lots = await db.bid.getUserBidLots(user);
+  const lastBiddedUsers = await Promise.all(lots.map(lot => db.bid.getLastBidUser(lot)));
+  const lotsAndLastbids = lots.map((lot, index) => ({ lot, user: lastBiddedUsers[index] }));
+  return lotsAndLastbids.filter(_ => {
+    return _.user.toString() === user.toString()
+  }).map(_ => _.lot);
+};
+
 const returnSearchAmongParams = async (param, user) => {
   if (param === 'active') return { endDate: { $gte: new Date() }, closed: false };
   if (param === 'sold') return { closed: true };
   if (!user) return {};
   if (param === 'my') return { _id: { $in: await db.user.getPostedLots(user.id) } };
   if (param === 'bids') return { _id: { $in: await db.bid.getUserBidLots(user.id) }, closed: false, endDate: { $gte: new Date() } };
-  if (param === 'bought') return { _id: { $in: await db.user.getBoughtLots(user.id) } };
+  if (param === 'bought') {
+    return {
+      _id: { $in: await getBoughtLots(user.id) },
+      $or: [
+        { closed: true },
+        { endDate: { $lte: new Date() } }
+      ]
+    };
+  }
 };
 
 module.exports = {
@@ -68,7 +85,7 @@ module.exports = {
         name,
         searchAmong
       } = req.body;
-      const match = searchAmong ? await returnSearchAmongParams(searchAmong, req.user) : {}
+      const match = searchAmong ? await returnSearchAmongParams(searchAmong, req.user) : {};
       const options = { page, limit: 9 };
       if (selectedPaymentMethods && selectedPaymentMethods.length > 0) {
         match.payment = { $in: selectedPaymentMethods };
@@ -97,7 +114,7 @@ module.exports = {
   createLot: async (req, res) => {
     try {
       const newLot = await db.lot.createLot(req.body);
-      await db.user.addPostedLot(newLot.id, req.user.id)
+      await db.user.addPostedLot(newLot.id, req.user.id);
       res.json(newLot);
     } catch (e) {
       res.status(500).end();
